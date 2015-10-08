@@ -1,4 +1,5 @@
 #include "WallPost.h"
+#include "time.h"
 
 WallPost::WallPost(const WallPost& wallPost) {
 	this->author = string(wallPost.getAuthor());
@@ -26,13 +27,25 @@ string WallPost::getTimePosted() const{
 	return this->timePosted;
 }
 
-void WallPost::setTimePosted(string timePosted_) {
-	this->timePosted = timePosted_;
+void WallPost::setTimePosted() {
+	time_t timeNow = time(NULL); //get time now
+	//convert time to string
+	struct tm *ptr = localtime(&timeNow);
+	char buffer[80];
+	strftime(buffer,80,"%d-%m-%Y %I:%M:%S", ptr);
+	
+	this->timePosted = buffer;
+}
+
+void WallPost::setTimePosted(string customTime) {
+	this->timePosted = customTime;
 }
 
 string WallPost::toString() const{
-	string endString = string("\n").append(this->author);
-	endString.append(" wrote:\n").append(this->content).append("\n");
+
+	string endString = "On " + this->timePosted + "\n" + 
+	this->author + " wrote:\n" + 
+	this->content + "\n";
 	return endString;
 }
 

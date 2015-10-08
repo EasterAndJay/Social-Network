@@ -26,19 +26,19 @@ int main()
 
   cout << dll.getHead()->data << endl;
 
-  WallPost myPost = WallPost("Hi this is my first post", "Jonathan Easterman", "9/30/2015");
+  WallPost myPost = WallPost("Hi this is my first post", "Jonathan Easterman");
   cout << myPost << endl;
 
   WallPost otherPost = WallPost();
   otherPost.setContent("And this is my second post");
   otherPost.setAuthor("Jonathan Easterman");
-  otherPost.setTimePosted("9/30/2015");
-  cout << otherPost.getAuthor() << otherPost.getContent() << otherPost.getTimePosted();
+  otherPost.setTimePosted();
+  cout << otherPost.getAuthor() << otherPost.getContent() << otherPost.getTimePosted() << endl;
   cout << otherPost << endl;
 
   Wall myWall = Wall();
 
-  WallPost wallPost = WallPost("Here is my wall!", "WallPost creator", "10/1/15");
+  WallPost wallPost = WallPost("Here is my wall!", "WallPost creator");
 
   myWall.addPost(myPost);
   myWall.addPost(otherPost);

@@ -7,7 +7,7 @@ using namespace std;
 
 template <class T> 
 struct Node {
-	Node(T data) : data(data), next(NULL), prev(NULL){};
+	Node(T data) : data(data), next(NULL), prev(NULL){}; //node constructor
 	T data;
 	Node* next;
 	Node* prev;
@@ -16,12 +16,12 @@ struct Node {
 template <class T>
 class DoublyLinkedList {
 public:
-	DoublyLinkedList() : head(NULL), tail(NULL){}
+	DoublyLinkedList() : head(NULL), tail(NULL){}     //no arg constructor
 	DoublyLinkedList(const DoublyLinkedList<T> & doublyLinkedList);
 	~DoublyLinkedList();
 
-	Node<T>* getHead();
-	void addToEnd(T const& data);
+	Node<T>* getHead(); //returns pointer to head
+	void addToEnd(T const& data); 
 	void deleteByValue(T data);
 
 	template <class A>

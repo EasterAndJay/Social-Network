@@ -22,7 +22,8 @@ void Wall::deletePost(WallPost post) {
 	this->wallPosts->deleteByValue(post);
 }
 
-void Wall::delteAllPosts() {//TODO: implement}
+void Wall::deleteAllPosts() {//TODO: implement
+}
 
 // Writes out all WallPosts on the wall to one string
 string Wall::toString() {
