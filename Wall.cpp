@@ -23,6 +23,24 @@ void Wall::deletePost(WallPost post) {
 }
 
 void Wall::deleteAllPosts() {//TODO: implement
+	
+	delete wallPosts;
+
+
+
+	/*Node<WallPost>* tmpHead = this->wallPosts->getHead();
+	cout << tmpHead->data;
+	WallPost postToDelete;
+	int i = 0;
+	cout << "entering loop:" << endl;
+	while(tmpHead) {
+		postToDelete = tmpHead->data;
+		cout << postToDelete;
+		tmpHead = tmpHead->next;
+		this->deletePost(postToDelete);
+		i++;
+		printf ("looped %d times\n", i);
+	}*/
 }
 
 // Writes out all WallPosts on the wall to one string

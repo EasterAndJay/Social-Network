@@ -23,11 +23,12 @@ public:
 
 	void readWallPostsFromString();
 
+	void deleteAllPosts(); //Need to implement
 	// Still need to do part f
 private:
 	DoublyLinkedList<WallPost>* wallPosts;
 	string username;
-	void deleteAllPosts();
+	
 };
 
 #endif
