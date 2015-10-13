@@ -27,15 +27,16 @@ int main()
 
   cout << dll.getHead()->data << endl;
   */
+  
   WallPost myPost = WallPost("Hi this is my first post", "Jonathan Easterman");
-  cout << myPost << endl;
+  //cout << myPost << endl;
 
   WallPost otherPost = WallPost();
   otherPost.setContent("And this is my second post");
   otherPost.setAuthor("Jonathan Easterman");
   otherPost.setTimePosted();
-  cout << otherPost.getAuthor() << otherPost.getContent() << otherPost.getTimePosted() << endl;
-  cout << otherPost << endl;
+  //cout << otherPost.getAuthor() << otherPost.getContent() << otherPost.getTimePosted() << endl;
+  //cout << otherPost << endl;
 
   Wall myWall = Wall();
 
@@ -43,18 +44,20 @@ int main()
 
   myWall.addPost(myPost);
   myWall.addPost(otherPost);
-  cout << "pre-read:" << endl;
   //myWall.deletePost(myPost);
   myWall.addPost(wallPost);
   
-  /*string myWallStr = myWall.toString();
+  cout << myWall.toString() << endl;
+  cout << "\n\n^%^%^&%^&%^&------DESIRED CONTENT ABOVE%$^$%^$%^%$\n\n";
+  
+  string myWallStr = myWall.toString();
   Wall myOtherWall = Wall();
   myOtherWall.readWallPostsFromString(myWallStr);
 
-  cout << myOtherWall.toString() << endl;*/
+  cout << myOtherWall.toString() << endl;
 
 
-  cout << myWall.toString() << endl;
+  //cout << myWall.toString() << endl;
 
   cout << "end of program!" << endl;
 

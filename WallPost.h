@@ -9,11 +9,16 @@ using namespace std;
 class WallPost {
 public:
 	
+	//no arg constructor
 	WallPost() : content(string()), author(string()), timePosted(string()) {};
+	//2 arg constructor
 	WallPost(string content_, string author_) : content(content_), author(author_) {
 		setTimePosted();
 		timePosted = this->getTimePosted();
 	};
+	//3 arg constructor
+	WallPost(string content_, string author_, string timePosted_) : content(content_), author(author_), timePosted(timePosted_) {};
+	
 	
 	~WallPost() { //not sure if we need this but instructions called for one
 		content.clear();
