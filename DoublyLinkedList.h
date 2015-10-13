@@ -35,10 +35,11 @@ template <class T>
 DoublyLinkedList<T>::~DoublyLinkedList() {
 	Node<T>* current = this->head;
 	while (current) {
-		Node<T>* next = this->next;
+		Node<T>* next = current->next;
 		delete current;
 		current = next;
 	}
+	head = NULL;
 }
 
 template<class T>
@@ -50,7 +51,7 @@ Node<T>* DoublyLinkedList<T>::getHead() {
 // new node then becomes new tail
 template <class T>
 void DoublyLinkedList<T>::addToEnd(T const& data) {
-	Nodew<T>* newNode = new Node<T>(data);
+	Node<T>* newNode = new Node<T>(data);
 	if (this->head == NULL) {
 		this->head = newNode;
 		this->tail = newNode;

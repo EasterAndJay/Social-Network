@@ -27,10 +27,6 @@ void Wall::deletePost(WallPost post) {
 }
 
 
-void Wall::clearWall() {
-	delete wallPosts;
-}
-
 // Writes out all WallPosts on the wall to one string
 string Wall::toString() {
 	string endString = string();

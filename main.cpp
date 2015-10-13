@@ -46,15 +46,13 @@ int main()
   cout << "pre-read:" << endl;
   //myWall.deletePost(myPost);
   myWall.addPost(wallPost);
-  myWall.clearWall();
   
-  string myWallStr = myWall.toString();
+  /*string myWallStr = myWall.toString();
   Wall myOtherWall = Wall();
   myOtherWall.readWallPostsFromString(myWallStr);
 
-  cout << myOtherWall.toString() << endl;
+  cout << myOtherWall.toString() << endl;*/
 
-  myWall.deleteAllPosts();
 
   cout << myWall.toString() << endl;
 
