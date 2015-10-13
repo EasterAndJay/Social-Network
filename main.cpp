@@ -3,6 +3,8 @@
 #include "DoublyLinkedList.h"
 #include "WallPost.h"
 #include "Wall.h"
+#include "User.h"
+
 int main()
 {
   /*
@@ -27,6 +29,8 @@ int main()
 
   cout << dll.getHead()->data << endl;
   */
+  
+  User Ish = User("feshies", "pass123", "Ishi von Meier", "Goleta, CA");
   
   WallPost myPost = WallPost("Hi this is my first post", "Jonathan Easterman");
   //cout << myPost << endl;
