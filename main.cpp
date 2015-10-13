@@ -54,6 +54,10 @@ int main()
 
   cout << myOtherWall.toString() << endl;
 
+  myWall.deleteAllPosts();
+
+  cout << myWall.toString() << endl;
+
   cout << "end of program!" << endl;
 
   return 0;

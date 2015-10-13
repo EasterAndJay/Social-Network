@@ -23,7 +23,9 @@ public:
 
 	void readWallPostsFromString(string fullWallString);
 
+
 	void clearWall();
+	void deleteAllPosts();
 	// Still need to do part f
 private:
 	DoublyLinkedList<WallPost>* wallPosts;
