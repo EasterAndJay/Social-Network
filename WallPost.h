@@ -15,6 +15,12 @@ public:
 		timePosted = this->getTimePosted();
 	};
 	
+	~WallPost() { //not sure if we need this but instructions called for one
+		content.clear();
+		author.clear();
+		timePosted.clear();
+	};
+	
 	WallPost(const WallPost& wallPost);
 	string getContent() const;
 	void setContent(string content_);

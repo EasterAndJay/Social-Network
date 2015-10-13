@@ -5,6 +5,7 @@
 #include "Wall.h"
 int main()
 {
+  /*
   DoublyLinkedList<int> dll;
 
   dll.addToEnd(1);
@@ -25,7 +26,7 @@ int main()
   cout << dll2 << endl;
 
   cout << dll.getHead()->data << endl;
-
+  */
   WallPost myPost = WallPost("Hi this is my first post", "Jonathan Easterman");
   cout << myPost << endl;
 
@@ -42,10 +43,16 @@ int main()
 
   myWall.addPost(myPost);
   myWall.addPost(otherPost);
+  cout << "pre-read:" << endl;
   //myWall.deletePost(myPost);
   myWall.addPost(wallPost);
+  myWall.clearWall();
+  
+  string myWallStr = myWall.toString();
+  Wall myOtherWall = Wall();
+  myOtherWall.readWallPostsFromString(myWallStr);
 
-  cout << myWall.toString() << endl;
+  cout << myOtherWall.toString() << endl;
 
   cout << "end of program!" << endl;
 

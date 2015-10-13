@@ -21,13 +21,14 @@ public:
 
 	string toString();
 
-	void readWallPostsFromString();
+	void readWallPostsFromString(string fullWallString);
 
+	void clearWall();
 	// Still need to do part f
 private:
 	DoublyLinkedList<WallPost>* wallPosts;
 	string username;
-	void deleteAllPosts();
+	
 };
 
 #endif

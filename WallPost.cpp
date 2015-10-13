@@ -45,7 +45,7 @@ string WallPost::toString() const{
 
 	string endString = "On " + this->timePosted + "\n" + 
 	this->author + " wrote:\n" + 
-	this->content + "\n";
+	this->content;
 	return endString;
 }
 
