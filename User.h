@@ -33,7 +33,7 @@ public:
 	void deletePost(WallPost post_);
 	
 	string toString();
-	void loadUserFromString();
+	void loadUserFromString(const string userString_);
 
 
 private:

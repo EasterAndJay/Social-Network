@@ -3,15 +3,16 @@
 
 User::User(string username_, string password_, string realName_, string city_) {
 	Wall* wall = new Wall();
-	username = username_;
-	wall->setUsername(username_);
-	password = password_;
-	realName = realName_;
-	city = city_;
+	this->wall = wall;
+	this->username = username_;
+	this->wall->setUsername(username_);
+	this->password = password_;
+	this->realName = realName_;
+	this->city = city_;
 }
 
 User::~User() {
-
+	delete this->wall;
 }
 
 
@@ -55,8 +56,59 @@ void User::deletePost(WallPost post_) {
 }
 
 string User::toString() {
-	return "";
+	string endString = "Username: " + this->getUsername() + "\n";
+	endString += "Password: " + this->password + "\n";
+	endString += "Real Name: " + this->getRealName() + "\n";
+	endString += "City: " + this->getCity() + "\n\n";
+	endString += "Wall: \n\n" + this->wall->toString() + "\n";
+	endString += "________________________________";
+
+	return endString;
 }
 
-void User::loadUserFromString() {
+void User::loadUserFromString(const string userString_) {
+	std::string userString = userString_;
+	std::string nextUserDelimiter = "\n________________________________";
+	//initialize some position markers and strings to hold results
+	size_t usernameEndPos, passwordEndPos, realNameEndPos, cityEndPos, wallEndPos;
+	//std::string username, password, realName, city, ;
+
+	//pull out username
+	usernameEndPos = userString.find("\n");
+	this->setUsername(userString.substr(10, usernameEndPos - 10));
+	userString.erase(0, usernameEndPos + 1);
+
+	//password
+	passwordEndPos = userString.find("\n");
+	this->setPassword(userString.substr(10, passwordEndPos - 10));
+	userString.erase(0, passwordEndPos + 1);
+
+	//real name
+	realNameEndPos = userString.find("\n");
+	this->setRealName(userString.substr(11, realNameEndPos - 11));
+	userString.erase(0, realNameEndPos + 1);
+
+	//city
+	cityEndPos = userString.find("\n\nWall: \n\n");
+	this->setCity(userString.substr(11, cityEndPos - 11));
+	userString.erase(0, cityEndPos + 10);
+
+	//wall
+	//now all that is left in userString is wall since we erased as we parsed the rest
+	
+	wallEndPos = userString.find(nextUserDelimiter);
+	userString = userString.substr(0, wallEndPos);
+	this->wall->readWallPostsFromString(userString);
+
 }
+
+
+
+
+
+
+
+
+
+
+

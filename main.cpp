@@ -59,9 +59,12 @@ int main()
 
   cout << myOtherWall.toString() << endl;
 
-  User Ish = User("feshies", "pass123", "Ishi von Meier", "Goleta, CA");	
+  User Ish = User("feshies", "pass123", "Ishi von Meier", "Goleta, CA");
+  Ish.addPost(otherPost);
+  string ishUserString = Ish.toString();
+  Ish.loadUserFromString(ishUserString);
 
-  //cout << myWall.toString() << endl;
+  cout << Ish.toString() << endl;
 
   cout << "end of program!" << endl;
 
