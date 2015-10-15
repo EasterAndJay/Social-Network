@@ -5,8 +5,7 @@
 
 // Destructor deletes data allocated for wallPosts pointer
 Wall::~Wall() {
-	delete wallPosts;
-	this->username.clear(); //not sure if we want to do this or not
+	delete this->wallPosts;
 }
 
 string Wall::getUsername() {
@@ -75,6 +74,10 @@ void Wall::readWallPostsFromString (const string fullWallString_) {
 	}
 }
 
+bool Wall::isEmpty() {
+	if (this->wallPosts->getHead() == NULL) {return true;}
+	else {return false;}
+}
 
 
 

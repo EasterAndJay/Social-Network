@@ -30,7 +30,6 @@ int main()
   cout << dll.getHead()->data << endl;
   */
   
-  User Ish = User("feshies", "pass123", "Ishi von Meier", "Goleta, CA");
   
   WallPost myPost = WallPost("Hi this is my first post", "Jonathan Easterman");
   //cout << myPost << endl;
@@ -60,6 +59,7 @@ int main()
 
   cout << myOtherWall.toString() << endl;
 
+  User Ish = User("feshies", "pass123", "Ishi von Meier", "Goleta, CA");	
 
   //cout << myWall.toString() << endl;
 

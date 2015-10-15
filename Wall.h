@@ -18,12 +18,12 @@ public:
 
 	void addPost(WallPost post);
 	void deletePost(WallPost post);
-
 	string toString();
 
 	void readWallPostsFromString(string fullWallString);
+	bool isEmpty();
 	
-	// Still need to do part f
+	
 private:
 	DoublyLinkedList<WallPost>* wallPosts;
 	string username;
