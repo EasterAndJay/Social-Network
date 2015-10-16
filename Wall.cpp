@@ -43,7 +43,8 @@ string Wall::toString() {
 }
 
 void Wall::readWallPostsFromString (const string fullWallString_) {
-	
+	delete this->wallPosts;
+	wallPosts = new DoublyLinkedList<WallPost>;
 
 	//set our between-post separator 
 	std::string fullWallString = fullWallString_;

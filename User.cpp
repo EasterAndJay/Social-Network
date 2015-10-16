@@ -2,8 +2,7 @@
 #include <stdio.h>
 
 User::User(string username_, string password_, string realName_, string city_) {
-	Wall* wall = new Wall();
-	this->wall = wall;
+	this->wall = new Wall();
 	this->username = username_;
 	this->wall->setUsername(username_);
 	this->password = password_;

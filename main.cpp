@@ -4,6 +4,7 @@
 #include "WallPost.h"
 #include "Wall.h"
 #include "User.h"
+#include "UserNetwork.h"
 
 int main()
 {
@@ -50,21 +51,28 @@ int main()
   //myWall.deletePost(myPost);
   myWall.addPost(wallPost);
   
-  cout << myWall.toString() << endl;
-  cout << "\n\n^%^%^&%^&%^&------DESIRED CONTENT ABOVE%$^$%^$%^%$\n\n";
+  //cout << myWall.toString() << endl;
+  //cout << "\n\n^%^%^&%^&%^&------DESIRED CONTENT ABOVE%$^$%^$%^%$\n\n";
   
   string myWallStr = myWall.toString();
   Wall myOtherWall = Wall();
   myOtherWall.readWallPostsFromString(myWallStr);
 
-  cout << myOtherWall.toString() << endl;
+  //cout << myOtherWall.toString() << endl;
 
   User Ish = User("feshies", "pass123", "Ishi von Meier", "Goleta, CA");
   Ish.addPost(otherPost);
-  string ishUserString = Ish.toString();
+  //cout << Ish.toString() << endl;
+  /*string ishUserString = Ish.toString();
   Ish.loadUserFromString(ishUserString);
 
   cout << Ish.toString() << endl;
+  */
+
+  UserNetwork myNetwork = UserNetwork();
+  myNetwork.addUser(Ish);
+  //cout << "trying to add duplicate user..." <<endl;
+  //myNetwork.addUser(Ish);
 
   cout << "end of program!" << endl;
 

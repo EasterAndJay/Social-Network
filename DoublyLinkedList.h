@@ -40,6 +40,7 @@ DoublyLinkedList<T>::~DoublyLinkedList() {
 		current = next;
 	}
 	head = NULL;
+	tail = NULL;
 }
 
 template<class T>
@@ -54,6 +55,11 @@ void DoublyLinkedList<T>::addToEnd(T const& data) {
 	Node<T>* newNode = new Node<T>(data);
 	if (this->head == NULL) {
 		this->head = newNode;
+		this->tail = newNode;
+	}
+	else if (this->head == this->tail) {
+		this->head->next = newNode;
+		newNode->prev = this->head;
 		this->tail = newNode;
 	}
 	else {

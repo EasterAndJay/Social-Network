@@ -3,7 +3,7 @@
 CC = g++
 
 CFLAGS = -Wall -g
-OBJECTS = main.o WallPost.o Wall.o User.o
+OBJECTS = main.o WallPost.o Wall.o User.o UserNetwork.o
 TARGET = run
 
 all: $(TARGET)
@@ -22,6 +22,9 @@ Wall.o: Wall.cpp
 	
 User.o: User.cpp
 	$(CC) $(CFLAGS) -c User.cpp
+
+UserNetwork.o: UserNetwork.cpp
+	$(CC) $(CFLAGS) -c UserNetwork.cpp
 
 clean:
 	$(RM) $(TARGET) $(OBJECTS)
