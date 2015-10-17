@@ -8,7 +8,7 @@ Wall::Wall(const Wall& otherWall) {
 	this->username = otherWall.getUsername();
 	this->wallPosts = new DoublyLinkedList<WallPost>;
 	Node<WallPost>* tmp = otherWall.wallPosts->getHead();
-	while (tmp) {
+	while (tmp) { //un hard code this if time permits, remember to dereference **before
 		this->wallPosts->addToEnd(tmp->data);
 		tmp = tmp->next;
 	}
