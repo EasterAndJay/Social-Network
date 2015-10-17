@@ -10,6 +10,19 @@ UserNetwork::~UserNetwork () {
 	delete users;	
 }
 
+
+// Returns user if found.
+// If not found, returns empty user.
+User UserNetwork::findUser(string username) {
+	Node<User> currentUser = this->users->getHead();
+	while (currentUser) {
+		if (currentUser->data.username = username)
+			return currentUser->data;
+		currentUser = currentUser->next;
+	}
+	return User();
+}
+
 //Helper method to make sure there are no duplicate users before adding
 bool UserNetwork::userAlreadyExists(string username) {
 	//start peekUser pointer at the head of users
