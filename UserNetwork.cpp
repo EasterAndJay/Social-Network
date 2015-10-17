@@ -13,10 +13,10 @@ UserNetwork::~UserNetwork () {
 
 // Returns user if found.
 // If not found, returns empty user.
-User UserNetwork::findUser(string username) {
-	Node<User> currentUser = this->users->getHead();
+User UserNetwork::findUser(string username_) {
+	Node<User>* currentUser = this->users->getHead();
 	while (currentUser) {
-		if (currentUser->data.username = username)
+		if (currentUser->data.getUsername() == username_)
 			return currentUser->data;
 		currentUser = currentUser->next;
 	}
