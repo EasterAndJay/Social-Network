@@ -71,17 +71,46 @@ int main()
 
   User Ish = User("feshies", "pass123", "Ishi von Meier", "Goleta, CA");
   Ish.addPost(otherPost);
-  //cout << Ish.toString() << endl;
-  /*string ishUserString = Ish.toString();
-  Ish.loadUserFromString(ishUserString);
-
+  User Jon = User("jonny", "pass234", "Jonathan Beasterman", "Queefville, CA");
+  Jon.addPost(myPost);
+  /*
   cout << Ish.toString() << endl;
-  */
+  cout << "\n\n^%^%^&%^&%^&------DESIRED CONTENT ABOVE%$^$%^$%^%$\n\n";
+  string ishUserString = Ish.toString();
+  Ish.readUserFromString(ishUserString);
 
+  cout << Ish.toString() << endl;*/
+
+  
   UserNetwork myNetwork = UserNetwork();
   myNetwork.addUser(Ish);
-  //cout << "trying to add duplicate user..." <<endl;
+  //cout << "trying to add duplicate user..." << endl;
   //myNetwork.addUser(Ish);
+  cout << "trying to add second user..." << endl;
+  myNetwork.addUser(Jon);
+  //cout<< "trying to delete first User....." <<endl;
+  //myNetwork.deleteUser(Ish);
+
+  cout << "trying toString(): ....." << endl;
+  string stringToRead = myNetwork.toString();
+  cout << myNetwork.toString() << endl;
+  
+  cout << "trying to write to file....." << endl;
+  myNetwork.toFile();
+  cout << "trying to read from a file ....." <<endl;
+  UserNetwork copyNetwork = UserNetwork();
+  copyNetwork.readFromFile();
+  cout << copyNetwork.toString() << endl;
+  
+  cout << "WE GOT THE FUCKING STRING FROM THE FILE" << endl;
+  
+  //cout << "\n\n^%^%^&%^&%^&------DESIRED CONTENT ABOVE%$^$%^$%^%$\n\n";
+  /*
+  UserNetwork copyNetwork = UserNetwork();
+  copyNetwork.readUserNetworkFromString(stringToRead);
+  cout << "string we read: ...." << endl;
+  cout << copyNetwork.toString() << endl;
+  */
 
   cout << "end of program!" << endl;
 

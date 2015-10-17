@@ -80,47 +80,67 @@ string User::toString() {
 	endString += "Real Name: " + this->getRealName() + "\n";
 	endString += "City: " + this->getCity() + "\n\n";
 	endString += "Wall: \n\n" + this->wall->toString() + "\n";
-	endString += "________________________________";
+	endString += "________________________________\n";
 
 	return endString;
 }
 
-void User::loadUserFromString(const string userString_) {
+User::User(const string userString_) {
+
+//void User::readUserFromString(string userString_) {
+
+	this->wall = new Wall();
+	
 	std::string userString = userString_;
-	std::string nextUserDelimiter = "\n________________________________";
+	std::string nextUserDelimiter = "\n________________________________\n";
 	//initialize some position markers and strings to hold results
 	size_t usernameEndPos, passwordEndPos, realNameEndPos, cityEndPos, wallEndPos;
 	//std::string username, password, realName, city, ;
 
 	//pull out username
 	usernameEndPos = userString.find("\n");
-	this->setUsername(userString.substr(10, usernameEndPos - 10));
+	this->username = userString.substr(10, usernameEndPos - 10);
+	this->wall->setUsername(this->username);
 	userString.erase(0, usernameEndPos + 1);
 
 	//password
 	passwordEndPos = userString.find("\n");
-	this->setPassword(userString.substr(10, passwordEndPos - 10));
+	this->password = userString.substr(10, passwordEndPos - 10);
 	userString.erase(0, passwordEndPos + 1);
 
 	//real name
 	realNameEndPos = userString.find("\n");
-	this->setRealName(userString.substr(11, realNameEndPos - 11));
+	this->realName = userString.substr(11, realNameEndPos - 11);
 	userString.erase(0, realNameEndPos + 1);
 
 	//city
 	cityEndPos = userString.find("\n\nWall: \n\n");
-	this->setCity(userString.substr(11, cityEndPos - 11));
+	
+	this->city = userString.substr(6, cityEndPos - 6);
 	userString.erase(0, cityEndPos + 10);
 
 	//wall
 	//now all that is left in userString is wall since we erased as we parsed the rest
 	
+	//printf the wall string
 	wallEndPos = userString.find(nextUserDelimiter);
 	userString = userString.substr(0, wallEndPos);
 	this->wall->readWallPostsFromString(userString);
 
 }
 
+
+bool operator==(const User& left, const User& right) {
+	return (left.getWall() == right.getWall() 
+			&& left.getUsername() == right.getUsername() 
+			&& left.getPassword() == right.getPassword()
+			&& left.getRealName() == right.getRealName()
+			&& left.getCity() == right.getCity());
+}
+
+bool operator !=(const User& left, const User& right) {
+	return !(left == right);
+}
 
 
 

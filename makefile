@@ -2,7 +2,7 @@
 
 CC = g++
 
-CFLAGS = -Wall -g
+CFLAGS = -Wall -g -std=c++11
 OBJECTS = main.o WallPost.o Wall.o User.o UserNetwork.o
 TARGET = run
 

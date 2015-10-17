@@ -15,8 +15,9 @@ public:
 		this->wall->setUsername(username_); //set the contained wall's username after creation
 		
 	};*/
-	
+	User() : username(string()), password(string()), realName(string()), city(string()){};
 	User(string username_, string password_, string realName_, string city);
+	User(const string userString_);
 	~User();
 	
 	User(const User& user);
@@ -38,7 +39,7 @@ public:
 	void deletePost(WallPost post_);
 	
 	string toString();
-	void loadUserFromString(const string userString_);
+	//void readUserFromString(string userString_);
 
 
 private:
@@ -50,5 +51,8 @@ private:
 	string city;
 
 };
+
+bool operator==(const User& left, const User& right);
+bool operator !=(const User& left, const User& right);
 
 #endif
