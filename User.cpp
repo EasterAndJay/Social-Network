@@ -1,6 +1,25 @@
 #include "User.h"
 #include <stdio.h>
 
+
+//trying copy constructor to try to fix seg fault when passing User into UserNetwork
+User::User(const User& user) { 
+	this->wall = user.getWall();
+	this->username = user.getUsername();
+	this->password = user.getPassword();
+	this->realName = user.getRealName();
+	this->city = user.getCity();
+}
+
+//solely made these for the copy constructor to use, don't actually want them
+Wall* User::getWall() const {
+	return this->wall;
+}
+
+string User::getPassword() const {
+	return this->password;
+}
+
 User::User(string username_, string password_, string realName_, string city_) {
 	this->wall = new Wall();
 	this->username = username_;
@@ -19,7 +38,7 @@ void User::setUsername(string username_) {
 	this->username = username_;
 }
 
-string User::getUsername(){
+string User::getUsername() const{
 	return this->username;
 }
 
@@ -27,7 +46,7 @@ void User::setRealName(string realName_){
 	this->realName = realName_;
 }
 
-string User::getRealName(){
+string User::getRealName() const{
 	return this->realName;
 }
 
@@ -35,7 +54,7 @@ void User::setCity(string city_){
 	this->city = city;
 }
 
-string User::getCity(){
+string User::getCity() const{
 	return this->city;
 }
 

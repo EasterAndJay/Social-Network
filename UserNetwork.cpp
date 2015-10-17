@@ -1,4 +1,5 @@
 #include "UserNetwork.h"
+#include <stdio.h>
 
 //Simple destructor
 UserNetwork::~UserNetwork () {
@@ -6,10 +7,9 @@ UserNetwork::~UserNetwork () {
 }
 
 //Helper method to make sure there are no duplicate users before adding
-bool UserNetwork::userAlreadyExists(User user) {
+bool UserNetwork::userAlreadyExists(string username) {
 	//start peekUser pointer at the head of users
-	//string username = user.getUsername();
-	/*Node<User>* peekUser = this->users->getHead();
+	Node<User>* peekUser = this->users->getHead();
 	//loop through and check against input argument username
 	while (peekUser) {
 		if (peekUser->data.getUsername() == username) {
@@ -19,17 +19,18 @@ bool UserNetwork::userAlreadyExists(User user) {
 		peekUser = peekUser->next;
 	}
 
-	printf("user not found\n");*/
-	return true;
+	printf("user not found\n");
+	return false;
 }
 
 void UserNetwork::addUser(User user) { //make sure no duplicates
-	//printf("User Added Successfully\n");
-	/*if (userAlreadyExists(user)) {
+	/*if (userAlreadyExists(user.getUsername())) {
 		printf("Sorry, a user already exists with this username\n");
-	} else {*/
+	} else {
 		//this->users->addToEnd(user);
-	//}
+		printf("User Added Successfully\n");
+	}*/
+	printf("we're ok\n");
 }
 
 void UserNetwork::deleteUser(User user){ //make sure user in fact exists before deleting

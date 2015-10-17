@@ -3,7 +3,7 @@
 
 WallPost::WallPost(const WallPost& wallPost) {
 	this->author = string(wallPost.getAuthor());
-	this->content = string(wallPost.getContent());
+	this->content = string(wallPost.getContent()); //think these string() are redundant, fix later
 	this->timePosted = string(wallPost.getTimePosted());
 }
 

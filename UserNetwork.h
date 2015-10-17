@@ -11,7 +11,7 @@ public:
 	UserNetwork() : users(new DoublyLinkedList<User>) {};
 	~UserNetwork();
 
-	bool userAlreadyExists(User user);
+	bool userAlreadyExists(string username);
 	void addUser(User user); //make sure no duplicate usernames
 	void deleteUser(User user); //make sure user in fact exists before deleting
 

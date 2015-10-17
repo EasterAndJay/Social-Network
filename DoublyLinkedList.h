@@ -21,7 +21,7 @@ public:
 	~DoublyLinkedList();
 
 	Node<T>* getHead(); //returns pointer to head
-	void addToEnd(T const& data); 
+	void addToEnd(T const& data); //T const& data
 	void deleteByValue(T data);
 
 	template <class A>
@@ -51,7 +51,7 @@ Node<T>* DoublyLinkedList<T>::getHead() {
 // Takes some data, creates a new node with that data, appends new node to tail
 // new node then becomes new tail
 template <class T>
-void DoublyLinkedList<T>::addToEnd(T const& data) {
+void DoublyLinkedList<T>::addToEnd(T const& data) {  //const &T data
 	Node<T>* newNode = new Node<T>(data);
 	if (this->head == NULL) {
 		this->head = newNode;

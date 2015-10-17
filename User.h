@@ -19,12 +19,17 @@ public:
 	User(string username_, string password_, string realName_, string city);
 	~User();
 	
+	User(const User& user);
 	void setUsername(string username_);
-	string getUsername();
+	string getUsername() const;
 	void setRealName(string realName_);
-	string getRealName();
+	string getRealName()const;
 	void setCity(string city_);
-	string getCity();
+	string getCity() const;
+	
+	//solely made these for the copy constructor to use, don't actually want them
+	Wall* getWall() const;
+	string getPassword() const;
 	
 	void setPassword(string password_); //FBI level security 
 	bool checkPassword (string password_);
