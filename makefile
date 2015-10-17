@@ -9,7 +9,7 @@ TARGET = run
 all: $(TARGET)
 
 $(TARGET): $(OBJECTS)
-	$(CC) $(CFLAGS) -o $(TARGET) $(OBJECTS)
+	$(CC) $(CFLAGS) -g -o $(TARGET) $(OBJECTS)
 
 main.o: main.cpp
 	$(CC) $(CFLAGS) -c main.cpp

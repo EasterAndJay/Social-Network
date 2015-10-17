@@ -24,12 +24,12 @@ bool UserNetwork::userAlreadyExists(string username) {
 }
 
 void UserNetwork::addUser(User user) { //make sure no duplicates
-	/*if (userAlreadyExists(user.getUsername())) {
+	if (userAlreadyExists(user.getUsername())) {
 		printf("Sorry, a user already exists with this username\n");
 	} else {
-		//this->users->addToEnd(user);
+		this->users->addToEnd(user);
 		printf("User Added Successfully\n");
-	}*/
+	}
 	printf("we're ok\n");
 }
 

@@ -11,9 +11,10 @@ class Wall {
 
 public:
 	Wall() : wallPosts(new DoublyLinkedList<WallPost>), username(string()){};
+	Wall(const Wall& otherWall);
 	~Wall();
 
-	string getUsername();
+	string getUsername() const;
 	void setUsername(string username_);
 
 	void addPost(WallPost post);

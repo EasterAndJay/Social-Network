@@ -3,12 +3,23 @@
 #include <string>
 #include <vector>
 
+
+Wall::Wall(const Wall& otherWall) {
+	this->username = otherWall.getUsername();
+	this->wallPosts = new DoublyLinkedList<WallPost>;
+	Node<WallPost>* tmp = otherWall.wallPosts->getHead();
+	while (tmp) {
+		this->wallPosts->addToEnd(tmp->data);
+		tmp = tmp->next;
+	}
+}
+
 // Destructor deletes data allocated for wallPosts pointer
 Wall::~Wall() {
 	delete this->wallPosts;
 }
 
-string Wall::getUsername() {
+string Wall::getUsername() const {
 	return this->username;
 }
 

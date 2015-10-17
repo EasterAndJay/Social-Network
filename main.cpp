@@ -51,8 +51,17 @@ int main()
   //myWall.deletePost(myPost);
   myWall.addPost(wallPost);
   
+  //Wall newWall = Wall(myWall);
+  
+  //myWall.deletePost(myPost);
+  
+  //cout << newWall.toString() << endl;
+  
+ 
   //cout << myWall.toString() << endl;
   //cout << "\n\n^%^%^&%^&%^&------DESIRED CONTENT ABOVE%$^$%^$%^%$\n\n";
+  
+  //cout << myWall.toString() << endl;
   
   string myWallStr = myWall.toString();
   Wall myOtherWall = Wall();
