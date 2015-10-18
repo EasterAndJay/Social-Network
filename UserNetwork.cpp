@@ -5,6 +5,11 @@
 #include <sstream>
 using namespace std;
 
+
+UserNetwork::UserNetwork(const UserNetwork& network) {
+	this->users = new DoublyLinkedList<User>(*(network.users));
+} 
+
 //Simple destructor
 UserNetwork::~UserNetwork () {
 	delete users;	

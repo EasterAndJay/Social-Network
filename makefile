@@ -3,7 +3,7 @@
 CC = g++
 
 CFLAGS = -Wall -g -std=c++11
-OBJECTS = main.o WallPost.o Wall.o User.o UserNetwork.o
+OBJECTS = program.o WallPost.o Wall.o User.o UserNetwork.o
 TARGET = run
 
 all: $(TARGET)
@@ -13,6 +13,9 @@ $(TARGET): $(OBJECTS)
 
 main.o: main.cpp
 	$(CC) $(CFLAGS) -c main.cpp
+
+main2.o: main2.cpp
+	$(CC) $(CFLAGS) -c main2.cpp
 
 WallPost.o: WallPost.cpp
 	$(CC) $(CFLAGS) -c WallPost.cpp
@@ -25,6 +28,8 @@ User.o: User.cpp
 
 UserNetwork.o: UserNetwork.cpp
 	$(CC) $(CFLAGS) -c UserNetwork.cpp
+program.o: program.cpp
+	$(CC) $(CFLAGS) -c program.cpp
 
 clean:
 	$(RM) $(TARGET) $(OBJECTS)

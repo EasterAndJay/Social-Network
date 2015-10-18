@@ -9,6 +9,7 @@ class UserNetwork {
 	
 public:
 	UserNetwork() : users(new DoublyLinkedList<User>) {};
+	UserNetwork(const UserNetwork& network);
 	~UserNetwork();
 
 	bool userAlreadyExists(string username);

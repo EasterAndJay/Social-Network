@@ -39,8 +39,8 @@ DoublyLinkedList<T>::~DoublyLinkedList() {
 		delete current;
 		current = next;
 	}
-	head = NULL;
-	tail = NULL;
+	/*head = NULL;
+	tail = NULL;*/
 }
 
 template<class T>

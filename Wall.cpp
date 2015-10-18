@@ -6,12 +6,12 @@
 
 Wall::Wall(const Wall& otherWall) {
 	this->username = otherWall.getUsername();
-	this->wallPosts = new DoublyLinkedList<WallPost>;
-	Node<WallPost>* tmp = otherWall.wallPosts->getHead();
+	this->wallPosts = new DoublyLinkedList<WallPost>(*(otherWall.wallPosts));
+	/*Node<WallPost>* tmp = otherWall.wallPosts->getHead();
 	while (tmp) { //un hard code this if time permits, remember to dereference **before
 		this->wallPosts->addToEnd(tmp->data);
 		tmp = tmp->next;
-	}
+	}*/
 }
 
 // Destructor deletes data allocated for wallPosts pointer

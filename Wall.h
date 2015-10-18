@@ -10,7 +10,7 @@ using namespace std;
 class Wall {
 
 public:
-	Wall() : wallPosts(new DoublyLinkedList<WallPost>), username(string()){};
+	Wall() : wallPosts(new DoublyLinkedList<WallPost>), username(string()){ };
 	Wall(const Wall& otherWall);
 	~Wall();
 

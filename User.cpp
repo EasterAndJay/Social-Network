@@ -5,7 +5,10 @@
 //trying copy constructor to try to fix seg fault when passing User into UserNetwork
 User::User(const User& user) { 
 	//Wall copyWall = *user.getWall()
-	this->wall = new Wall(*(user.getWall()));
+	if (user.getWall() != NULL)
+		this->wall = new Wall(*(user.getWall()));
+	else
+		this->wall = new Wall();
 	this->username = user.getUsername();
 	this->password = user.getPassword();
 	this->realName = user.getRealName();
@@ -31,7 +34,8 @@ User::User(string username_, string password_, string realName_, string city_) {
 }
 
 User::~User() {
-	delete this->wall;
+	if (this && this->wall)
+		delete this->wall;
 }
 
 
