@@ -1,17 +1,10 @@
 #ifndef DOUBLYLINKEDLIST_H
 #define DOUBLYLINKEDLIST_H
+#include "Node.h"
 #include <iostream>
 using namespace std;
 
 // Contains interface and implementation of DoublyLinkedList template
-
-template <class T> 
-struct Node {
-	Node(T data) : data(data), next(NULL), prev(NULL){}; //node constructor
-	T data;
-	Node* next;
-	Node* prev;
-};
 
 template <class T>
 class DoublyLinkedList {
@@ -39,8 +32,6 @@ DoublyLinkedList<T>::~DoublyLinkedList() {
 		delete current;
 		current = next;
 	}
-	/*head = NULL;
-	tail = NULL;*/
 }
 
 template<class T>
@@ -92,7 +83,6 @@ void DoublyLinkedList<T>::deleteByValue(T data) {
 		else if (tmp->next) {
 			tmp->next->prev = tmp->prev;
 			this->head = tmp->next;
-			printf("we got inside the tmp is head case of deletebyvalue in DoublyLinkedList\n");
 		}
 		// If tmp is tail
 		else if (tmp->prev) {

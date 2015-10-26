@@ -62,6 +62,7 @@ void mainMenu(UserNetwork& network) {
 				cin >> password;
 				bool logged_in = login(username, password, network);
 				if (!logged_in)
+					cout << "Sorry invalid username or password. Please try again" << endl;
 					mainMenu(network);
 				break;
 			}
@@ -85,14 +86,13 @@ int main() {
 
 	UserNetwork network = UserNetwork();
 	network.readFromFile();
-	//cout << network.toString() << endl;
 	
 	mainMenu(network);
 
-	cout << network.toString() << endl;
+	//cout << network.toString() << endl;
 	network.toFile();
 	network.readFromFile();
-	cout << network.toString() << endl;
+	//cout << network.toString() << endl;
 
 	return 0;
 }

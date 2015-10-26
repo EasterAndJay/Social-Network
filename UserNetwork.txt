@@ -33,3 +33,12 @@ Wall:
 
 
 ________________________________
+Username: BEAST
+Password: cool123
+Real Name: Jonathan
+City: Beasterman
+
+Wall: 
+
+
+________________________________
