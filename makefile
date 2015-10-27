@@ -4,9 +4,19 @@ CC = g++
 
 CFLAGS = -Wall -g -std=c++11
 OBJECTS = program.o WallPost.o Wall.o User.o UserNetwork.o
+TESTOBJECTS = testList.o
 TARGET = run
+LIST = ListLinked
 
 all: $(TARGET)
+
+test: $(LIST)
+
+$(LIST): $(TESTOBJECTS)
+	$(CC) $(CFLAGS) -g -o $(LIST) $(TESTOBJECTS)
+
+testList.o: testList.cpp
+	$(CC) $(CFLAGS) -c testList.cpp
 
 $(TARGET): $(OBJECTS)
 	$(CC) $(CFLAGS) -g -o $(TARGET) $(OBJECTS)
@@ -32,4 +42,4 @@ program.o: program.cpp
 	$(CC) $(CFLAGS) -c program.cpp
 
 clean:
-	$(RM) $(TARGET) $(OBJECTS)
+	$(RM) $(TARGET) $(OBJECTS) $(TESTOBJECTS)
