@@ -16,86 +16,26 @@ public:
 	void insert(int pos, const T & item);
 	void remove(int pos);
 	void set(int pos, const T & item);
-	Node<T>* find(const T & item) const;
 	T const & get (int pos)const;
-	bool empty() const;
+	
 	Node<T>* getHead() const;
 	int getLength() const;
+
 	template <class A>
 	friend std::ostream & operator<<(std::ostream & os, const ListLinked<A> & list);
-	// rest of function declarations inherited from AbstractList.h
 private:
 	Node<T> * head;
 	Node<T> * tail;
 	int length;
-
-	class const_iterator {
-	public:
-		const_iterator(): current{ nullptr } {}
-
-		const T & operator*() const
-		{ return retrieve(); }
-
-		const_iterator & operator++() {
-			current = current->next;
-			return *this;
-		}
-
-		const_iterator operator++ (int) {
-			const_iterator old = *this;
-			++(*this);
-			return old;
-		}
-
-		bool operator== (const const_iterator & rhs) const {
-			return current == rhs.current;
-		}
-
-		bool operator!= (const const_iterator & rhs) const {
-			return !(*this == rhs);
-		}
-	private:
-		Node<T>* current;
-
-		T & retrieve() const {
-			return current->data;
-		}
-
-		const_iterator(Node<T>* p): current { p } {}
-		friend class ListLinked<T>;
-	};
-
-	class iterator : const_iterator {
-	public:
-		iterator() {}
-		T & operator* () {
-			return const_iterator::retrieve();
-		}
-		const T & operator* () const {
-			return const_iterator::operator*();
-		}
-
-		iterator& operator++ (int) {
-			iterator old = *this;
-			++(*this);
-			return old;
-		}
-
-	protected:
-		iterator( Node<T>* p) : const_iterator { p } {}
-		friend class ListLinked<T>;
-	};
 };
 
 template <class T>
 ListLinked<T>::ListLinked(const ListLinked<T> & list) {
-// Same copy ctor from DoublyLinkedList
 	this->head = NULL;
 	this->tail = NULL;
 	this->length = 0;
 	Node<T>* tmp = list.getHead();
 	for(int i = 0; i < list.length; i++) {
-		// addToEnd should be changed to insert
 		this->insert(i, tmp->data);
 		tmp = tmp->next;
 	}
@@ -195,39 +135,25 @@ void ListLinked<T>::remove(int pos) {
 
 template <class T>
 void ListLinked<T>::set(int pos, const T & data) {
-	Node<T>* toSet = this->find(pos);
-	if(toSet)
-		toSet->data = data;
-}
-
-template <class T>
-Node<T>* ListLinked<T>::find(const T & data) const{
+	if (!this->legalPosition(pos, this->getLength()))
+		return;
 	Node<T>* tmp = this->getHead();
-	while(tmp) {
-		if (tmp->data == data)
-			return tmp;
+	for (int i = 0; i < pos; i++) {
+		tmp = tmp->next;
 	}
-	return nullptr;
+	tmp->data = data;
+	return;
 }
 
 template <class T>
-T const& ListLinked<T>::get(int pos)const {
-	if(!this->legalPosition(pos, this->length))
+T const& ListLinked<T>::get(int pos) const {
+	if (!this->legalPosition(pos, this->length))
 		return NULL;
 	Node<T>* tmp = this->getHead();
 	for(int i = 0; i < pos; i++) {
 		tmp = tmp->next;
 	}
-
 	return tmp->data;
-}
-
-template <class T>
-bool ListLinked<T>::empty() const {
-	if (!this->getHead())
-		return false;
-	else
-		return true;
 }
 
 template <class A>
