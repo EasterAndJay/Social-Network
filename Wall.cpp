@@ -6,12 +6,7 @@
 
 Wall::Wall(const Wall& otherWall) {
 	this->username = otherWall.getUsername();
-	this->wallPosts = new DoublyLinkedList<WallPost>(*(otherWall.wallPosts));
-	/*Node<WallPost>* tmp = otherWall.wallPosts->getHead();
-	while (tmp) { //un hard code this if time permits, remember to dereference **before
-		this->wallPosts->addToEnd(tmp->data);
-		tmp = tmp->next;
-	}*/
+	this->wallPosts = new ArrayList<WallPost>(*(otherWall.wallPosts));
 }
 
 // Destructor deletes data allocated for wallPosts pointer
@@ -27,35 +22,34 @@ void Wall::setUsername(string username_) {
 	this->username = username_;
 }
 
-// Uses function from DoublyLinkedList template
+// Uses function from ArrayList template
 void Wall::addPost(WallPost post) {
-	this->wallPosts->addToEnd(post);
+	this->wallPosts->insert(0,post); // Inserts post at front of wall
 }
 
-void Wall::deletePost(WallPost post) {
-	this->wallPosts->deleteByValue(post);
+void Wall::deletePost(int pos) {
+	this->wallPosts->remove(pos);
 }
 
 
 // Writes out all WallPosts on the wall to one string
+// TEST
 string Wall::toString() {
 	string endString = string();
-	Node<WallPost>* tmp = this->wallPosts->getHead();
-	while (tmp) {
+	for (WallPost* iter = this->wallPosts->begin(); iter != this->wallPosts->end(); iter++) {
 		// data refers to WallPost
 		// call toString method of each WallPost
-		endString.append(tmp->data.toString());
+		endString.append(iter->toString());
 		//add a separator
 		endString.append("\n~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n");
 		//Iterate through all WallPosts
-		tmp = tmp->next;
 	}
 	return endString;
 }
 
 void Wall::readWallPostsFromString (const string fullWallString_) {
 	delete this->wallPosts;
-	wallPosts = new DoublyLinkedList<WallPost>;
+	wallPosts = new ArrayList<WallPost>;
 
 	//set our between-post separator 
 	std::string fullWallString = fullWallString_;
@@ -87,8 +81,12 @@ void Wall::readWallPostsFromString (const string fullWallString_) {
 }
 
 bool Wall::isEmpty() {
-	if (this->wallPosts->getHead() == NULL) {return true;}
-	else {return false;}
+	if (this->wallPosts->getLength() == 0) {
+		return true;
+	}
+	else {
+		return false;
+	}
 }
 
 

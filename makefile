@@ -6,7 +6,7 @@ CFLAGS = -Wall -g -std=c++11
 OBJECTS = program.o WallPost.o Wall.o User.o UserNetwork.o
 TESTOBJECTS = testList.o
 TARGET = run
-LIST = ListLinked
+LIST = testList
 
 all: $(TARGET)
 

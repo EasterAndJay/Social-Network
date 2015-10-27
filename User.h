@@ -36,7 +36,7 @@ public:
 	bool checkPassword (string password_);
 	 
 	void addPost(WallPost post_);
-	void deletePost(WallPost post_);
+	void deletePost(int pos);
 	
 	string toString();
 	//void readUserFromString(string userString_);

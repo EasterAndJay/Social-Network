@@ -1,10 +1,10 @@
-#include "ListArray.h"
-#include "ListLinked.h"
+#include "ArrayList.h"
+#include "LinkedList.h"
 #include <chrono>
 #define N 10000
 
 template<class T>
-void benchMark(ListLinked<T> linkedList, ListArray<T> arrayList, int n) {
+void benchMark(LinkedList<T> linkedList, ArrayList<T> arrayList, int n) {
 	std::chrono::steady_clock::time_point begin;
 	std::chrono::steady_clock::time_point end;
 
@@ -28,8 +28,8 @@ void benchMark(ListLinked<T> linkedList, ListArray<T> arrayList, int n) {
 }
 int main() {
 
-	ListLinked<int> listInts = ListLinked<int>();
-	ListArray<int> arrayInts = ListArray<int>();
+	LinkedList<int> listInts = LinkedList<int>();
+	ArrayList<int> arrayInts = ArrayList<int>();
 
 	int inserts[] = {2000, 4000, 6000, 8000, 10000};
 

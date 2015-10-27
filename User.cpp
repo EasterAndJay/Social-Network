@@ -74,8 +74,8 @@ bool User::checkPassword (string password_){
 void User::addPost(WallPost post_){
 	this->wall->addPost(post_);
 }
-void User::deletePost(WallPost post_) {
-	this->wall->deletePost(post_);
+void User::deletePost(int pos) {
+	this->wall->deletePost(pos);
 }
 
 string User::toString() {

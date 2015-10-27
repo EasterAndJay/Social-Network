@@ -1,16 +1,15 @@
 #ifndef WALL_H
 #define WALL_H
-
-
 #include <iostream>
-#include "DoublyLinkedList.h"
+#include "ArrayList.h"
 #include "WallPost.h"
+
 using namespace std;
 
 class Wall {
 
 public:
-	Wall() : wallPosts(new DoublyLinkedList<WallPost>), username(string()){ };
+	Wall() : wallPosts(new ArrayList<WallPost>), username(string()){ };
 	Wall(const Wall& otherWall);
 	~Wall();
 
@@ -18,7 +17,7 @@ public:
 	void setUsername(string username_);
 
 	void addPost(WallPost post);
-	void deletePost(WallPost post);
+	void deletePost(int pos);
 	string toString();
 
 	void readWallPostsFromString(string fullWallString);
@@ -26,7 +25,7 @@ public:
 	
 	
 private:
-	DoublyLinkedList<WallPost>* wallPosts;
+	ArrayList<WallPost>* wallPosts;
 	string username;
 	
 };
