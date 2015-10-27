@@ -14,7 +14,7 @@ public:
 	~ListLinked();
 
 	void insert(int pos, const T & item);
-	void remove(int pot);
+	void remove(int pos);
 	void set(int pos, const T & item);
 	Node<T>* find(const T & item) const;
 	T const & get (int pos)const;
@@ -28,7 +28,6 @@ private:
 	Node<T> * head;
 	Node<T> * tail;
 	int length;
-	bool legalPosition(int pos, int length) const;
 
 	class const_iterator {
 	public:
@@ -247,19 +246,7 @@ template <class T>
 Node<T>* ListLinked<T>::getHead() const {
 	return this->head;
 }
-template <class T>
-bool ListLinked<T>::legalPosition(int pos, int length) const{
-	if (pos < 0) {
-		std::cout << "Tried to use index < 0" << std::endl;
-		return false;
-	}
-	else if (pos >= length) {
-		std::cout << "Tried to access index past length = " << length << std::endl;
-		return false;
-	}
-	else
-		return true;
-}
+
 
 template <class T>
 int ListLinked<T>::getLength() const {
