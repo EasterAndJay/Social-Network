@@ -12,6 +12,8 @@ int main() {
 		cout << ints << endl;
 	}
 
+	ints.insert(10, 100000);
+	cout << ints << endl;
 	/*for(int i = 0; i < 20; i++) {
 		ints.remove(0);
 		cout << ints << endl;

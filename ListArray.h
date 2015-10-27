@@ -48,11 +48,10 @@ void ListArray<T>::insert(int pos, const T & data) {
 	}
 
 	else { // Else inserting at beginning or middle
-								// Does not work
 		for (int i = length - 1; i >= pos; i--) {
 			this->list[i+1] = this->list[i];
 		}
-		this->list[pos] = this->list[data];
+		this->list[pos] = data;
 	}
 	length++;
 }
