@@ -133,19 +133,58 @@ User::User(const string userString_) {
 
 }
 
-void User::sendFriendRequest(User reciever_) {  //not sure whether to use pointer or not for these
 
+	
+
+
+
+
+//getters and setters for friends and friendRequests arrays
+ArrayList<User&>* User::getFriendRequests(){
+	return this->friendRequests;	
+}
+
+void User::setFriendRequests(ArrayList<User&>* friendRequests_){
+	this->friendRequests = friendRequests_;
 }
 	
-void User::acceptFriendRequest(FriendRequest request_){ //could call a helper addfriend
+ArrayList<User&>* User::getFriends(){
+	return this->friends;
+}
+	
+	
+void User::setFriends(ArrayList<User&>* friends_){
+	this->friends = friends_;
 }
 
-void User::deleteFriendRequest(FriendRequest request_){
 
+
+//general methods for friends and friend requests
+
+void User::sendFriendRequest(User& potentialFriend) {  //not sure whether to use pointer or not for these
+	if (potentialFriend->getFriendRequests()->find(*this) == -1) {
+		potentialFriend.getFriendRequests()->insert(0,*this);
+	}
 }
 
-void User::addFriend(User friendToAdd_){
+void User::acceptFriendRequest(User& friendToAccept){ //could call a helper addfriend
+	if (this->getFriendRequests()->find(friendToAccept) > -1) {
+		this->getFriendRequests()->deleteByValue(friendToAccept);
+		this->getFriends()->insert(0, friendToAccept);
+		friendToAccept.getFriends()->insert(0, *this);
+	}
+}
 
+void User::deleteFriendRequest(User const& friendToDelete){
+	if (this->getFriendRequests()->find(friendToDelete) > -1) {
+		this->getFriendRequests()->deleteByValue(friendToDelete);
+	}
+}
+
+void deleteFriend(User const& friendToDelete){
+	if (this->getFriends()->find(friendToDelete) > -1) {
+		this->getFriends()->deleteByValue(friendToDelete);
+	}
 }
 
 
