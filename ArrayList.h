@@ -15,10 +15,8 @@ public:
 	void remove(int pos);
 
 	void deleteByValue(T & data);
-	void deleteByValue(T && data);
 
 	int find(T & data);
-	int find(T && data);
 
 	void set(int pos, const T & data);
 	T const & get(int pos) const;
@@ -119,22 +117,7 @@ void ArrayList<T>::deleteByValue(T & data) {
 }
 
 template <class T>
-void ArrayList<T>::deleteByValue(T && data) {
-	this->remove(this->find(data));
-}
-
-template <class T>
 int ArrayList<T>::find(T & data) {
-	for(T* iter = this->begin(); iter != this->end(); iter++) {
-		if (*iter == data) {
-			return iter - this->begin();
-		}
-	}
-	return -1;
-}
-
-template <class T>
-int ArrayList<T>::find(T && data) {
 	for(T* iter = this->begin(); iter != this->end(); iter++) {
 		if (*iter == data) {
 			return iter - this->begin();
