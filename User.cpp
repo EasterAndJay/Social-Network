@@ -133,6 +133,24 @@ User::User(const string userString_) {
 
 }
 
+void User::sendFriendRequest(User reciever_) {  //not sure whether to use pointer or not for these
+
+}
+	
+void User::acceptFriendRequest(FriendRequest request_){ //could call a helper addfriend
+}
+
+void User::deleteFriendRequest(FriendRequest request_){
+
+}
+
+void User::addFriend(User friendToAdd_){
+
+}
+
+
+
+
 
 bool operator==(const User& left, const User& right) {
 	return (left.getWall() == right.getWall() 

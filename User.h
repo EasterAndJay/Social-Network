@@ -15,6 +15,7 @@ public:
 		this->wall->setUsername(username_); //set the contained wall's username after creation
 		
 	};*/
+	
 	User() : username(string()), password(string()), realName(string()), city(string()){};
 	User(string username_, string password_, string realName_, string city);
 	User(const string userString_);
@@ -40,11 +41,23 @@ public:
 	
 	string toString();
 	//void readUserFromString(string userString_);
-
+	
+	//getters and setters for friends and friendRequests arrays
+	ArrayList<string> getFriendRequests();
+	void setFriendFriendRequests(ArrayList<string> friendRequests);
+	
+	void sendFriendRequest(string reciever_);   //not sure whether to use pointer or not for these
+	void acceptFriendRequest(FriendRequest request_); //could call a helper addfriend
+	void deleteFriendRequest(FriendRequest request_);
+	
+	void addFriend(usernameToAdd_);
+	void deleteFriend(string usernameToDelete_);
 
 private:
 	
 	Wall* wall;
+	ArrayList<User*> friends;
+	ArrayList<FriendRequest>* friendRequests;
 	string username;
 	string password;
 	string realName;
