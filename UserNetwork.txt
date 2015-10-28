@@ -13,8 +13,8 @@ And this is my second post
 ________________________________
 Username: jonny
 Password: pass234
-Real Name: Jonathan Beasterman
-City: Queefville, CA
+Real Name: Jonathan Easterman
+City: Redondo Beach, CA
 
 Wall: 
 
@@ -24,10 +24,10 @@ Hi this is my first post
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 ________________________________
-Username: l33tc0rder
-Password: c0rd
-Real Name: Neeraj
-City: Kumar
+Username: topCoder
+Password: code
+Real Name: Neeraj Kumar
+City: Santa Barbara, CA
 
 Wall: 
 

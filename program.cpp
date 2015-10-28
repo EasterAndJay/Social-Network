@@ -86,13 +86,8 @@ int main() {
 	UserNetwork network = UserNetwork();
 	network.readFromFile();
 	//cout << network.toString() << endl;
-	
 	mainMenu(network);
-
-	cout << network.toString() << endl;
 	network.toFile();
-	network.readFromFile();
-	cout << network.toString() << endl;
 
 	return 0;
 }

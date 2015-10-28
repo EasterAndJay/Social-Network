@@ -11,11 +11,8 @@ all: $(TARGET)
 $(TARGET): $(OBJECTS)
 	$(CC) $(CFLAGS) -g -o $(TARGET) $(OBJECTS)
 
-main.o: main.cpp
-	$(CC) $(CFLAGS) -c main.cpp
-
-main2.o: main2.cpp
-	$(CC) $(CFLAGS) -c main2.cpp
+test.o: test.cpp
+	$(CC) $(CFLAGS) -c test.cpp
 
 WallPost.o: WallPost.cpp
 	$(CC) $(CFLAGS) -c WallPost.cpp
@@ -28,6 +25,7 @@ User.o: User.cpp
 
 UserNetwork.o: UserNetwork.cpp
 	$(CC) $(CFLAGS) -c UserNetwork.cpp
+
 program.o: program.cpp
 	$(CC) $(CFLAGS) -c program.cpp
 
