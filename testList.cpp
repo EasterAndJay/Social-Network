@@ -42,7 +42,7 @@ int main() {
 	/*listInts.insert(0,0);
 	listInts.insert(0,1);
 	listInts.insert(2,2);
-	listInts.insert(1,3);
+	listInts.insert(1,3);*/
 	
 	/*listInts.remove(0);
 	listInts.remove(2);
@@ -78,11 +78,15 @@ int main() {
 	arrayInts.set(arrayInts.getLength()/2, 25000);
 
 	cout << arrayInts << endl;
-	int first = arrayInts.get(0);
-	int last = arrayInts.get(arrayInts.getLength()-1);
-	int middle = arrayInts.get(arrayInts.getLength()/2);
+	
+	cout << arrayInts.find(11) << endl;
 
-	cout << first << " " << last << " " << middle << endl;
+	arrayInts.deleteByValue(11);
+	arrayInts.deleteByValue(50000);
+	arrayInts.deleteByValue(10000);
+
+	cout << arrayInts << endl;
+
 	return 0;
 }
 

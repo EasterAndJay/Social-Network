@@ -8,7 +8,7 @@
 class UserNetwork {
 	
 public:
-	UserNetwork() : users(new DoublyLinkedList<User>) {};
+	UserNetwork() : users(new ArrayList<User>) {};
 	UserNetwork(const UserNetwork& network);
 	~UserNetwork();
 
@@ -23,7 +23,7 @@ public:
 
 
 private:
-	DoublyLinkedList<User>* users;
+	ArrayList<User>* users;
 
 };
 
