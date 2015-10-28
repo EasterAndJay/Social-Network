@@ -43,26 +43,26 @@ public:
 	//void readUserFromString(string userString_);
 	
 	//getters and setters for friends and friendRequests arrays
-	ArrayList<User&>* getFriendRequests();
-	void setFriendFriendRequests(ArrayList<User&>* friendRequests_);
+	ArrayList<User*>* getFriendRequests();
+	void setFriendRequests(ArrayList<User*>* friendRequests_);
 	
-	ArrayList<User&>* getFriends();
-	void setFriends(ArrayList<User &>* friends_);
+	ArrayList<User*>* getFriends();
+	void setFriends(ArrayList<User*>* friends_);
 	
 	//methods for Friends and Friend Requests
-	void deleteFriend(User const& friendToDelete);
+	void deleteFriend(User* friendToDelete);
 	
-	void sendFriendRequest(User& potentialFriend);   //not sure whether to use pointer or not for these
-	void acceptFriendRequest(User& friendToAccept); //could call a helper addfriend
-	void deleteFriendRequest(User const& friendToDelete);
+	void sendFriendRequest(User* potentialFriend);   //not sure whether to use pointer or not for these
+	void acceptFriendRequest(User* friendToAccept); //could call a helper addfriend
+	void deleteFriendRequest(User* friendToDelete);
 	
 
 
 private:
 	
 	Wall* wall;
-	ArrayList<User&>* friends;
-	ArrayList<User&>* friendRequests;
+	ArrayList<User*>* friends;
+	ArrayList<User*>* friendRequests;
 	string username;
 	string password;
 	string realName;
