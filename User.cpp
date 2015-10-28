@@ -162,8 +162,8 @@ void User::setFriends(ArrayList<User*>* friends_){
 //general methods for friends and friend requests
 
 void User::sendFriendRequest(User* potentialFriend) {  //not sure whether to use pointer or not for these
-	if (potentialFriend->getFriendRequests()->find(*this) == -1) {
-		potentialFriend->getFriendRequests()->insert(0,*this);
+	if (potentialFriend->getFriendRequests()->find(this) == -1) {
+		potentialFriend->getFriendRequests()->insert(0,this);
 	}
 }
 
@@ -171,19 +171,19 @@ void User::acceptFriendRequest(User* friendToAccept){ //could call a helper addf
 	if (this->getFriendRequests()->find(*friendToAccept) > -1) {
 		this->getFriendRequests()->deleteByValue(*friendToAccept);
 		this->getFriends()->insert(0, friendToAccept);
-		friendToAccept->getFriends()->insert(0, *this);
+		friendToAccept->getFriends()->insert(0, this);
 	}
 }
 
 void User::deleteFriendRequest(User* friendToDelete){
-	if (this->getFriendRequests()->find(*friendToDelete) > -1) {
-		this->getFriendRequests()->deleteByValue(*friendToDelete);
+	if (this->getFriendRequests()->find(friendToDelete) > -1) {
+		this->getFriendRequests()->deleteByValue(friendToDelete);
 	}
 }
 
 void deleteFriend(User* friendToDelete){
-	if (this->getFriends()->find(*friendToDelete) > -1) {
-		this->getFriends()->deleteByValue(*friendToDelete);
+	if (this->getFriends()->find(friendToDelete) > -1) {
+		this->getFriends()->deleteByValue(friendToDelete);
 	}
 }
 
