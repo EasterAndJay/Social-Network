@@ -18,6 +18,7 @@ void createUser(UserNetwork& network) {
 	if (network.userAlreadyExists(username)) {
 		cout << "Sorry that username already exists, please try again" << endl;
 		createUser(network);
+		return;
 	}
 	cout << "Please enter your password" << endl;
 	cin >> password;
@@ -25,17 +26,23 @@ void createUser(UserNetwork& network) {
 	cin >> realName;
 	cout << "Please enter your city" << endl;
 	cin >> city;
+
+	
 	User user = User(username, password, realName, city);
-	network.addUser(user);
+
+	
+
+	network.addUser(user); // maybe a memory leak
+	//delete user;
 }
 
 // returns to main menu if user not found
 bool login(string username, string password, UserNetwork network) {
-	User user = network.findUser(username);
 	if (!network.userAlreadyExists(username)) {
 		cout << "User not found. Returning to main menu." << endl;
 		return false;
 	}
+	User user = network.findUser(username);
 	if (user.getPassword() == password) {
 		cout << '\n' << user.getWall()->toString();
 		return true;

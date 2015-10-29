@@ -2,9 +2,9 @@
 
 CC = g++
 
-CFLAGS = -Wall -g -std=c++11
+CFLAGS =  -g -std=c++11
 OBJECTS = program.o WallPost.o Wall.o User.o UserNetwork.o
-TESTOBJECTS = testList.o
+TESTOBJECTS = testList.o Wall.o WallPost.o
 TARGET = run
 LIST = testList
 

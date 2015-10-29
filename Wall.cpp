@@ -36,7 +36,9 @@ void Wall::deletePost(int pos) {
 // TEST
 string Wall::toString() {
 	string endString = string();
-	for (WallPost* iter = this->wallPosts->begin(); iter != this->wallPosts->end(); iter++) {
+	ArrayList<WallPost>* myWall = this->wallPosts;
+	
+	for (WallPost* iter = myWall->begin(); iter != myWall->end(); iter++) {
 		// data refers to WallPost
 		// call toString method of each WallPost
 		endString.append(iter->toString());

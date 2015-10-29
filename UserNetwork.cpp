@@ -20,21 +20,20 @@ UserNetwork::~UserNetwork () {
 // If not found, returns empty user.
 User& UserNetwork::findUser(string username_) {
 	//Node<User>* currentUser = this->users->getHead();
-	
 	//while (currentUser) {
 	for(User* iter = this->users->begin(); iter != this->users->end(); iter++) {
 		if (iter->getUsername() == username_)
 			return *iter;
 	}
-	return User();
 }
 
 //Helper method to make sure there are no duplicate users before adding
 bool UserNetwork::userAlreadyExists(string username) {
-	if(findUser(username).getUsername() == User())
-		return false;
-	else
-		return true;
+	for(User* iter = this->users->begin(); iter != this->users->end(); iter++) {
+		if (iter->getUsername() == username)
+			return true;
+	}
+	return false;
 }
 
 void UserNetwork::addUser(User user) { //make sure no duplicates
@@ -62,7 +61,8 @@ string UserNetwork::toString() {
 	
 	//Node<User>* currentUser = this->users->getHead();
 	//while (currentUser) {
-	for(User* currentUser = this->users->begin(); currentUser != this->users->end(); currentUser++)
+	for(User* currentUser = this->users->begin(); currentUser != this->users->end(); currentUser++) {
+		cout << currentUser << endl;
 		endString.append(currentUser->toString());
 		//currentUser = currentUser->next;
 	}
@@ -83,6 +83,7 @@ void UserNetwork::readUserNetworkFromString(string fullNetworkString_) {
 	while ((userEndPos = fullNetworkString.find(nextUserDelimiter)) != std::string::npos) {
 		User userToAdd = User(fullNetworkString.substr(0, userEndPos + delimiterLength));
 		this->addUser(userToAdd);
+
 		fullNetworkString.erase(0, userEndPos + delimiterLength);
 	}
 

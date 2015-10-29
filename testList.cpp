@@ -1,5 +1,6 @@
 #include "ArrayList.h"
 #include "LinkedList.h"
+#include "Wall.h"
 #include <chrono>
 #define N 10000
 
@@ -27,66 +28,13 @@ void benchMark(LinkedList<T> linkedList, ArrayList<T> arrayList, int n) {
 
 }
 int main() {
-
-	LinkedList<int> listInts = LinkedList<int>();
-	ArrayList<int> arrayInts = ArrayList<int>();
-
-	int inserts[] = {2000, 4000, 6000, 8000, 10000};
-
-	/*for (int insert : inserts) {
-		benchMark(listInts, arrayInts, insert);
-	}*/
-
-	//cout << listInts.getLength() << " " << arrayInts.getLength() << endl;
-
-	/*listInts.insert(0,0);
-	listInts.insert(0,1);
-	listInts.insert(2,2);
-	listInts.insert(1,3);*/
+	//ArrayList<WallPost>* myWall = new ArrayList<WallPost>;
 	
-	/*listInts.remove(0);
-	listInts.remove(2);
-	listInts.remove(0);
-	listInts.remove(0);*/
+	WallPost myPost = WallPost("Hi this is my first post", "Jonathan Easterman");
+	Wall* myWall = new Wall(); 
+	//myWall->addPost(myPost);
 
-	/*listInts.set(0, 100);
-	listInts.set(3, 400);
-	listInts.set(1, 200);
-	listInts.set(2, 300);
-	for (int i = 0; i < listInts.getLength(); i++) {
-		int h = listInts.get(i);
-		cout << h << endl;
-	}
-
-	cout << listInts << endl;*/
-
-	for(int i = 0; i < 20; i++) {
-		arrayInts.insert(arrayInts.getLength()/2, i);
-	}
-	for(int i = 0; i < 10; i++) {
-		arrayInts.remove(i);
-	}
-
-	arrayInts.remove(0);
-	arrayInts.remove(arrayInts.getLength()-1);
-
-	arrayInts.remove(arrayInts.getLength()/2-1);
-	cout << arrayInts << endl;
-
-	arrayInts.set(0, 10000);
-	arrayInts.set(arrayInts.getLength()-1, 50000);
-	arrayInts.set(arrayInts.getLength()/2, 25000);
-
-	cout << arrayInts << endl;
-	
-	cout << arrayInts.find(11) << endl;
-
-	arrayInts.deleteByValue(11);
-	arrayInts.deleteByValue(50000);
-	arrayInts.deleteByValue(10000);
-
-	cout << arrayInts << endl;
-
+	cout << myWall->toString() << endl;
 	return 0;
 }
 

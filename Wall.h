@@ -9,7 +9,7 @@ using namespace std;
 class Wall {
 
 public:
-	Wall() : wallPosts(new ArrayList<WallPost>), username(string()){ };
+	Wall() : wallPosts(new ArrayList<WallPost>), username(string()){};
 	Wall(const Wall& otherWall);
 	~Wall();
 

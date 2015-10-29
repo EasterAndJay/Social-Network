@@ -11,12 +11,14 @@ public:
 	ArrayList(const ArrayList<T> & list);
 	~ArrayList();
 
-	void insert(int pos, const T & data);
+	ArrayList<T> & operator=(ArrayList<T> copy);
+
+	void insert(int pos, T data);
 	void remove(int pos);
 
-	void deleteByValue(T & data);
+	void deleteByValue(T const & data);
 
-	int find(T & data);
+	int find(T const & data);
 
 	void set(int pos, const T & data);
 	T const & get(int pos) const;
@@ -71,11 +73,18 @@ ArrayList<T>::ArrayList(const ArrayList<T> & rhs) {
 
 template <class T>
 ArrayList<T>::~ArrayList() {
+	
 	delete [] this->list;
 }
 
 template <class T>
-void ArrayList<T>::insert(int pos, const T & data) {
+ArrayList<T>& ArrayList<T>::operator=(ArrayList<T> copy) {
+	swap(copy);
+	return *this;
+}
+
+template <class T>
+void ArrayList<T>::insert(int pos, T data) {
 	if (!this->legalPosition(pos, this->length+1)) {
 		return;
 	}
@@ -112,12 +121,12 @@ void ArrayList<T>::remove(int pos) {
 	this->length--;
 }
 template <class T>
-void ArrayList<T>::deleteByValue(T & data) {
+void ArrayList<T>::deleteByValue(T const & data) {
 	this->remove(this->find(data));
 }
 
 template <class T>
-int ArrayList<T>::find(T & data) {
+int ArrayList<T>::find(T const & data){
 	for(T* iter = this->begin(); iter != this->end(); iter++) {
 		if (*iter == data) {
 			return iter - this->begin();

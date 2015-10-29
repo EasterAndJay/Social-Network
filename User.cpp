@@ -9,6 +9,9 @@ User::User(const User& user) {
 		this->wall = new Wall(*(user.getWall()));
 	else
 		this->wall = new Wall();
+	this->friends = new ArrayList<string>(*(user.getFriends()));
+	this->friendRequests = new ArrayList<string>(*(user.getFriendRequests()));
+
 	this->username = user.getUsername();
 	this->password = user.getPassword();
 	this->realName = user.getRealName();
@@ -26,6 +29,9 @@ string User::getPassword() const {
 
 User::User(string username_, string password_, string realName_, string city_) {
 	this->wall = new Wall();
+	this->friends = new ArrayList<string>();
+	this->friendRequests = new ArrayList<string>();
+		 
 	this->username = username_;
 	this->wall->setUsername(username_);
 	this->password = password_;
@@ -34,8 +40,10 @@ User::User(string username_, string password_, string realName_, string city_) {
 }
 
 User::~User() {
-	if (this && this->wall)
-		delete this->wall;
+delete friends;
+	delete this->wall;
+	
+	delete friendRequests;
 }
 
 
@@ -94,6 +102,8 @@ User::User(const string userString_) {
 //void User::readUserFromString(string userString_) {
 
 	this->wall = new Wall();
+	this->friends = new ArrayList<string>();
+	this->friendRequests = new ArrayList<string>();
 	
 	std::string userString = userString_;
 	std::string nextUserDelimiter = "\n________________________________\n";
@@ -140,50 +150,52 @@ User::User(const string userString_) {
 
 
 //getters and setters for friends and friendRequests arrays
-ArrayList<User*>* User::getFriendRequests(){
+ArrayList<string>* User::getFriendRequests()const {
 	return this->friendRequests;	
 }
 
-void User::setFriendRequests(ArrayList<User*>* friendRequests_){
-	this->friendRequests = friendRequests_;
+void User::setFriendRequests(ArrayList<string> const & friendRequests_){
+	delete this->friendRequests;
+	this->friends = new ArrayList<string>(friendRequests_);
 }
 	
-ArrayList<User*>* User::getFriends(){
+ArrayList<string>* User::getFriends() const{
 	return this->friends;
 }
 	
 	
-void User::setFriends(ArrayList<User*>* friends_){
-	this->friends = friends_;
+void User::setFriends(ArrayList<string> const & friends_){
+	delete this->friends;
+	this->friends = new ArrayList<string>(friends_);
 }
 
 
 
 //general methods for friends and friend requests
 
-void User::sendFriendRequest(User* potentialFriend) {  //not sure whether to use pointer or not for these
-	if (potentialFriend->getFriendRequests()->find(this) == -1) {
-		potentialFriend->getFriendRequests()->insert(0,this);
+void User::sendFriendRequest(User& potentialFriend) {  //not sure whether to use pointer or not for these
+	if (potentialFriend.getFriendRequests()->find(this->getUsername()) == -1) {
+		potentialFriend.getFriendRequests()->insert(0,this->getUsername());
 	}
 }
 
-void User::acceptFriendRequest(User* friendToAccept){ //could call a helper addfriend
-	if (this->getFriendRequests()->find(*friendToAccept) > -1) {
-		this->getFriendRequests()->deleteByValue(*friendToAccept);
-		this->getFriends()->insert(0, friendToAccept);
-		friendToAccept->getFriends()->insert(0, this);
+void User::acceptFriendRequest(User& friendToAccept){ //could call a helper addfriend
+	if (this->getFriendRequests()->find(friendToAccept.getUsername()) > -1) {
+		this->getFriendRequests()->deleteByValue(friendToAccept.getUsername());
+		this->getFriends()->insert(0, friendToAccept.getUsername());
+		friendToAccept.getFriends()->insert(0, this->getUsername());
 	}
 }
 
-void User::deleteFriendRequest(User* friendToDelete){
-	if (this->getFriendRequests()->find(friendToDelete) > -1) {
-		this->getFriendRequests()->deleteByValue(friendToDelete);
+void User::deleteFriendRequest(User& friendToDelete){
+	if (this->getFriendRequests()->find(friendToDelete.getUsername()) > -1) {
+		this->getFriendRequests()->deleteByValue(friendToDelete.getUsername());
 	}
 }
 
-void deleteFriend(User* friendToDelete){
-	if (this->getFriends()->find(friendToDelete) > -1) {
-		this->getFriends()->deleteByValue(friendToDelete);
+void User::deleteFriend(User& friendToDelete){
+	if (this->getFriends()->find(friendToDelete.getUsername()) > -1) {
+		this->getFriends()->deleteByValue(friendToDelete.getUsername());
 	}
 }
 
@@ -192,11 +204,9 @@ void deleteFriend(User* friendToDelete){
 
 
 bool operator==(const User& left, const User& right) {
-	return (left.getWall() == right.getWall() 
-			&& left.getUsername() == right.getUsername() 
-			&& left.getPassword() == right.getPassword()
-			&& left.getRealName() == right.getRealName()
-			&& left.getCity() == right.getCity());
+	return left.getUsername() == right.getUsername();
+
+			
 }
 
 bool operator !=(const User& left, const User& right) {

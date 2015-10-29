@@ -20,13 +20,14 @@ public:
 	WallPost(string content_, string author_, string timePosted_) : content(content_), author(author_), timePosted(timePosted_) {};
 	
 	
-	~WallPost() { //not sure if we need this but instructions called for one
+	/*~WallPost() { //not sure if we need this but instructions called for one
 		content.clear();
 		author.clear();
 		timePosted.clear();
-	};
+	};*/
 	
 	WallPost(const WallPost& wallPost);
+	~WallPost();
 	string getContent() const;
 	void setContent(string content_);
 	string getAuthor() const;

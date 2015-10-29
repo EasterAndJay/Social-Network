@@ -8,7 +8,7 @@ template <class T>
 class AbstractList {
 public:
 	virtual ~AbstractList() {}
-	virtual void insert(int pos, const T & item)=0;
+	virtual void insert(int pos, T item)=0;
 	virtual void remove(int pot)=0;
 	virtual void set(int pos, const T & item)=0;
 	virtual T const & get (int pos)const=0;

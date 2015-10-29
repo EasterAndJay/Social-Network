@@ -7,6 +7,10 @@ WallPost::WallPost(const WallPost& wallPost) {
 	this->timePosted = string(wallPost.getTimePosted());
 }
 
+WallPost::~WallPost() {
+	
+}
+
 string WallPost::getContent() const{
 	return this->content;
 }
@@ -42,10 +46,10 @@ void WallPost::setTimePosted(string customTime) {
 }
 
 string WallPost::toString() const{
-
 	string endString = "On " + this->timePosted + "\n" + 
 	this->author + " wrote:\n" + 
 	this->content;
+
 	return endString;
 }
 
