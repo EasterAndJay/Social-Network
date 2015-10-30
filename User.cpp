@@ -2,20 +2,29 @@
 #include <stdio.h>
 
 
-//trying copy constructor to try to fix seg fault when passing User into UserNetwork
 User::User(const User& user) { 
-	//Wall copyWall = *user.getWall()
 	if (user.getWall() != NULL)
 		this->wall = new Wall(*(user.getWall()));
 	else
 		this->wall = new Wall();
-	this->friends = new ArrayList<string>(*(user.getFriends()));
-	this->friendRequests = new ArrayList<string>(*(user.getFriendRequests()));
+	if (user.getFriends())
+		this->friends = new ArrayList<string>(*(user.getFriends()));
+	else this->friends = new ArrayList<string>();
+
+	if (user.getFriendRequests())
+		this->friendRequests = new ArrayList<string>(*(user.getFriendRequests()));
+	else
+		new ArrayList<string>();
 
 	this->username = user.getUsername();
 	this->password = user.getPassword();
 	this->realName = user.getRealName();
 	this->city = user.getCity();
+}
+
+User& User::operator=(User copy) {
+	std::swap(*this,copy);
+	return *this;
 }
 
 //solely made these for the copy constructor to use, don't actually want them
@@ -40,9 +49,8 @@ User::User(string username_, string password_, string realName_, string city_) {
 }
 
 User::~User() {
-delete friends;
-	delete this->wall;
-	
+	delete friends;
+	delete wall;
 	delete friendRequests;
 }
 

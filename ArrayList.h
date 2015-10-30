@@ -10,23 +10,20 @@ public:
 	ArrayList(int initSize = 0);
 	ArrayList(const ArrayList<T> & list);
 	~ArrayList();
-
 	ArrayList<T> & operator=(ArrayList<T> copy);
 
-	void insert(int pos, T data);
+	void insert(int pos, const T & data);
 	void remove(int pos);
-
-	void deleteByValue(T const & data);
-
-	int find(T const & data);
-
 	void set(int pos, const T & data);
 	T const & get(int pos) const;
 
-	int getLength() const { return length; }
+	T & operator[](int pos);
+	const T & operator[](int pos) const;
 
-	template <class A>
-	friend std::ostream & operator<<(std::ostream & os, const ArrayList<A> & list);
+
+	void deleteByValue(T const & data);
+	int find(T const & data);
+	int getLength() const { return length; }
 
 	typedef T * iterator;
 	typedef const T * const_iterator;
@@ -46,6 +43,9 @@ public:
 	const_iterator end() const {
 		return &list[length];
 	}
+
+	template <class A>
+	friend std::ostream & operator<<(std::ostream & os, const ArrayList<A> & list);
 private:
 	T* list;
 	int length;
@@ -79,37 +79,36 @@ ArrayList<T>::~ArrayList() {
 
 template <class T>
 ArrayList<T>& ArrayList<T>::operator=(ArrayList<T> copy) {
-	swap(copy);
+	std::swap(*this,copy);
 	return *this;
 }
 
 template <class T>
-void ArrayList<T>::insert(int pos, T data) {
-	if (!this->legalPosition(pos, this->length+1)) {
-		return;
-	}
+void ArrayList<T>::insert(int pos, const T & data) {
+	this->legalPosition(pos, this->length+1);
 
 	if (this->length == this->capacity) // If at full capacity
 		resize(); // double size
-
-	else if(pos == length){ // If inserting at end
-		this->list[pos] = data;
+	T copy = data;
+	if(pos == length){ // If inserting at end
+		
+		this->list[pos] = copy;
 	}
 
 	else { // Else inserting at beginning or middle
 		for (int i = length - 1; i >= pos; i--) {
 			this->list[i+1] = this->list[i]; // Move everything over 1 space
 		}
-		this->list[pos] = data; // make pos = data
+
+		this->list[pos] = copy; // make pos = data
 	}
 	this->length++; // increment length
 }
 
 template <class T>
 void ArrayList<T>::remove(int pos) {
-	if (!this->legalPosition(pos, this->getLength()))
-		return;
-	else if(pos == (getLength() - 1)) { // Removing last element
+	this->legalPosition(pos, this->getLength());
+	if(pos == (getLength() - 1)) { // Removing last element
 		this->list[pos] = T();
 	}
 	else { // Removing first or middle element
@@ -142,10 +141,19 @@ void ArrayList<T>::set(int pos, const T & data) {
 
 template <class T>
 T const & ArrayList<T>::get(int pos) const {
-	if (!this->legalPosition(pos, this->getLength()))
-		return T();
-	else
-		return this->list[pos];
+	this->legalPosition(pos, this->getLength());
+	return this->list[pos];
+}
+
+template <class T>
+T & ArrayList<T>::operator[](int pos) {
+	this->legalPosition(pos, this->getLength());
+	return this->list[pos];
+}
+
+template <class T>
+const T & ArrayList<T>::operator[](int pos) const {
+	return get(pos);
 }
 
 template <class A>

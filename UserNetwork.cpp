@@ -10,20 +10,25 @@ UserNetwork::UserNetwork(const UserNetwork& network) {
 	this->users = new ArrayList<User>(*(network.users));
 } 
 
-//Simple destructor
 UserNetwork::~UserNetwork () {
 	delete users;	
 }
 
+UserNetwork& UserNetwork::operator=(UserNetwork copy) {
+	std::swap(*this,copy);
+	return *this;
+}
+
+ArrayList<User>* UserNetwork::getUsers() {
+	return this->users;
+}
 
 // Returns user if found.
 // If not found, returns empty user.
-User& UserNetwork::findUser(string username_) {
-	//Node<User>* currentUser = this->users->getHead();
-	//while (currentUser) {
+int UserNetwork::findUser(string username_) {
 	for(User* iter = this->users->begin(); iter != this->users->end(); iter++) {
-		if (iter->getUsername() == username_)
-			return *iter;
+	if (iter->getUsername() == username_)
+		return iter - this->users->begin();
 	}
 }
 
@@ -37,12 +42,10 @@ bool UserNetwork::userAlreadyExists(string username) {
 }
 
 void UserNetwork::addUser(User user) { //make sure no duplicates
-	if (userAlreadyExists(user.getUsername())) {
-		//printf("Sorry, a user already exists with this username\n");
-	} else {
+	if (userAlreadyExists(user.getUsername()))
+		return;
+	else
 		this->users->insert(0,user);
-		//printf("User Added Successfully\n");
-	}
 }
 
 void UserNetwork::deleteUser(User user){ //make sure user in fact exists before deleting

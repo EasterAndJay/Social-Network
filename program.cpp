@@ -37,12 +37,12 @@ void createUser(UserNetwork& network) {
 }
 
 // returns to main menu if user not found
-bool login(string username, string password, UserNetwork network) {
+bool login(string username, string password, UserNetwork& network) {
 	if (!network.userAlreadyExists(username)) {
 		cout << "User not found. Returning to main menu." << endl;
 		return false;
 	}
-	User user = network.findUser(username);
+	User user = network.getUsers()->get(network.findUser(username));
 	if (user.getPassword() == password) {
 		cout << '\n' << user.getWall()->toString();
 		return true;

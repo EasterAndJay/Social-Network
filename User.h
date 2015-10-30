@@ -3,7 +3,7 @@
 
 
 #include <iostream>
-#include "DoublyLinkedList.h"
+#include "ArrayList.h"
 #include "Wall.h"
 using namespace std;
 
@@ -20,8 +20,10 @@ public:
 	User(string username_, string password_, string realName_, string city);
 	User(const string userString_);
 	~User();
-	
 	User(const User& user);
+
+	User& operator=(User copy);
+
 	void setUsername(string username_);
 	string getUsername() const;
 	void setRealName(string realName_);

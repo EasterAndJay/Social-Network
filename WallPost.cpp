@@ -1,14 +1,10 @@
 #include "WallPost.h"
 #include "time.h"
 
-WallPost::WallPost(const WallPost& wallPost) {
-	this->author = string(wallPost.getAuthor());
-	this->content = string(wallPost.getContent()); //think these string() are redundant, fix later
-	this->timePosted = string(wallPost.getTimePosted());
-}
 
-WallPost::~WallPost() {
-	
+WallPost& WallPost::operator=(WallPost copy) {
+	std::swap(*this,copy);
+	return *this;
 }
 
 string WallPost::getContent() const{

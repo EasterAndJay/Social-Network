@@ -1,33 +1,35 @@
 #ifndef ABSTRACTLIST_H
 #define ABSTRACTLIST_H
 #include "Node.h"
-using namespace std;
 #include <iostream>
+#include <stdexcept>
+
+using namespace std;
 
 template <class T>
 class AbstractList {
 public:
 	virtual ~AbstractList() {}
-	virtual void insert(int pos, T item)=0;
-	virtual void remove(int pot)=0;
+	virtual void insert(int pos, const T & item)=0;
+	virtual void remove(int pos)=0;
 	virtual void set(int pos, const T & item)=0;
 	virtual T const & get (int pos)const=0;
 
-	bool legalPosition(int pos, int length) const;
+	void legalPosition(int pos, int length) const;
 };
 
 template <class T>
-bool AbstractList<T>::legalPosition(int pos, int length) const {
+void AbstractList<T>::legalPosition(int pos, int length) const {
 	if (pos < 0) {
-		std::cout << "Tried to use index < 0" << std::endl;
-		return false;
+		std::cout << "Tried to access negative index" << std::endl;
+		exit(1);
 	}
 	else if (pos >= length) {
 		std::cout << "Tried to access index past length = " << length << std::endl;
-		return false;
+		exit(1);
 	}
 	else
-		return true;
+		return;
 }
 
 #endif

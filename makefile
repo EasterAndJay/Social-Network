@@ -1,9 +1,9 @@
 # MakeFile for Social network project for CS 130A
 
-CC = g++
+CC = clang++
 
-CFLAGS =  -g -std=c++11
-OBJECTS = program.o WallPost.o Wall.o User.o UserNetwork.o
+CFLAGS =  -Wall -g -std=c++11
+OBJECTS = main.o WallPost.o Wall.o User.o UserNetwork.o
 TESTOBJECTS = testList.o Wall.o WallPost.o
 TARGET = run
 LIST = testList
