@@ -77,6 +77,7 @@ ArrayList<T>::~ArrayList() {
 	delete [] this->list;
 }
 
+
 template <class T>
 ArrayList<T>& ArrayList<T>::operator=(ArrayList<T> copy) {
 	std::swap(*this,copy);
