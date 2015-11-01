@@ -23,13 +23,14 @@ ArrayList<User>* UserNetwork::getUsers() {
 	return this->users;
 }
 
-// Returns user if found.
-// If not found, returns empty user.
+// Returns index of user if found.
+// If not found, returns -1
 int UserNetwork::findUser(string username_) {
 	for(User* iter = this->users->begin(); iter != this->users->end(); iter++) {
 	if (iter->getUsername() == username_)
 		return iter - this->users->begin();
 	}
+	return -1;
 }
 
 //Helper method to make sure there are no duplicate users before adding

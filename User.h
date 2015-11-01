@@ -52,23 +52,23 @@ public:
 	void setFriends(ArrayList<User*> friends_);
 	
 	//methods for Friends and Friend Requests
-	void deleteFriend(User* friendToDelete);
+	void deleteFriend(int index);
 	
-	void sendFriendRequest(User* potentialFriend);   //not sure whether to use pointer or not for these
-	void acceptFriendRequest(User* friendToAccept); //could call a helper addfriend
-	void deleteFriendRequest(User* friendToDelete);
+	void sendFriendRequest(int index);   //not sure whether to use pointer or not for these
+	void acceptFriendRequest(int index); //could call a helper addfriend
+	void deleteFriendRequest(int index);
 	
 
 
 private:
-	
-	Wall* wall;
-	ArrayList<User*> friends;
-	ArrayList<User*> friendRequests;
+
 	string username;
 	string password;
 	string realName;
 	string city;
+	Wall* wall;
+	ArrayList<User*> friends;
+	ArrayList<User*> friendRequests;
 
 };
 
