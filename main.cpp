@@ -150,8 +150,8 @@ cout << "now print again" << endl;
 cout << Ish->getFriends().get(0)->getUsername() << endl;
 cout << Ish->getFriends().get(1)->getUsername() << endl;
 
-
-
+cout << "Trying toString...." << endl;
+cout << Ish->toString() << endl;
 
 
 /*.get(0)->getUsername() << endl;
