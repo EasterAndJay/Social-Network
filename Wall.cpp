@@ -28,12 +28,12 @@ void Wall::setUsername(string username_) {
 }
 
 // Uses function from ArrayList template
-void Wall::addPost(WallPost post) {
-	this->wallPosts->insert(0,post); // Inserts post at front of wall
+bool Wall::addPost(WallPost post) {
+	return this->wallPosts->insert(0,post); // Inserts post at front of wall
 }
 
-void Wall::deletePost(int pos) {
-	this->wallPosts->remove(pos);
+bool Wall::deletePost(int pos) {
+	return this->wallPosts->remove(pos);
 }
 
 
@@ -42,11 +42,12 @@ void Wall::deletePost(int pos) {
 string Wall::toString() {
 	string endString = string();
 
-	for (int i = 0; i < this->wallPosts->getLength(); i++) {
-		
+	for (WallPost** iter = this->wallPosts->begin(); iter != this->wallPosts->end(); iter++) {
+	//for (int i = 0; i < this->wallPosts->getLength(); i++) {
 		// data refers to WallPost
 		// call toString method of each WallPost
-		endString.append(this->wallPosts->get(i).toString());
+		endString.append((*iter)->toString());
+		//endString.append(this->wallPosts->get(i).toString());
 		//add a separator
 		endString.append("\n~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n");
 		//Iterate through all WallPosts

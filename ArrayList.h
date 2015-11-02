@@ -40,11 +40,11 @@ public:
 	}
 
 	iterator end() {
-		return &(this->list[length - 1]);
+		return &(this->list[length]);
 	}
 
 	const_iterator end() const {
-		return &(this->list[length - 1]);
+		return &(this->list[length]);
 	}
 
 	template <class A>
@@ -121,19 +121,17 @@ bool ArrayList<T>::insert(int pos, const T & data) {
 		resize(); // double size
 
 	if(pos == length){ // If inserting at end
-		
 		this->list[pos] = new T(data);
 	}
 
 	else { // Else inserting at beginning or middle
-		for (int i = length - 1; i >= pos; i--) {
-			this->list[i+1] = this->list[i]; // Move everything over 1 space
-		}
-
+			for (int i = length - 1; i >= pos; i--) {
+					this->list[i+1] = this->list[i]; // Move everything over 1 space
+			}
 		this->list[pos] = new T(data); // make pos = data
 	}
 	this->length++; // increment length
-	return false;
+	return true;
 }
 
 template <class T>
@@ -144,34 +142,38 @@ bool ArrayList<T>::remove(int pos) {
 	if(pos == (getLength() - 1)) { // Removing last element
 		length--;
 		delete this->list[pos];
+		this->list[pos] = NULL;
 		return true;
 	}
 	else { // Removing first or middle element
 		delete this->list[pos]; // Delete, then shift left
+		this->list[pos] = NULL;
 		for (int i = pos + 1; i < length; i++) { //shift all elements to the left
 			
 			this->list[i-1] = this->list[i];
+			//this->list[0]
 			
 		}
 	}
 
 	this->length--;
+	return true;
 }
 
-/*template <class T>
+template <class T>
 void ArrayList<T>::deleteByValue(T const & data) {
 	this->remove(this->find(data));
 }
 
 template <class T>
 int ArrayList<T>::find(T const & data){
-	for(T* iter = this->begin(); iter != this->end(); iter++) {
-		if (*iter == data) {
+	for(T** iter = this->begin(); iter != this->end(); iter++) {
+		if (**iter == data) {
 			return iter - this->begin();
 		}
 	}
 	return -1;
-}*/
+}
 
 template <class T>
 void ArrayList<T>::set(int pos, const T & data) {

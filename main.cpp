@@ -3,7 +3,7 @@
 //#include "DoublyLinkedList.h"
 //#include "WallPost.h"
 #include "Wall.h"
-//#include "User.h"
+#include "User.h"
 //#include "UserNetwork.h"
 //#include "ArrayList.h"
 
@@ -58,50 +58,66 @@ int main()
   
   
   
-  WallPost myPost = WallPost("Hi this is my first post", "Jonathan Easterman");
-  cout << myPost << endl;
+//   WallPost myPost = WallPost("Hi this is my first post", "Jonathan Easterman");
+//   cout << myPost << endl;
 
-  WallPost otherPost = WallPost();
+ WallPost otherPost = WallPost();
   otherPost.setContent("And this is my second post");
   otherPost.setAuthor("Jonathan Easterman");
   otherPost.setTimePosted();
-  cout << otherPost.getAuthor() << otherPost.getContent() << otherPost.getTimePosted() << endl;
-  cout << otherPost << endl;
+//   cout << otherPost.getAuthor() << otherPost.getContent() << otherPost.getTimePosted() << endl;
+//   cout << otherPost << endl;
 
-  Wall myWall = Wall();
+//   Wall myWall = Wall();
 
-  WallPost wallPost = WallPost("Here is my wall!", "WallPost creator");
+ WallPost wallPost = WallPost("Here is my wall!", "WallPost creator");
 
-  myWall.addPost(myPost);
-//segfault
-  cout << "make it here?" << endl;
-  myWall.addPost(otherPost);
+//   myWall.addPost(myPost);
+// //segfault
+//   cout << "make it here?" << endl;
+//   myWall.addPost(otherPost);
 
-  myWall.deletePost(0);
-  myWall.addPost(wallPost);
+//   myWall.deletePost(0);
+//   myWall.addPost(wallPost);
 
 
   
 
 
-  Wall newWall = Wall(myWall);
+//   Wall newWall = Wall(myWall);
   
-  myWall.deletePost(0);
+//   myWall.deletePost(0);
   
-  cout << newWall.toString() << endl;
+//   cout << newWall.toString() << endl;
   
  
-  cout << myWall.toString() << endl;
-  cout << "\n\n^%^%^&%^&%^&------DESIRED CONTENT ABOVE%$^$%^$%^%$\n\n";
+//   cout << myWall.toString() << endl;
+//   cout << "\n\n^%^%^&%^&%^&------DESIRED CONTENT ABOVE%$^$%^$%^%$\n\n";
   
-  cout << myWall.toString() << endl;
+//   cout << myWall.toString() << endl;
   
-  string myWallStr = myWall.toString();
-  Wall myOtherWall = Wall();
-  myOtherWall.readWallPostsFromString(myWallStr);
+//   string myWallStr = myWall.toString();
+//   Wall myOtherWall = Wall();
+//   myOtherWall.readWallPostsFromString(myWallStr);
 
-  cout << myOtherWall.toString() << endl;
-/*
+//   cout << myOtherWall.toString() << endl;
+
+    //Wall myWall = Wall();
+    //myWall.addPost(otherPost);
+    //myWall.addPost(wallPost);
+
+    //Wall newWall = Wall(myWall);
+    //myWall.deletePost(0);
+
+    // cout << myWall.toString() << endl;
+
+    // cout << "Above is myWall. should have 1 post" << endl;
+    // cout << newWall.toString() << endl;
+    // cout << "Above is newWall. Should have 2 posts" << endl;
+
+
+
+
   User Ish = User("feshies", "pass123", "Ishi von Meier", "Goleta, CA");
   Ish.addPost(otherPost);
   User Jon = User("jonny", "pass234", "Jonathan Beasterman", "Queefville, CA");
@@ -113,7 +129,7 @@ int main()
 
   cout << Ish.toString() << endl;
 
-  
+  /*
   UserNetwork myNetwork = UserNetwork();
   myNetwork.addUser(Ish);
   cout << "trying to add duplicate user..." << endl;

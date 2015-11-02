@@ -18,8 +18,8 @@ public:
 	string getUsername() const;
 	void setUsername(string username_);
 
-	void addPost(WallPost post);
-	void deletePost(int pos);
+	bool addPost(WallPost post);
+	bool deletePost(int pos);
 	string toString();
 
 	void clearWall();

@@ -15,8 +15,8 @@ public:
 	UserNetwork& operator=(UserNetwork copy);
 
 	bool userAlreadyExists(string username);
-	void addUser(User user); //make sure no duplicate usernames
-	void deleteUser(User user); //make sure user in fact exists before deleting
+	void addUser(const User& user); //make sure no duplicate usernames
+	void deleteUser(const User& user); //make sure user in fact exists before deleting
 	int findUser(string username_);
 	ArrayList<User>* getUsers();
 

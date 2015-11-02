@@ -36,21 +36,20 @@ int UserNetwork::findUser(string username_) {
 
 //Helper method to make sure there are no duplicate users before adding
 bool UserNetwork::userAlreadyExists(string username) {
-	for(User* iter = this->users->begin(); iter != this->users->end(); iter++) {
-		if (iter->getUsername() == username)
-			return true;
-	}
-	return false;
+	if(findUser(username) != -1)
+		return true;
+	else
+		return false;
 }
 
-void UserNetwork::addUser(User user) { //make sure no duplicates
+void UserNetwork::addUser(const User& user) { //make sure no duplicates
 	if (userAlreadyExists(user.getUsername()))
 		return;
 	else
 		this->users->insert(0,user);
 }
 
-void UserNetwork::deleteUser(User user){ //make sure user in fact exists before deleting
+void UserNetwork::deleteUser(const User& user){ //make sure user in fact exists before deleting
 	if (userAlreadyExists(user.getUsername())) {
 		this->users->deleteByValue(user);
 		printf("Deleted successfully\n");
