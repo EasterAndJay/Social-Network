@@ -1,10 +1,9 @@
 #ifndef USERNETWORK_H
 #define USERNETWORK_H
 
-#include "DoublyLinkedList.h"
 #include "User.h"
 
-
+class User;
 class UserNetwork {
 	
 public:
@@ -18,7 +17,7 @@ public:
 	void addUser(const User& user); //make sure no duplicate usernames
 	void deleteUser(const User& user); //make sure user in fact exists before deleting
 	int findUser(string username_);
-	ArrayList<User>* getUsers();
+	ArrayList<User>* getUsers() const;
 
 	string toString();
 	void readUserNetworkFromString(string fullNetworkString_);

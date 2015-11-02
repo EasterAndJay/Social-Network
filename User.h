@@ -5,8 +5,9 @@
 #include <iostream>
 #include "ArrayList.h"
 #include "Wall.h"
+#include "UserNetwork.h"
 using namespace std;
-
+class UserNetwork;
 class User {
 
 public:
