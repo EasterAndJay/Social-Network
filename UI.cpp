@@ -24,8 +24,8 @@ void UI::run() {
 
 void UI::mainMenu() {
 	cout << "Type 'a' to create a new user\n"
-			"type 'b' to Log in\n"
-			"type 'c' to quit" << endl;
+			"Type 'b' to Log in\n"
+			"Type 'c' to quit" << endl;
 
 	char option;
 	cin >> option;
@@ -104,7 +104,10 @@ bool UI::loginPrompt() {
 	}
 	this->user = network.getUsers()->get(network.findUser(username));
 	if (user.getPassword() == password) {
-		cout << '\n' << user.getWall()->toString() << endl;
+		if (user.getWall()->getWallPosts()->getLength() == 0)
+			cout << "Your wall is empty" << endl;
+		else
+			cout << '\n' << user.getWall()->toString() << endl;
 		return true;
 	}
 	else {
@@ -170,11 +173,15 @@ void UI::loginMenu() {
 			viewFriends();
 			break;
 		}
+		case 'h':
+		{
+			viewFriendRequests();
+			break;
+		}
 		default:
 		{
 			cout << "That was not a valid option, please try again" << endl;
 			break;
-			return;
 		}
 	}
 	return;
@@ -192,9 +199,23 @@ void UI::createWallPost() {
 }
 
 void UI::deleteWallPost() {
+	cout << '\n';
 	int index;
-	cout << "Enter a number corresponding to the wall post you would like to delete" << endl;
+	int i = 0;
+	if (user.getWall()->getWallPosts()->getLength() == 0) {
+		cout << "Your wall is empty" << endl;
+		return;
+	}
+	for (WallPost* iter = user.getWall()->getWallPosts()->begin(); iter != user.getWall()->getWallPosts()->end(); iter++) {
+		cout << i << ") " << iter->toString() << endl;
+		i++;
+	}
+	cout << "Enter a number corresponding to the wall post "
+			"you would like to delete, or enter '-1' to "
+			"return to the login menu" << endl;
 	cin >> index;
+	if (index < 0)
+		return;
 	user.deletePost(index);
 	network.getUsers()->set(network.findUser(user.getUsername()), user);
 	return;
@@ -295,6 +316,9 @@ void UI::searchUsers() {
 				"You would like to send a friend request to"
 				<< endl;
 		cin >> i;
+
+		// ISHI FIX
+
 		// Index of user to send friend request to
 		int networkIndex = network.findUser(foundUsers.get(i));
 		// copy of this user made using copy ctor
@@ -311,20 +335,69 @@ void UI::searchUsers() {
 
 void UI::viewFriends() {
 	// Need to delete friends from this list
-	// cout << user.getFriendRequests()->get(0)->toString();
+	int index;
+	int i = 0;
+	if (user.getFriends().getLength() == 0) {
+		cout << "You have no friends" << endl;
+		return;
+	}
+	for (User** iter = user.getFriends().begin(); iter != user.getFriends().end(); iter++) {
+		cout << i << ") " << (*iter)->toString() << endl;
+		i++;
+	}
+	cout << "Enter a number corresponding to the friend "
+			"you would like to delete, "
+			"or enter '-1' to go back" << endl;
+	cin >> index;
+	// Delete friend needs to be mutual
+	if (index < 0)
+		return;
+
+	// ISHI FIX
+
+	user.deleteFriend(index);
+	network.getUsers()->set(network.findUser(user.getUsername()), user);
+	// May need to update network with other friend as well
+	return;
 }
 
 void UI::viewFriendRequests() {
-	// Display pending friend requests
-	//cout << *(user.getFriendRequests) << endl;
+	int index;
+	char choice;
+	int i = 0;
+	if(user.getFriendRequests().getLength() == 0) {
+		cout << "You have no friend requests" << endl;
+		return;
+	}
+	for (User** iter = user.getFriendRequests().begin(); iter != user.getFriendRequests().end(); iter++) {
+		cout << i << ") " << (*iter)->toString() << endl;
+		i++;
+	}
+	cout << '\n' << endl;
+	cout << "Enter a number corresponding to the friend request "
+			"you would like to accept/delete, "
+			"or enter '-1' to continue to the login menu" << endl;
+	cin >> index;
+	if (index < 0)
+		return;
 
-	// Allow user to accept or delete friend requests
+	cout << "Enter 'a' to accept and 'd' to delete this friend request" << endl;
+	cin >> choice;
 
+	// ISHI FIX
+
+	if (choice == 'a') {
+		user.acceptFriendRequest(index);
+	}
+	if (choice == 'd') {
+		user.deleteFriendRequest(index);
+	}
+	network.getUsers()->set(network.findUser(user.getUsername()), user);
+	// May need to update network with other friend as well
 	return;
 }
 
 void UI::logout() {
-	cout << network.toString() << endl;
 	logged_in = false;
 	this->network.toFile();
 	return;

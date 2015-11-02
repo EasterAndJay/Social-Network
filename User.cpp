@@ -104,6 +104,7 @@ User& User::operator=(User copy) {
 	wall = new Wall(*(copy.getWall()));
 	this->setFriendRequests(copy.getFriendRequests());
 	this->setFriends(copy.getFriends());
+	return *this;
 }
 
 //
@@ -168,27 +169,45 @@ string User::toString() {
 	endString += "Password: " + this->password + "\n";
 	endString += "Real Name: " + this->getRealName() + "\n";
 	endString += "City: " + this->getCity() + "\n";
-	endString += "Friends: ";
-	
-	User** iter = getFriends().begin();
-	for (; iter != getFriends().end()-1; iter++) {
-		endString += (*iter)->getUsername() + ", ";
-	}
+	endString += friendsToString();
+	endString += friendRequestsToString();
 
-	endString += (*iter)->getUsername() += "\n"; //last username doesn't want a comma
-	/*
-	endString += "Friend Requests: ";
-	for (iter = getFriendRequests().begin(); iter != getFriendRequests().end()-1; iter++) {
-		endString += (*iter)->getUsername() + ", ";
-	}
-	endString += (*iter)->getUsername() += "\n\n"; //last username doesn't want a comma
-	*/
 	endString += "Wall: \n\n" + this->wall->toString() + "\n";
 	endString += "________________________________\n";
 	return endString;
 }
 
+string User::friendsToString() {
+	string endString = "";
+	endString += "Friends: ";
+	User** iter = getFriends().begin();
+	for (; iter != getFriends().end(); iter++) {
+		if(iter == getFriends().end()-1) {
+			endString += (*iter)->getUsername() += "\n\n";
+		}
+		else {
+			endString += (*iter)->getUsername() + ", ";
+		}
+	}
+	endString += '\n';
+	return endString;
+}
 
+string User::friendRequestsToString() {
+	string endString = "";
+	endString += "Friend Requests: ";
+	User** iter = getFriendRequests().begin();
+	for (; iter != getFriendRequests().end(); iter++) {
+		if(iter == getFriendRequests().end()-1){
+			endString += (*iter)->getUsername() += "\n\n";
+		}
+		else {
+			endString += (*iter)->getUsername() + ", ";
+		}
+	}
+	endString += '\n';
+	return endString;
+}
 //
 /* Getters and setters for friends and friendRequests arrays*/
 //

@@ -50,6 +50,8 @@ public:
 	void deletePost(int pos);
 	
 	string toString();
+	string friendsToString();
+	string friendRequestsToString();
 	//void readUserFromString(string userString_);
 	
 	//getters and setters for friends and friendRequests arrays
