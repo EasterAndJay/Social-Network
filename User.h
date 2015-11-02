@@ -16,13 +16,26 @@ public:
 		
 	};*/
 	
-	User() : username(string()), password(string()), realName(string()), city(string()), wall(new Wall()) {};
+	User() : 
+		username(string()),
+		password(string()), 
+		realName(string()), 
+		city(string()), 
+		wall(new Wall()),
+		friends(ArrayList<User>()),
+		friendRequests(ArrayList<User>())
+		{ this->wall->setUsername(username); };
+
 	User(string username_, string password_, string realName_, string city);
 	User(const string userString_);
 	~User();
+
 	User(const User& user);
 
 	User& operator=(User copy);
+
+	User* getFriend(int index);
+	User* getFriendRequest(int index);
 
 	void setUsername(string username_);
 	string getUsername() const;
@@ -45,16 +58,16 @@ public:
 	//void readUserFromString(string userString_);
 	
 	//getters and setters for friends and friendRequests arrays
-	ArrayList<User*> getFriendRequests() const;
-	void setFriendRequests(ArrayList<User*> friendRequests_);
+	ArrayList<User> getFriendRequests() const;
+	void setFriendRequests(ArrayList<User> friendRequests_);
 	
-	ArrayList<User*> getFriends() const;
-	void setFriends(ArrayList<User*> friends_);
+	ArrayList<User> getFriends() const;
+	void setFriends(ArrayList<User> friends_);
 	
 	//methods for Friends and Friend Requests
 	void deleteFriend(int index);
 	
-	void sendFriendRequest(int index);   //not sure whether to use pointer or not for these
+	void sendFriendRequest(User* potentialFriend);   //not sure whether to use pointer or not for these
 	void acceptFriendRequest(int index); //could call a helper addfriend
 	void deleteFriendRequest(int index);
 	
@@ -67,8 +80,8 @@ private:
 	string realName;
 	string city;
 	Wall* wall;
-	ArrayList<User*> friends;
-	ArrayList<User*> friendRequests;
+	ArrayList<User> friends;
+	ArrayList<User> friendRequests;
 
 };
 
