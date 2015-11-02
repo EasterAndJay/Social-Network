@@ -30,10 +30,10 @@ User::User(const string userString_, UserNetwork* myNetwork) {
 	this->wall = new Wall();
 	
 	std::string userString = userString_;
-	std::string friendString, singleUsername;
+	std::string friendString, friendRequestString, singleUsername;
 	std::string nextUserDelimiter = "\n________________________________\n";
 	//initialize some position markers and strings to hold results
-	size_t usernameEndPos, passwordEndPos, realNameEndPos, cityEndPos, wallEndPos, friendsEndPos, singleNameEndPos, index;
+	size_t usernameEndPos, passwordEndPos, realNameEndPos, cityEndPos, wallEndPos, friendsEndPos,friendRequestEndPos, index;
 	//std::string username, password, realName, city, ;
 
 	//pull out username
@@ -59,28 +59,47 @@ User::User(const string userString_, UserNetwork* myNetwork) {
 	//cout << "got past city in string constructor...."  << endl;
 	
 	//friends
-	friendsEndPos = userString.find("\n\nWall: \n\n");
+	friendsEndPos = userString.find("\n");
 	friendString = userString.substr(9, friendsEndPos - 9);
-	//now we split friendstring up by the commas to get the usernames out
+	//now we split friendstring up by the spaces to get the usernames out
 
-	/*
- 	while((singleNameEndPos = friendString.find(", ")) != friendsEndPos) {
- 		singleUsername = friendString.substr(0, friendsEndPos);
+	while ((friendsEndPos = friendString.find(", ")) != std::string::npos) {
+		singleUsername = friendString.substr(0, friendsEndPos);
  		index = myNetwork->findUser(singleUsername);
- 		User friendToAdd = myNetwork->getUsers()->get(index);
- 		this->addFriend(&friendToAdd);
- 	}*/
+ 		User* friendToAdd = new User(myNetwork->getUsers()->get(index));
+ 		this->addFriend(friendToAdd);
+		friendString.erase(0, friendsEndPos+2);
+	}
+	userString.erase(0, userString.find("\n") + 1);
 
-	userString.erase(0, friendsEndPos + 10);
+	//friend requests
+	friendRequestEndPos = userString.find("\n\nWall: \n\n");
+	friendRequestString = userString.substr(17, friendRequestEndPos - 17);
+
+	cout << "friend request string: " << friendRequestString << "end of fr string" << endl;
+
+	//again, same format, split by the commas to parse usernames
+	while ((friendRequestEndPos = friendRequestString.find(", ")) != std::string::npos) {
+		singleUsername = friendRequestString.substr(0, friendRequestEndPos);
+ 		index = myNetwork->findUser(singleUsername);
+ 		User* friendToAdd = new User(myNetwork->getUsers()->get(index));
+ 		cout << "friend we are trying to add:" << friendToAdd->getUsername() << endl;
+ 		this->addFriendRequest(friendToAdd);
+		friendRequestString.erase(0, friendRequestEndPos+2);
+	}
+
+	
+	userString.erase(0, userString.find("\n\nWall: \n\n") + 10);
+	cout << "Userstring so far..."  << userString << endl;
 
 	//wall
 	//now all that is left in userString is wall since we erased as we parsed the rest
-	
 	//printf the wall string
+	
 	wallEndPos = userString.find(nextUserDelimiter);
 	userString = userString.substr(0, wallEndPos);
 	this->wall->readWallPostsFromString(userString);
-
+	
 }
 /*
 //loop through full posts (looking for our big delimiter)
@@ -188,7 +207,7 @@ string User::toString() {
 	endString += friendsToString();
 	endString += friendRequestsToString();
 
-	endString += "Wall: \n\n" + this->wall->toString() + "\n";
+	endString += "\n\nWall: \n\n" + this->wall->toString() + "\n";
 	endString += "________________________________\n";
 	return endString;
 }
@@ -198,15 +217,9 @@ string User::friendsToString() {
 	endString += "Friends: ";
 	User** iter = getFriends().begin();
 	for (; iter != getFriends().end(); iter++) {
-		if(iter == getFriends().end()-1) {
-			endString += (*iter)->getUsername() += "\n\n";
-		}
-		else {
-			endString += (*iter)->getUsername() + ", ";
-		}
+		endString += (*iter)->getUsername() + ", ";
 	}
-	endString += '\n';
-	return endString;
+	return endString + "\n";
 }
 
 string User::friendRequestsToString() {
@@ -214,14 +227,8 @@ string User::friendRequestsToString() {
 	endString += "Friend Requests: ";
 	User** iter = getFriendRequests().begin();
 	for (; iter != getFriendRequests().end(); iter++) {
-		if(iter == getFriendRequests().end()-1){
-			endString += (*iter)->getUsername() += "\n\n";
-		}
-		else {
-			endString += (*iter)->getUsername() + ", ";
-		}
+		endString += (*iter)->getUsername() + ", ";
 	}
-	endString += '\n';
 	return endString;
 }
 //

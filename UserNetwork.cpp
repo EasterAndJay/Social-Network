@@ -27,9 +27,13 @@ ArrayList<User>* UserNetwork::getUsers(){
 // If not found, returns -1
 int UserNetwork::findUser(string username_) {
 	//for(User* iter = this->users->begin(); iter != this->users->end(); iter++) {
-	for (int i = 0; i < this->users->getLength(); i++)
+	
+	for (int i = 0; i < this->users->getLength(); i++){
+		//cout << "inside finduser this is current length of users list:" << endl;
+		//cout << this->users->getLength() << endl;
 	if (this->users->get(i).getUsername() == username_)
 		return i;
+	}
 	return -1;
 }
 
@@ -78,7 +82,7 @@ void UserNetwork::readUserNetworkFromString(string fullNetworkString_) {
 	
 	size_t userEndPos;
 	while ((userEndPos = fullNetworkString.find(nextUserDelimiter)) != std::string::npos) {
-		User userToAdd = User(fullNetworkString.substr(0, userEndPos + delimiterLength));
+		User userToAdd = User(fullNetworkString.substr(0, userEndPos + delimiterLength), this);
 		this->addUser(userToAdd);
 
 		fullNetworkString.erase(0, userEndPos + delimiterLength);

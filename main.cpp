@@ -116,15 +116,44 @@ int main()
     cout << "Above is newWall. Should have 2 posts" << endl;
 */
 
-User* Marty = new User("cheech", "qwerty", "Sweet Balls", "Goleter");
-User* Queef = new User("bob", "badpass", "Bob Queefs", "SB");
-Queef->addPost(wallPost);
-User* Ish = new User("feshies", "pass123", "Ishi von Meier", "Goleta, CA");
-Ish->addPost(otherPost);
-User* Jon = new User("jonny", "pass234", "Jonathan Beasterman", "Queefville, CA");
-Jon->addPost(myPost);
+User Marty = User("cheech", "qwerty", "Sweet Balls", "Goleter");
+User Queef = User("bob", "badpass", "Bob Queefs", "SB");
+Queef.addPost(wallPost);
+User Ish = User("feshies", "pass123", "Ishi von Meier", "Goleta, CA");
+Ish.addPost(otherPost);
+User Jon = User("jonny", "pass234", "Jonathan Beasterman", "Queefville, CA");
+Jon.addPost(myPost);
+
+UserNetwork* myNetwork = new UserNetwork();
+myNetwork->addUser(Ish);
+myNetwork->addUser(Marty);
+myNetwork->addUser(Queef);
+myNetwork->addUser(Jon);
+
+cout << "sending one friend request..." << endl;
+Jon.sendFriendRequest(&Ish);
+cout << "Trying to send a duplicate friend request..." << endl;
+Jon.sendFriendRequest(&Ish);
+cout << "Queef sending ish a friend request....." <<endl;
+Queef.sendFriendRequest(&Ish);
+cout << "Marty sending ish a friend request....." <<endl;
+Marty.sendFriendRequest(&Ish);
+
+cout << "Ishi accepting 1 friend request...." << endl;
+Ish.acceptFriendRequest(0);
+Ish.acceptFriendRequest(0);
 
 
+cout << Ish.toString() << endl;
+
+cout << "\n\n^%^%^&%^&%^&------DESIRED CONTENT ABOVE%$^$%^$%^%$\n\n";
+
+User copyIsh = User(Ish.toString(), myNetwork);
+cout << copyIsh.toString() << endl;
+
+
+
+/*
 cout << "sending one friend request..." << endl;
 Jon->sendFriendRequest(Ish);
 cout << "Trying to send a duplicate friend request..." << endl;
@@ -134,25 +163,18 @@ Queef->sendFriendRequest(Ish);
 cout << "Marty sending ish a friend request....." <<endl;
 Marty->sendFriendRequest(Ish);
 
-cout << "Ishi accepting all 3 friend requests...." << endl;
-Ish->acceptFriendRequest(0);
+cout << "Ishi accepting 1 friend request...." << endl;
 Ish->acceptFriendRequest(0);
 Ish->acceptFriendRequest(0);
 cout << "These are Ishi's friends: " << endl;
-cout << Ish->getFriends().get(0)->getUsername() << endl;
-cout << Ish->getFriends().get(1)->getUsername() << endl;
-cout << Ish->getFriends().get(2)->getUsername() << endl;
-
-cout << "next delete one" << endl;
-
-Ish->deleteFriend(0);
-cout << "now print again" << endl;
 cout << Ish->getFriends().get(0)->getUsername() << endl;
 cout << Ish->getFriends().get(1)->getUsername() << endl;
 
 cout << "Trying toString...." << endl;
 cout << Ish->toString() << endl;
 
+copyIsh = User(Ish->toString, )
+*/
 
 /*.get(0)->getUsername() << endl;
 cout << Ish->getFriendRequests()
@@ -189,8 +211,7 @@ try {
   // cout << Ish.toString() << endl;
 
   
-  // UserNetwork myNetwork = UserNetwork();
-  // myNetwork.addUser(Ish);
+  
   // cout << "trying to add duplicate user..." << endl;
   // myNetwork.addUser(Ish);
   // cout << "trying to add second user..." << endl;
