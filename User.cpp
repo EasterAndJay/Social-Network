@@ -67,8 +67,6 @@ User::User(const string userString_) {
 
 User::~User() {
 	delete wall;
-	//delete this->friends.getList();
-	//delete this->friendRequests.getList();
 }
 
 User& User::operator=(User copy) {
@@ -82,16 +80,10 @@ User& User::operator=(User copy) {
 	this->setFriends(copy.getFriends());
 }
 
-//should probaby get rid of these if we can
-User* User::getFriend(int index) {
-	return this->friends.getList()[index];
-}
+//
+/* Getters and Setters */
+//
 
-User* User::getFriendRequest(int index) {
-	return this->friendRequests.getList()[index];
-}
-
-//solely made these for the copy constructor to use
 Wall* User::getWall() const {
 	return this->wall;
 }
@@ -125,12 +117,15 @@ string User::getCity() const{
 	return this->city;
 }
 
-void User::setPassword(string password_){ //FBI level security
+void User::setPassword(string password_){
 	this->password = password_;
 }
+
 bool User::checkPassword (string password_){
-	if (this->password == password_) {return true;}
-	else {return false;}
+	if (this->password == password_)
+		return true;
+	else
+		return false;
 }
 	 
 void User::addPost(WallPost post_){
@@ -153,13 +148,18 @@ string User::toString() {
 	for (; iter != getFriends().end()-1; iter++) {
 		endString += (*iter)->getUsername() + ", ";
 	}
+
 	endString += (*iter)->getUsername() += "\n\n"; //last username doesn't want a comma
 	endString += "Wall: \n\n" + this->wall->toString() + "\n";
 	endString += "________________________________\n";
 	return endString;
 }
 
-//getters and setters for friends and friendRequests arrays
+
+//
+/* Getters and setters for friends and friendRequests arrays*/
+//
+
 ArrayList<User*> User::getFriendRequests() const{
 	return this->friendRequests;	
 }
@@ -167,11 +167,11 @@ ArrayList<User*> User::getFriendRequests() const{
 void User::setFriendRequests(ArrayList<User*> friendRequests_){
 	int i = 0;
 	for (User** iter = friendRequests_.begin(); iter != friendRequests_.end(); iter++) {
-		this->friendRequests.getList()[i] = *(iter);
+		this->friendRequests.set(i, *(iter));
 		i++;
 	}
 }
-	//made getfriends and get friendrequests not consts, can change back if u want pussy
+
 ArrayList<User*> User::getFriends() const{
 	return this->friends;
 }
@@ -180,13 +180,14 @@ ArrayList<User*> User::getFriends() const{
 void User::setFriends(ArrayList<User*> friends_){
 	int i = 0;
 	for (User** iter = friends_.begin(); iter != friends_.end(); iter++) {
-		this->friends.getList()[i] = *(iter);
+		this->friends.set(i, *(iter));
 		i++;
 	}
 }
 
-
-//general methods for friends and friend requests
+//
+/* General methods for friends and friend requests */
+//
 
 void User::sendFriendRequest(User* potentialFriend) {
     if (potentialFriend->getFriendRequests().find(this) == -1) {
@@ -204,9 +205,9 @@ void User::addFriendRequest(User* newFriendRequest) {
 
 
 void User::acceptFriendRequest(int index){
-    //remove the friend request which makes sure that it infact is in the list, if so
-    //get the friend so we 
-
+    // Remove the friend request, which makes sure 
+    // that it infact is in the list.
+    // If so get the friend so we 
 	try { 
 		//if this friend request actually exists
 		User* friendToAccept = this->getFriendRequests().get(index);
@@ -221,12 +222,6 @@ void User::acceptFriendRequest(int index){
     } catch (int& e) {
         cout << "Error: You dont have a request at this index." << endl;
     }
-    /*
-    if (this->getFriendRequests().find(friendToAccept) != -1) {
-		this->getFriendRequests().delete
-		this->getFriends().insert(0, friendToAccept);
-		friendToAccept->getFriends().insert(0, this);
-	}*/
 }
 
 //helper for accept friend request
@@ -238,22 +233,16 @@ void User::addFriend(User* newFriend) {
 void User::deleteFriendRequest(int index){
     if (this->friendRequests.remove(index)){
         cout << "Friend request removed successfully" << endl;
-        //could add the friends name to cout
     }
     
     else {
         cout << "Error: No friend request at this index." << endl;
     }
-    /*
-    if (this->getFriendRequests().find(friendToDelete) > -1) {
-		this->getFriendRequests().deleteByValue(friendToDelete);
-	}*/
 }
 
 void User::deleteFriend(int index){
     if (this->friends.remove(index)) {
         cout << "Friend removed successfully" << endl;
-        //could add the deleted friends name to cout
     }
     else {
         cout << "Error: No friend request at this index." << endl;

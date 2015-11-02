@@ -32,21 +32,17 @@ public:
 
 	User& operator=(User copy);
 
-	User* getFriend(int index);
-	User* getFriendRequest(int index);
-
 	void setUsername(string username_);
 	string getUsername() const;
 	void setRealName(string realName_);
 	string getRealName()const;
 	void setCity(string city_);
 	string getCity() const;
-	
-	//solely made these for the copy constructor to use, don't actually want them
+
 	Wall* getWall() const;
 	string getPassword() const;
 	
-	void setPassword(string password_); //FBI level security 
+	void setPassword(string password_); 
 	bool checkPassword (string password_);
 	 
 	void addPost(WallPost post_);

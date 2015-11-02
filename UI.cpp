@@ -9,7 +9,6 @@ UI::UI() {
 	network = UserNetwork();
 	user = User();
 	network.readFromFile();
-	logged_in = false;
 }
 
 UI::~UI() {
@@ -24,7 +23,10 @@ void UI::run() {
 }
 
 void UI::mainMenu() {
-	cout << "Type 'a' to create a new user, type 'b' to Log in, type 'c' to quit" << endl;
+	cout << "Type 'a' to create a new user\n"
+			"type 'b' to Log in\n"
+			"type 'c' to quit" << endl;
+
 	char option;
 	cin >> option;
 	switch (option) {
@@ -41,6 +43,7 @@ void UI::mainMenu() {
 					return;
 				}
 				else {
+					viewFriendRequests();
 					while(logged_in) {
 						loginMenu();
 					}
@@ -101,6 +104,7 @@ bool UI::loginPrompt() {
 	}
 	this->user = network.getUsers()->get(network.findUser(username));
 	if (user.getPassword() == password) {
+		cout << '\n' << user.getWall()->toString() << endl;
 		return true;
 	}
 	else {
@@ -110,7 +114,6 @@ bool UI::loginPrompt() {
 
 void UI::loginMenu() {
 	// Should output friend requests and be able to accept or decline
-	cout << '\n' << user.getWall()->toString();
 	// cout << friend requests
 	char option;
 	option = 'z';
@@ -247,7 +250,6 @@ void UI::deleteProfile() {
 }
 
 void UI::searchUsers() {
-	// Need to send friend requests to users from this list
 	string name, uname, realName;
 	string buildString = "";
 	bool found = false;
@@ -259,6 +261,8 @@ void UI::searchUsers() {
 	}
 	name = buildString;
 	buildString = "";
+	int i = 0;
+	ArrayList<string> foundUsers = ArrayList<string>();
 	for (User* iter = network.getUsers()->begin(); iter != network.getUsers()->end(); iter++) {
 		uname = iter->getUsername();
 		realName = iter->getRealName();
@@ -278,16 +282,45 @@ void UI::searchUsers() {
 
 		if (uname.find(name) != std::string::npos || realName.find(name) != std::string::npos ) {
 			found = true;
-			cout << "Username: " << iter->getUsername() << " ";
+			cout << i << ") Username: " << iter->getUsername() << " ";
 			cout << "Real Name: " << iter->getRealName() << endl;
+			foundUsers.insert(i, iter->getUsername());
+			i++;
 		}
 	}
 	if(!found)
 		cout << "User not found" << endl;
+	else {
+		cout << "Enter the corresponding number of the user"
+				"You would like to send a friend request to"
+				<< endl;
+		cin >> i;
+		// Index of user to send friend request to
+		int networkIndex = network.findUser(foundUsers.get(i));
+		// copy of this user made using copy ctor
+		User friendCopy = User(network.getUsers()->get(networkIndex));
+		// Send friendRequest to this user
+		user.sendFriendRequest(&(friendCopy));
+		// Update logged in user
+		network.getUsers()->set(network.findUser(user.getUsername()), user);
+		// Update other user on network
+		network.getUsers()->set(networkIndex, friendCopy);
+
+	}
 }
 
 void UI::viewFriends() {
 	// Need to delete friends from this list
+	// cout << user.getFriendRequests()->get(0)->toString();
+}
+
+void UI::viewFriendRequests() {
+	// Display pending friend requests
+	//cout << *(user.getFriendRequests) << endl;
+
+	// Allow user to accept or delete friend requests
+
+	return;
 }
 
 void UI::logout() {

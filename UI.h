@@ -11,25 +11,24 @@ class UI {
 public:
 	UI();
 	~UI();
+	void run();
 	void mainMenu();
 	void newUserMenu();
 	bool loginPrompt();
 	void loginMenu();
-	void logout();
-	void run();
 	void createWallPost();
 	void deleteWallPost();
 	void updateInformation();
 	void deleteProfile();
-	void viewFriends();
 	void searchUsers();
-	bool running = true;
-
-
+	void viewFriends();
+	void viewFriendRequests();
+	void logout();
 private:
 	User user;
 	UserNetwork network;
-	bool logged_in;
+	bool logged_in = false;
+	bool running = true;
 
 };
 
