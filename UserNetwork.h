@@ -15,7 +15,7 @@ public:
 
 	bool userAlreadyExists(string username);
 	void addUser(const User& user); //make sure no duplicate usernames
-	void deleteUser(const User& user); //make sure user in fact exists before deleting
+	void deleteUser(int i);
 	int findUser(string username_);
 	ArrayList<User>* getUsers() const;
 

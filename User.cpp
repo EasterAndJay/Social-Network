@@ -98,8 +98,14 @@ User::~User() {
 }
 
 User& User::operator=(User copy) {
-	std::swap(*this,copy);
-	return *this;
+	username = copy.getUsername();
+	password = copy.getPassword();
+	realName = copy.getRealName();
+	city = copy.getCity();
+	delete wall;
+	wall = new Wall(*(copy.getWall()));
+	this->setFriendRequests(copy.getFriendRequests());
+	this->setFriends(copy.getFriends());
 }
 
 //should probaby get rid of these if we can
@@ -138,7 +144,7 @@ string User::getRealName() const{
 }
 
 void User::setCity(string city_){
-	this->city = city;
+	this->city = city_;
 }
 
 string User::getCity() const{
