@@ -3,8 +3,8 @@
 //#include "DoublyLinkedList.h"
 //#include "WallPost.h"
 #include "Wall.h"
-#include "User.h"
-#include "UserNetwork.h"
+//#include "User.h"
+//#include "UserNetwork.h"
 //#include "ArrayList.h"
 
 int main()
@@ -84,63 +84,63 @@ int main()
   
 
 
-//   Wall newWall = Wall(myWall);
+  // Wall newWall = Wall(myWall);
   
-//   myWall.deletePost(0);
+  // myWall.deletePost(0);
   
-//   cout << newWall.toString() << endl;
+  // cout << newWall.toString() << endl;
   
  
-//   cout << myWall.toString() << endl;
-//   cout << "\n\n^%^%^&%^&%^&------DESIRED CONTENT ABOVE%$^$%^$%^%$\n\n";
+  // cout << myWall.toString() << endl;
+  // cout << "\n\n^%^%^&%^&%^&------DESIRED CONTENT ABOVE%$^$%^$%^%$\n\n";
   
-//   cout << myWall.toString() << endl;
+  // cout << myWall.toString() << endl;
   
-//   string myWallStr = myWall.toString();
-//   Wall myOtherWall = Wall();
-//   myOtherWall.readWallPostsFromString(myWallStr);
+  // string myWallStr = myWall.toString();
+  // Wall myOtherWall = Wall();
+  // myOtherWall.readWallPostsFromString(myWallStr);
 
-//   cout << myOtherWall.toString() << endl;
+  // cout << myOtherWall.toString() << endl;
 
-    //Wall myWall = Wall();
-    //myWall.addPost(otherPost);
-    //myWall.addPost(wallPost);
+    Wall myWall = Wall();
+    myWall.addPost(otherPost);
+    myWall.addPost(wallPost);
 
-    //Wall newWall = Wall(myWall);
-    //myWall.deletePost(0);
+    Wall newWall = Wall(myWall);
+    myWall.deletePost(0);
 
-    // cout << myWall.toString() << endl;
+    cout << myWall.toString() << endl;
 
-    // cout << "Above is myWall. should have 1 post" << endl;
-    // cout << newWall.toString() << endl;
-    // cout << "Above is newWall. Should have 2 posts" << endl;
-
-
+    cout << "Above is myWall. should have 1 post" << endl;
+    cout << newWall.toString() << endl;
+    cout << "Above is newWall. Should have 2 posts" << endl;
 
 
-  User Ish = User("feshies", "pass123", "Ishi von Meier", "Goleta, CA");
-  Ish.addPost(otherPost);
-  User Jon = User("jonny", "pass234", "Jonathan Beasterman", "Queefville, CA");
-  Jon.addPost(myPost);
-  cout << Ish.toString() << endl;
-  cout << "\n\n^%^%^&%^&%^&------DESIRED CONTENT ABOVE%$^$%^$%^%$\n\n";
-  string ishUserString = Ish.toString();
-  //Ish.readUserFromString(ishUserString);
 
-  Ish.sendFriendRequest(&Jon);
-  Jon.acceptFriendRequest(0);
 
-  cout << Ish.toString() << endl;
+  // User Ish = User("feshies", "pass123", "Ishi von Meier", "Goleta, CA");
+  // Ish.addPost(otherPost);
+  // User Jon = User("jonny", "pass234", "Jonathan Beasterman", "Queefville, CA");
+  // Jon.addPost(myPost);
+  // cout << Ish.toString() << endl;
+  // cout << "\n\n^%^%^&%^&%^&------DESIRED CONTENT ABOVE%$^$%^$%^%$\n\n";
+  // string ishUserString = Ish.toString();
+  // //Ish.readUserFromString(ishUserString);
+
+  // Ish.sendFriendRequest(&Jon);
+  // Jon.acceptFriendRequest(0);
+
+  // cout << Ish.toString() << endl;
 
   
-  UserNetwork myNetwork = UserNetwork();
-  myNetwork.addUser(Ish);
-  cout << "trying to add duplicate user..." << endl;
-  myNetwork.addUser(Ish);
-  cout << "trying to add second user..." << endl;
-  myNetwork.addUser(Jon);
-  cout<< "trying to delete first User....." <<endl;
-  myNetwork.deleteUser(Ish);
+  // UserNetwork myNetwork = UserNetwork();
+  // myNetwork.addUser(Ish);
+  // cout << "trying to add duplicate user..." << endl;
+  // myNetwork.addUser(Ish);
+  // cout << "trying to add second user..." << endl;
+  // myNetwork.addUser(Jon);
+  // cout<< "trying to delete first User....." <<endl;
+  // myNetwork.deleteUser(Ish);
 /*
   cout << "trying toString(): ....." << endl;
   string stringToRead = myNetwork.toString();

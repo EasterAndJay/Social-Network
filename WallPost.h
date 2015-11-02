@@ -18,9 +18,11 @@ public:
 	};
 	
 	//3 arg constructor
-	WallPost(string content_, string author_, string timePosted_) : content(content_), author(author_), timePosted(timePosted_) {};
-	
-	WallPost& operator=(WallPost copy);
+	WallPost(string content_, string author_, string timePosted_) : 
+		content(content_), 
+		author(author_), 
+		timePosted(timePosted_) 
+		{};
 
 	string getContent() const;
 	void setContent(string content_);

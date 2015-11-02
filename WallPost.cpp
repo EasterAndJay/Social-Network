@@ -2,11 +2,6 @@
 #include "time.h"
 
 
-WallPost& WallPost::operator=(WallPost copy) {
-	std::swap(*this,copy);
-	return *this;
-}
-
 string WallPost::getContent() const{
 	return this->content;
 }

@@ -16,7 +16,8 @@ Wall::~Wall() {
 Wall& Wall::operator=(const Wall &rhs)
 {
 	username = rhs.getUsername();
-	wallPosts = rhs.wallPosts;
+	delete wallPosts;
+	wallPosts = new ArrayList<WallPost>(*(rhs.wallPosts));
 }
 
 string Wall::getUsername() const {
@@ -42,11 +43,11 @@ bool Wall::deletePost(int pos) {
 string Wall::toString() {
 	string endString = string();
 
-	for (WallPost** iter = this->wallPosts->begin(); iter != this->wallPosts->end(); iter++) {
+	for (WallPost* iter = this->wallPosts->begin(); iter != this->wallPosts->end(); iter++) {
 	//for (int i = 0; i < this->wallPosts->getLength(); i++) {
 		// data refers to WallPost
 		// call toString method of each WallPost
-		endString.append((*iter)->toString());
+		endString.append(iter->toString());
 		//endString.append(this->wallPosts->get(i).toString());
 		//add a separator
 		endString.append("\n~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n");
