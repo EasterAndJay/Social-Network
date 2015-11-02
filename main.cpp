@@ -142,11 +142,13 @@ cout << "These are Ishi's friends: " << endl;
 cout << Ish->getFriends().get(0)->getUsername() << endl;
 cout << Ish->getFriends().get(1)->getUsername() << endl;
 cout << Ish->getFriends().get(2)->getUsername() << endl;
-//also try reversing the . and -> 
 
+cout << "next delete one" << endl;
 
-//next check some out of range ones
-
+Ish->deleteFriend(0);
+cout << "now print again" << endl;
+cout << Ish->getFriends().get(0)->getUsername() << endl;
+cout << Ish->getFriends().get(1)->getUsername() << endl;
 
 
 
