@@ -173,29 +173,56 @@ void User::setFriends(ArrayList<User*> friends_){
 //general methods for friends and friend requests
 
 void User::sendFriendRequest(User* potentialFriend) {  //not sure whether to use pointer or not for these
-	if (potentialFriend->getFriendRequests().find(this)) {
-		potentialFriend->getFriendRequests().insert(0, this);
-	}
+    
+    if (potentialFriend->getFriendRequests()->find(this) == -1;
+        potentialFriend->getFriendRequests()->insert(0, this);
+    } else {
+        cout << "Error: You have already sent this user a friend request. Now you just look desperate." << endl
+    }
 }
 
-void User::acceptFriendRequest(User* friendToAccept){ //could call a helper addfriend
-	if (this->getFriendRequests().find(friendToAccept) > -1) {
-		this->getFriendRequests().deleteByValue(friendToAccept);
+void User::acceptFriendRequest(int index){
+    //remove the friend request which makes sure that it infact is in the list, if so
+    if (this->getFriendRequests()->remove(index)) {
+        //add the friend
+        this->getFriends()->insert(0, friendToAccept);
+        cout << "Friend added successfully" << endl;
+    }
+    else {
+        cout << "Error: No friend request at this index." << endl;
+    }
+    /*
+    if (this->getFriendRequests().find(friendToAccept) != -1) {
+		this->getFriendRequests().delete
 		this->getFriends().insert(0, friendToAccept);
 		friendToAccept->getFriends().insert(0, this);
-	}
+	}*/
 }
 
 void User::deleteFriendRequest(User* friendToDelete){
-	if (this->getFriendRequests().find(friendToDelete) > -1) {
+    if (this->getFriendRequests()->remove(index)){
+        cout << "Friend removed successfully" << endl
+        //could add the firends name to cout
+    }
+    
+    else {
+        cout << "Error: No friend request at this index." << endl;
+    }
+    /*
+    if (this->getFriendRequests().find(friendToDelete) > -1) {
 		this->getFriendRequests().deleteByValue(friendToDelete);
-	}
+	}*/
 }
 
-void User::deleteFriend(User* friendToDelete){
-	if (this->getFriends().find(friendToDelete) > -1) {
-		this->getFriends().deleteByValue(friendToDelete);
-	}
+void User::deleteFriend(int index){
+    if (this->getFriends()->remove(index)) {
+        cout << "Friend removed successfully" << endl;
+        //could add the deleted friends name to cout
+    }
+    else {
+        cout << "Error: No friend request at this index." << endl;
+    }
+
 }
 
 
