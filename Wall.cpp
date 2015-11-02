@@ -18,6 +18,7 @@ Wall& Wall::operator=(const Wall &rhs)
 	username = rhs.getUsername();
 	delete wallPosts;
 	wallPosts = new ArrayList<WallPost>(*(rhs.wallPosts));
+	return *this;
 }
 
 string Wall::getUsername() const {
