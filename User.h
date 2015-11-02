@@ -21,9 +21,7 @@ public:
 		password(string()), 
 		realName(string()), 
 		city(string()), 
-		wall(new Wall()),
-		friends(ArrayList<User>()),
-		friendRequests(ArrayList<User>())
+		wall(new Wall())
 		{ this->wall->setUsername(username); };
 
 	User(string username_, string password_, string realName_, string city);
@@ -80,8 +78,8 @@ private:
 	string realName;
 	string city;
 	Wall* wall;
-	ArrayList<User*> friends;
-	ArrayList<User*> friendRequests;
+	ArrayList<User*> friends = ArrayList<User*>();
+	ArrayList<User*> friendRequests = ArrayList<User*>();
 
 };
 

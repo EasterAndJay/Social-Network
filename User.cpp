@@ -15,8 +15,6 @@ User::User(User const& user) {
 
 User::User(string username_, string password_, string realName_, string city_) {
 	this->wall = new Wall();
-	this->friends = ArrayList<User>();
-	this->friendRequests = ArrayList<User>();
 	this->username = username_;
 	this->wall->setUsername(username_);
 	this->password = password_;
@@ -149,11 +147,11 @@ string User::toString() {
 }
 
 //getters and setters for friends and friendRequests arrays
-ArrayList<User> User::getFriendRequests() const {
+ArrayList<User*> User::getFriendRequests() const {
 	return this->friendRequests;	
 }
 
-void User::setFriendRequests(ArrayList<User> friendRequests_){
+void User::setFriendRequests(ArrayList<User*> friendRequests_){
 	int i = 0;
 	for (User** iter = friendRequests_.begin(); iter != friendRequests_.end(); iter++) {
 		this->friendRequests.getList()[i] = *(iter);
@@ -161,12 +159,12 @@ void User::setFriendRequests(ArrayList<User> friendRequests_){
 	}
 }
 	
-ArrayList<User> User::getFriends() const {
+ArrayList<User*> User::getFriends() const {
 	return this->friends;
 }
 	
 	
-void User::setFriends(ArrayList<User> friends_){
+void User::setFriends(ArrayList<User*> friends_){
 	int i = 0;
 	for (User** iter = friends_.begin(); iter != friends_.end(); iter++) {
 		this->friends.getList()[i] = *(iter);
@@ -178,7 +176,7 @@ void User::setFriends(ArrayList<User> friends_){
 //general methods for friends and friend requests
 
 void User::sendFriendRequest(User* potentialFriend) {
-    if (potentialFriend->getFriendRequests().find(*this) == -1)
+    if (potentialFriend->getFriendRequests().find(this) == -1)
         potentialFriend->getFriendRequests().insert(0, this);
     else {
         cout << "Error: You have already sent this user a friend request. Now you just look desperate." << endl;

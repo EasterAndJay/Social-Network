@@ -28,9 +28,8 @@ ArrayList<User>* UserNetwork::getUsers() {
 int UserNetwork::findUser(string username_) {
 	//for(User* iter = this->users->begin(); iter != this->users->end(); iter++) {
 	for (int i = 0; i < this->users->getLength(); i++)
-	if (this->users->get(i)->getUsername() == username_)
+	if (this->users->get(i).getUsername() == username_)
 		return i;
-	}
 	return -1;
 }
 

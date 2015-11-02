@@ -11,6 +11,7 @@ public:
 	ArrayList(const ArrayList<T> & list);
 	~ArrayList();
 	ArrayList<T> & operator=(ArrayList<T>& copy);
+	
 
 	bool insert(int pos, const T & data);
 	//bool insert(int pos, T* data);
