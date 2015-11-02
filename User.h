@@ -58,11 +58,11 @@ public:
 	//void readUserFromString(string userString_);
 	
 	//getters and setters for friends and friendRequests arrays
-	ArrayList<User> getFriendRequests() const;
-	void setFriendRequests(ArrayList<User> friendRequests_);
+	ArrayList<User*> getFriendRequests() const;
+	void setFriendRequests(ArrayList<User*> friendRequests_);
 	
-	ArrayList<User> getFriends() const;
-	void setFriends(ArrayList<User> friends_);
+	ArrayList<User*> getFriends() const;
+	void setFriends(ArrayList<User*> friends_);
 	
 	//methods for Friends and Friend Requests
 	void deleteFriend(int index);
@@ -80,8 +80,8 @@ private:
 	string realName;
 	string city;
 	Wall* wall;
-	ArrayList<User> friends;
-	ArrayList<User> friendRequests;
+	ArrayList<User*> friends;
+	ArrayList<User*> friendRequests;
 
 };
 
