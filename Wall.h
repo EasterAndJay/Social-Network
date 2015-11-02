@@ -9,9 +9,11 @@ using namespace std;
 class Wall {
 
 public:
-	Wall() : wallPosts(new ArrayList<WallPost>), username(string()){};
+	Wall() : wallPosts(new ArrayList<WallPost>()), username(string()){};
 	Wall(const Wall& otherWall);
 	~Wall();
+
+	Wall& operator=(const Wall &rhs);
 
 	string getUsername() const;
 	void setUsername(string username_);
@@ -20,6 +22,7 @@ public:
 	void deletePost(int pos);
 	string toString();
 
+	void clearWall();
 	void readWallPostsFromString(string fullWallString);
 	bool isEmpty();
 	

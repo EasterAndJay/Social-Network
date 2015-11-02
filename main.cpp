@@ -1,31 +1,63 @@
 // Basic file for testing implementations
 
-#include "DoublyLinkedList.h"
-#include "WallPost.h"
+//#include "DoublyLinkedList.h"
+//#include "WallPost.h"
 #include "Wall.h"
-#include "User.h"
-#include "UserNetwork.h"
+//#include "User.h"
+//#include "UserNetwork.h"
+//#include "ArrayList.h"
 
 int main()
 { 
   
-  User* Ishi = new User("ishi123", "pass", "Ishi von Meier", "Sebastopol");
+
+  /*ArrayList<int> ints = ArrayList<int>();
+
+  for (int i = 0; i < 1000; i++) {
+    ints.insert(i, i);
+    
+  }
+
+  for (int i = 0; i < 500; i++) {
+    ints.remove(0);
+    
+  }
+
+  for (int i = 0; i < 200; i++) {
+    ints.set(i, i);
+    
+  }
+  for (int i = 0; i < 210; i++) {
+    cout << ints.get(i) << " " << endl;
+    
+  }*/
+
+  //Wall myWall = Wall();
+
+
+  //myWall.addPost(myPost);
+  //cout << ints << endl;
+
+
+
+  //cout << ints << endl;
+  //User* Ishi = new User("ishi123", "pass", "Ishi von Meier", "Sebastopol");
   //cout << Ishi->toString() << endl;
   
   
-  ArrayList<User*> myFriends = ArrayList<User*>();
-  myFriends.insert(0, Ishi);
+  // ArrayList<User*> myFriends = ArrayList<User*>();
+  // myFriends.insert(0, Ishi);
   
-  cout << "List so far:" << endl;
+  // cout << "List so far:" << endl;
   
-  User* friendData = myFriends.get(0);
+  // User* friendData = myFriends.get(0);
   
-  cout << friendData->toString() << endl;
-  
-  
+  // cout << friendData->toString() << endl;
   
   
-  /*
+  
+  
+  
   WallPost myPost = WallPost("Hi this is my first post", "Jonathan Easterman");
   cout << myPost << endl;
 
@@ -69,7 +101,7 @@ int main()
   myOtherWall.readWallPostsFromString(myWallStr);
 
   cout << myOtherWall.toString() << endl;
-
+/*
   User Ish = User("feshies", "pass123", "Ishi von Meier", "Goleta, CA");
   Ish.addPost(otherPost);
   User Jon = User("jonny", "pass234", "Jonathan Beasterman", "Queefville, CA");

@@ -9,9 +9,14 @@ Wall::Wall(const Wall& otherWall) {
 	this->wallPosts = new ArrayList<WallPost>(*(otherWall.wallPosts));
 }
 
-// Destructor deletes data allocated for wallPosts pointer
 Wall::~Wall() {
-	delete this->wallPosts;
+
+}
+
+Wall& Wall::operator=(const Wall &rhs)
+{
+	username = rhs.getUsername();
+	wallPosts = rhs.wallPosts;
 }
 
 string Wall::getUsername() const {
@@ -36,12 +41,12 @@ void Wall::deletePost(int pos) {
 // TEST
 string Wall::toString() {
 	string endString = string();
-	ArrayList<WallPost>* myWall = this->wallPosts;
-	
-	for (WallPost* iter = myWall->begin(); iter != myWall->end(); iter++) {
+
+	for (int i = 0; i < this->wallPosts->getLength(); i++) {
+		
 		// data refers to WallPost
 		// call toString method of each WallPost
-		endString.append(iter->toString());
+		endString.append(this->wallPosts->get(i).toString());
 		//add a separator
 		endString.append("\n~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n");
 		//Iterate through all WallPosts

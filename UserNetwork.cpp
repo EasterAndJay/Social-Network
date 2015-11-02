@@ -26,9 +26,10 @@ ArrayList<User>* UserNetwork::getUsers() {
 // Returns index of user if found.
 // If not found, returns -1
 int UserNetwork::findUser(string username_) {
-	for(User* iter = this->users->begin(); iter != this->users->end(); iter++) {
-	if (iter->getUsername() == username_)
-		return iter - this->users->begin();
+	//for(User* iter = this->users->begin(); iter != this->users->end(); iter++) {
+	for (int i = 0; i < this->users->getLength(); i++)
+	if (this->users->get(i)->getUsername() == username_)
+		return i;
 	}
 	return -1;
 }

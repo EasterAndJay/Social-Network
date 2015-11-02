@@ -10,8 +10,8 @@ template <class T>
 class AbstractList {
 public:
 	virtual ~AbstractList() {}
-	virtual void insert(int pos, const T & item)=0;
-	virtual void remove(int pos)=0;
+	virtual bool insert(int pos, const T & item)=0;
+	virtual bool remove(int pos)=0;
 	virtual void set(int pos, const T & item)=0;
 	virtual T const & get (int pos)const=0;
 
