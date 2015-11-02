@@ -1,11 +1,11 @@
 // Basic file for testing implementations
 
-//#include "DoublyLinkedList.h"
-//#include "WallPost.h"
+#include "DoublyLinkedList.h"
+#include "WallPost.h"
 #include "Wall.h"
-//#include "User.h"
-//#include "UserNetwork.h"
-//#include "ArrayList.h"
+#include "User.h"
+#include "UserNetwork.h"
+#include "ArrayList.h"
 
 int main()
 { 
@@ -57,7 +57,7 @@ int main()
   
   
   
-  
+ 
   WallPost myPost = WallPost("Hi this is my first post", "Jonathan Easterman");
 //   cout << myPost << endl;
 
@@ -101,7 +101,7 @@ int main()
   // myOtherWall.readWallPostsFromString(myWallStr);
 
   // cout << myOtherWall.toString() << endl;
-
+/*
     Wall myWall = Wall();
     myWall.addPost(otherPost);
     myWall.addPost(wallPost);
@@ -114,15 +114,69 @@ int main()
     cout << "Above is myWall. should have 1 post" << endl;
     cout << newWall.toString() << endl;
     cout << "Above is newWall. Should have 2 posts" << endl;
+*/
+
+User* Marty = new User("cheech", "qwerty", "Sweet Balls", "Goleter");
+User* Queef = new User("bob", "badpass", "Bob Queefs", "SB");
+Queef->addPost(wallPost);
+User* Ish = new User("feshies", "pass123", "Ishi von Meier", "Goleta, CA");
+Ish->addPost(otherPost);
+User* Jon = new User("jonny", "pass234", "Jonathan Beasterman", "Queefville, CA");
+Jon->addPost(myPost);
+
+
+cout << "sending one friend request..." << endl;
+Jon->sendFriendRequest(Ish);
+cout << "Trying to send a duplicate friend request..." << endl;
+Jon->sendFriendRequest(Ish);
+cout << "Queef sending ish a friend request....." <<endl;
+Queef->sendFriendRequest(Ish);
+cout << "Marty sending ish a friend request....." <<endl;
+Marty->sendFriendRequest(Ish);
+
+cout << "Ishi accepting all 3 friend requests...." << endl;
+Ish->acceptFriendRequest(0);
+Ish->acceptFriendRequest(0);
+Ish->acceptFriendRequest(0);
+cout << "These are Ishi's friends: " << endl;
+cout << Ish->getFriends().get(0)->getUsername() << endl;
+cout << Ish->getFriends().get(1)->getUsername() << endl;
+cout << Ish->getFriends().get(2)->getUsername() << endl;
+
+cout << "next delete one" << endl;
+
+Ish->deleteFriend(0);
+cout << "now print again" << endl;
+cout << Ish->getFriends().get(0)->getUsername() << endl;
+cout << Ish->getFriends().get(1)->getUsername() << endl;
+
+cout << "Trying toString...." << endl;
+cout << Ish->toString() << endl;
+
+
+/*.get(0)->getUsername() << endl;
+cout << Ish->getFriendRequests()
+cout << Ish->getFriendRequests().get(1)->getUsername() << endl;
+
+
+cout << "deleting friend request at index 1:" << endl;
+Ish->deleteFriendRequest(1);
+
+cout << "These are Ishi's friend requests now: " << endl;
+cout << Ish->getFriendRequests().get(0)->getUsername() << endl;
+
+try {
+  cout << Ish->getFriendRequests().get(1)->getUsername() << endl;
+} catch (int& e) {
+  cout << "No request at index 1" << endl;
+}*/
+//cout << Ish->getFriendRequests().get(1)->getUsername() << endl;
 
 
 
 
-  // User Ish = User("feshies", "pass123", "Ishi von Meier", "Goleta, CA");
-  // Ish.addPost(otherPost);
-  // User Jon = User("jonny", "pass234", "Jonathan Beasterman", "Queefville, CA");
-  // Jon.addPost(myPost);
-  // cout << Ish.toString() << endl;
+
+
   // cout << "\n\n^%^%^&%^&%^&------DESIRED CONTENT ABOVE%$^$%^$%^%$\n\n";
   // string ishUserString = Ish.toString();
   // //Ish.readUserFromString(ishUserString);

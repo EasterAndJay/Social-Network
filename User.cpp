@@ -82,6 +82,7 @@ User& User::operator=(User copy) {
 	this->setFriends(copy.getFriends());
 }
 
+//should probaby get rid of these if we can
 User* User::getFriend(int index) {
 	return this->friends.getList()[index];
 }
@@ -145,15 +146,21 @@ string User::toString() {
 	string endString = "Username: " + this->getUsername() + "\n";
 	endString += "Password: " + this->password + "\n";
 	endString += "Real Name: " + this->getRealName() + "\n";
-	endString += "City: " + this->getCity() + "\n\n";
+	endString += "City: " + this->getCity() + "\n";
+	endString += "Friends: ";
+	
+	User** iter = getFriends().begin();
+	for (; iter != getFriends().end()-1; iter++) {
+		endString += (*iter)->getUsername() + ", ";
+	}
+	endString += (*iter)->getUsername() += "\n\n"; //last username doesn't want a comma
 	endString += "Wall: \n\n" + this->wall->toString() + "\n";
 	endString += "________________________________\n";
-
 	return endString;
 }
 
 //getters and setters for friends and friendRequests arrays
-ArrayList<User*> User::getFriendRequests() const {
+ArrayList<User*> User::getFriendRequests() const{
 	return this->friendRequests;	
 }
 
@@ -164,8 +171,8 @@ void User::setFriendRequests(ArrayList<User*> friendRequests_){
 		i++;
 	}
 }
-	
-ArrayList<User*> User::getFriends() const {
+	//made getfriends and get friendrequests not consts, can change back if u want pussy
+ArrayList<User*> User::getFriends() const{
 	return this->friends;
 }
 	
@@ -182,12 +189,19 @@ void User::setFriends(ArrayList<User*> friends_){
 //general methods for friends and friend requests
 
 void User::sendFriendRequest(User* potentialFriend) {
-    if (potentialFriend->getFriendRequests().find(this) == -1)
-        potentialFriend->getFriendRequests().insert(0, this);
+    if (potentialFriend->getFriendRequests().find(this) == -1) {
+        potentialFriend->addFriendRequest(this);
+    }
     else {
-        cout << "Error: You have already sent this user a friend request. Now you just look desperate." << endl;
+    	cout << "Error: You have already sent this user a friend request. Now you just look desperate." << endl;
     }
 }
+
+//helper for sendFriendRequest
+void User::addFriendRequest(User* newFriendRequest) {
+	this->friendRequests.insert(0, newFriendRequest);
+}
+
 
 void User::acceptFriendRequest(int index){
     //remove the friend request which makes sure that it infact is in the list, if so
@@ -195,15 +209,15 @@ void User::acceptFriendRequest(int index){
 
 	try { 
 		//if this friend request actually exists
-		User* friendToAccept = this->getFriendRequest(index);
+		User* friendToAccept = this->getFriendRequests().get(index);
     	//remove the request
-    	this->getFriendRequests().remove(index);
+    	this->friendRequests.remove(index);
         //add the friend to this user
-        this->getFriends().insert(0, friendToAccept);
+        this->addFriend(friendToAccept);
         //add this user to the new friend's friend list
-        friendToAccept->getFriends().insert(0, this);
+        friendToAccept->addFriend(this);
         
-        cout << "Friend added successfully" << endl;
+        cout << friendToAccept->getUsername() <<" is now your friend." << endl;
     } catch (int& e) {
         cout << "Error: You dont have a request at this index." << endl;
     }
@@ -215,9 +229,15 @@ void User::acceptFriendRequest(int index){
 	}*/
 }
 
+//helper for accept friend request
+void User::addFriend(User* newFriend) {
+	this->friends.insert(0, newFriend);
+}
+
+
 void User::deleteFriendRequest(int index){
-    if (this->getFriendRequests().remove(index)){
-        cout << "Friend removed successfully" << endl;
+    if (this->friendRequests.remove(index)){
+        cout << "Friend request removed successfully" << endl;
         //could add the friends name to cout
     }
     
@@ -231,7 +251,7 @@ void User::deleteFriendRequest(int index){
 }
 
 void User::deleteFriend(int index){
-    if (this->getFriends().remove(index)) {
+    if (this->friends.remove(index)) {
         cout << "Friend removed successfully" << endl;
         //could add the deleted friends name to cout
     }
