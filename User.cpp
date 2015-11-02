@@ -207,7 +207,7 @@ void User::acceptFriendRequest(int index){
 	}*/
 }
 
-void User::deleteFriendRequest(User* friendToDelete){
+void User::deleteFriendRequest(int index){
     if (this->getFriendRequests()->remove(index)){
         cout << "Friend removed successfully" << endl
         //could add the firends name to cout
