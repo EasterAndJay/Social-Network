@@ -22,6 +22,8 @@ public:
 	bool deletePost(int pos);
 	string toString();
 
+	ArrayList<WallPost>* getWallPosts() {return wallPosts;};
+
 	void clearWall();
 	void readWallPostsFromString(string fullWallString);
 	bool isEmpty();

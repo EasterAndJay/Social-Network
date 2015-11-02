@@ -3,16 +3,18 @@
 #include <string>
 #include <vector>
 
-
+// Copy CTOR
 Wall::Wall(const Wall& otherWall) {
 	this->username = otherWall.getUsername();
 	this->wallPosts = new ArrayList<WallPost>(*(otherWall.wallPosts));
 }
 
+// DTOR
 Wall::~Wall() {
-
+	delete wallPosts;
 }
 
+// Assignment operator
 Wall& Wall::operator=(const Wall &rhs)
 {
 	username = rhs.getUsername();
@@ -21,6 +23,7 @@ Wall& Wall::operator=(const Wall &rhs)
 	return *this;
 }
 
+// Getter and Setter
 string Wall::getUsername() const {
 	return this->username;
 }
@@ -29,9 +32,11 @@ void Wall::setUsername(string username_) {
 	this->username = username_;
 }
 
-// Uses function from ArrayList template
+// Add and Delete Post
+// Uses ArrayList functions
+
 bool Wall::addPost(WallPost post) {
-	return this->wallPosts->insert(0,post); // Inserts post at front of wall
+	return this->wallPosts->insert(0,post);
 }
 
 bool Wall::deletePost(int pos) {
@@ -40,7 +45,6 @@ bool Wall::deletePost(int pos) {
 
 
 // Writes out all WallPosts on the wall to one string
-// TEST
 string Wall::toString() {
 	string endString = string();
 
@@ -57,6 +61,8 @@ string Wall::toString() {
 	return endString;
 }
 
+// Reads a Wall from a formatted string
+// Makes this wall = read string
 void Wall::readWallPostsFromString (const string fullWallString_) {
 	delete this->wallPosts;
 	wallPosts = new ArrayList<WallPost>;
@@ -90,6 +96,7 @@ void Wall::readWallPostsFromString (const string fullWallString_) {
 	}
 }
 
+// Checks if wall is empty
 bool Wall::isEmpty() {
 	if (this->wallPosts->getLength() == 0) {
 		return true;
@@ -98,13 +105,3 @@ bool Wall::isEmpty() {
 		return false;
 	}
 }
-
-
-
-
-
-
-
-
-
-

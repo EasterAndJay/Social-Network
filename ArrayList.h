@@ -14,22 +14,21 @@ public:
 
 
 	bool insert(int pos, const T & data);
-	//bool insert(int pos, T* data);
 	bool remove(int pos);
 	void set(int pos, const T & data);
 	T const & get(int pos) const;
-
-	T & operator[](int pos);
-	const T & operator[](int pos) const;
-
 
 	void deleteByValue(T const & data);
 	int find(T const & data);
 
 	int getLength() const { return length; }
 	void setLength(int i) { length = i; }
+
 	int getCapacity() const { return capacity; }
 	T* getList() const { return list; }
+
+	template <class A>
+	friend std::ostream & operator<<(std::ostream & os, const ArrayList<A> & list);
 
 	typedef T * iterator;
 	typedef const T * const_iterator;
@@ -49,21 +48,13 @@ public:
 	const_iterator end() const {
 		return &(this->list[length]);
 	}
-
-	template <class A>
-	friend std::ostream & operator<<(std::ostream & os, const ArrayList<A> & list);
+	
 private:
 	T* list;
 	int length;
 	int capacity;
 	void resize();
 };
-
-/*~User() {
-	//delete friends;
-	delete friends->getList();
-
-}*/
 
 template <class T>
 ArrayList<T>::ArrayList(int initSize) {
@@ -89,7 +80,7 @@ ArrayList<T>::~ArrayList() {
 }
 
 
-template <class T>// May not be correct!!
+template <class T>
 ArrayList<T>& ArrayList<T>::operator=(ArrayList<T>& copy) {
 	delete[] list;
 	length = copy.length;
@@ -103,52 +94,87 @@ ArrayList<T>& ArrayList<T>::operator=(ArrayList<T>& copy) {
 
 template <class T>
 bool ArrayList<T>::insert(int pos, const T & data) {
+	// If index out of bounds, return false
 	if(pos > length || pos < 0)
 		return false;
 
-	if (this->length == this->capacity) // If at full capacity
-		resize(); // double size
-
 	T newItem = T(data);
-	if(pos == length){ // If inserting at end
+
+	// If at full capacity, double size
+	if (this->length == this->capacity) 
+		resize();
+
+	// If inserting at end, simple assignment
+	// Also could be case with empty list
+	if(pos == length){
 		this->list[pos] = newItem;
 	}
 
-	else { // Else inserting at beginning or middle
-			for (int i = length - 1; i >= pos; i--) {
-					this->list[i+1] = this->list[i]; // Move everything over 1 space
-			}
-		this->list[pos] = newItem; // make pos = data
+	// Else inserting at beginning or middle
+	else {
+		// Shift everything 1 space to the right
+		for (int i = length - 1; i >= pos; i--) {
+				this->list[i+1] = this->list[i];
+		}
+		// Assign new value	
+		this->list[pos] = newItem;
 	}
-	this->length++; // increment length
-	//cout << data.toString() << endl;
+	// Increment length for either case
+	this->length++;
 	return true;
 }
 
 template <class T>
 bool ArrayList<T>::remove(int pos) {
+	// If index out of bounds, return false
 	if (pos > length - 1 || pos < 0)
 		return false;
 
-	if(pos == (getLength() - 1)) { // Removing last element
+	// If removing last element, just decrement length
+	if(pos == (getLength() - 1)) {
 		length--;
 		return true;
 	}
-	else { // Removing first or middle element
-		for (int i = pos + 1; i < length; i++) { //shift all elements to the left
+	// Else removing first or middle element
+	else {
+		// Shift all elements after deleted element 
+		// to the left
+		for (int i = pos + 1; i < length; i++) {
 			this->list[i-1] = this->list[i];
 		}
 	}
-
+	// Decrement length in both cases
 	this->length--;
 	return true;
 }
 
 template <class T>
+void ArrayList<T>::set(int pos, const T & data) {
+	// If index out of bounds, do nothing
+	if (pos > length - 1 || pos < 0)
+		return;
+	// Else assign element to new value
+	this->list[pos] = data;
+}
+
+// Return constant reference to element
+// at index pos
+template <class T>
+T const & ArrayList<T>::get(int pos) const {
+	if (pos > length - 1 || pos < 0)
+		throw -1;
+	return this->list[pos];
+}
+
+// Finds index of element based on value
+// Then removes
+template <class T>
 void ArrayList<T>::deleteByValue(T const & data) {
 	this->remove(this->find(data));
 }
 
+// Finds index of element based on value
+// return -1 if not found
 template <class T>
 int ArrayList<T>::find(T const & data){
 	for(T* iter = this->begin(); iter != this->end(); iter++) {
@@ -159,31 +185,7 @@ int ArrayList<T>::find(T const & data){
 	return -1;
 }
 
-template <class T>
-void ArrayList<T>::set(int pos, const T & data) {
-	if (pos > length - 1 || pos < 0)
-		return;
-	this->list[pos] = data;
-}
-
-template <class T>
-T const & ArrayList<T>::get(int pos) const {
-	if (pos > length - 1 || pos < 0)
-		throw -1;
-	return this->list[pos];
-}
-
-/*template <class T>
-T & ArrayList<T>::operator[](int pos) {
-	this->legalPosition(pos, this->getLength());
-	return this->list[pos];
-}
-
-template <class T>
-const T & ArrayList<T>::operator[](int pos) const {
-	return get(pos);
-}*/
-
+// << operator for cout
 template <class A>
 std::ostream & operator<<(std::ostream & os, const ArrayList<A> & list) {
 	for(int i = 0; i < list.length; i++) {
@@ -192,6 +194,8 @@ std::ostream & operator<<(std::ostream & os, const ArrayList<A> & list) {
 	return os;
 }
 
+
+// Resize function for growing array
 template <class T>
 void ArrayList<T>::resize() {
 	int newCapacity = (this->capacity + 1) * 2;
