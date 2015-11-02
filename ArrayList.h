@@ -11,7 +11,7 @@ public:
 	ArrayList(const ArrayList<T> & list);
 	~ArrayList();
 	ArrayList<T> & operator=(ArrayList<T>& copy);
-	
+
 
 	bool insert(int pos, const T & data);
 	//bool insert(int pos, T* data);
@@ -121,6 +121,7 @@ bool ArrayList<T>::insert(int pos, const T & data) {
 		this->list[pos] = newItem; // make pos = data
 	}
 	this->length++; // increment length
+	//cout << data.toString() << endl;
 	return true;
 }
 

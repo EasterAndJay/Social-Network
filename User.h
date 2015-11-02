@@ -64,9 +64,13 @@ public:
 	
 	//methods for Friends and Friend Requests
 	void deleteFriend(int index);
-	
+
 	void sendFriendRequest(User* potentialFriend);   //not sure whether to use pointer or not for these
+	void addFriendRequest(User* newFriend);
+
 	void acceptFriendRequest(int index); //could call a helper addfriend
+	void addFriend(User* newFriend);
+
 	void deleteFriendRequest(int index);
 	
 
