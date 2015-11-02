@@ -183,13 +183,21 @@ void User::sendFriendRequest(User* potentialFriend) {  //not sure whether to use
 
 void User::acceptFriendRequest(int index){
     //remove the friend request which makes sure that it infact is in the list, if so
-    if (this->getFriendRequests()->remove(index)) {
-        //add the friend
+    //get the friend so we 
+
+	try { 
+		//if this friend request actually exists
+		User* friendToAccept = this->getFriendRequests()->get(index);
+    	//remove the request
+    	this->getFriendRequests()->remove(index);
+        //add the friend to this user
         this->getFriends()->insert(0, friendToAccept);
+        //add this user to the new friend's friend list
+        friendToAccept->getFriends()->insert(0, this);
+        
         cout << "Friend added successfully" << endl;
-    }
-    else {
-        cout << "Error: No friend request at this index." << endl;
+    } catch (int& e) {
+        cout << "Error: You dont have a request at this index." << endl;
     }
     /*
     if (this->getFriendRequests().find(friendToAccept) != -1) {
