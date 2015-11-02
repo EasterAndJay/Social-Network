@@ -4,7 +4,7 @@
 //#include "WallPost.h"
 #include "Wall.h"
 #include "User.h"
-//#include "UserNetwork.h"
+#include "UserNetwork.h"
 //#include "ArrayList.h"
 
 int main()
@@ -58,7 +58,7 @@ int main()
   
   
   
-//   WallPost myPost = WallPost("Hi this is my first post", "Jonathan Easterman");
+  WallPost myPost = WallPost("Hi this is my first post", "Jonathan Easterman");
 //   cout << myPost << endl;
 
  WallPost otherPost = WallPost();
@@ -127,9 +127,12 @@ int main()
   string ishUserString = Ish.toString();
   //Ish.readUserFromString(ishUserString);
 
+  Ish.sendFriendRequest(&Jon);
+  Jon.acceptFriendRequest(0);
+
   cout << Ish.toString() << endl;
 
-  /*
+  
   UserNetwork myNetwork = UserNetwork();
   myNetwork.addUser(Ish);
   cout << "trying to add duplicate user..." << endl;
@@ -138,7 +141,7 @@ int main()
   myNetwork.addUser(Jon);
   cout<< "trying to delete first User....." <<endl;
   myNetwork.deleteUser(Ish);
-
+/*
   cout << "trying toString(): ....." << endl;
   string stringToRead = myNetwork.toString();
   cout << myNetwork.toString() << endl;

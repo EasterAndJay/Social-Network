@@ -13,6 +13,7 @@ public:
 	ArrayList<T> & operator=(ArrayList<T> copy);
 
 	bool insert(int pos, const T & data);
+	bool insert(int pos, T* data);
 	bool remove(int pos);
 	void set(int pos, const T & data);
 	T const & get(int pos) const;
@@ -21,8 +22,9 @@ public:
 	const T* & operator[](int pos) const;
 
 
-	//void deleteByValue(T const & data);
-	//int find(T const & data);
+	void deleteByValue(T const & data);
+	int find(T const & data);
+
 	int getLength() const { return length; }
 	void setLength(int i) { length = i; }
 	int getCapacity() const { return capacity; }
@@ -129,6 +131,28 @@ bool ArrayList<T>::insert(int pos, const T & data) {
 					this->list[i+1] = this->list[i]; // Move everything over 1 space
 			}
 		this->list[pos] = new T(data); // make pos = data
+	}
+	this->length++; // increment length
+	return true;
+}
+
+template <class T>
+bool ArrayList<T>::insert(int pos, T* data) {
+	if(pos > length || pos < 0)
+		return false;
+
+	if (this->length == this->capacity) // If at full capacity
+		resize(); // double size
+
+	if(pos == length){ // If inserting at end
+		this->list[pos] = data;
+	}
+
+	else { // Else inserting at beginning or middle
+			for (int i = length - 1; i >= pos; i--) {
+					this->list[i+1] = this->list[i]; // Move everything over 1 space
+			}
+		this->list[pos] = data; // make pos = data
 	}
 	this->length++; // increment length
 	return true;
