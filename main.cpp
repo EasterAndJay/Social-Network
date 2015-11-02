@@ -174,13 +174,15 @@ try {
 
 
 
-
-
+ /*
+  cout << "trying read from string......." << endl;
 
   // cout << "\n\n^%^%^&%^&%^&------DESIRED CONTENT ABOVE%$^$%^$%^%$\n\n";
-  // string ishUserString = Ish.toString();
-  // //Ish.readUserFromString(ishUserString);
-
+  string ishUserString = Ish->toString();
+  User copyIsh = User(ishUserString);
+  cout << "now printing out what our read in and back out gives us:....."   <<endl;
+  cout << copyIsh.toString() << endl;
+*/
   // Ish.sendFriendRequest(&Jon);
   // Jon.acceptFriendRequest(0);
 

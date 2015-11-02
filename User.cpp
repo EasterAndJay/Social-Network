@@ -1,6 +1,7 @@
 #include "User.h"
 #include <stdio.h>
-
+#include <string.h>
+#include <sstream>
 
 User::User(User const& user) { 
 	this->wall = new Wall(*(user.getWall()));
@@ -28,9 +29,10 @@ User::User(const string userString_) {
 	this->wall = new Wall();
 	
 	std::string userString = userString_;
+	std::string friendString;
 	std::string nextUserDelimiter = "\n________________________________\n";
 	//initialize some position markers and strings to hold results
-	size_t usernameEndPos, passwordEndPos, realNameEndPos, cityEndPos, wallEndPos;
+	size_t usernameEndPos, passwordEndPos, realNameEndPos, cityEndPos, wallEndPos, friendsEndPos;
 	//std::string username, password, realName, city, ;
 
 	//pull out username
@@ -50,10 +52,19 @@ User::User(const string userString_) {
 	userString.erase(0, realNameEndPos + 1);
 
 	//city
-	cityEndPos = userString.find("\n\nWall: \n\n");
-	
+	cityEndPos = userString.find("\n");
 	this->city = userString.substr(6, cityEndPos - 6);
-	userString.erase(0, cityEndPos + 10);
+	userString.erase(0, cityEndPos + 1);
+	cout << "got past city in string constructor...."  << endl;
+	
+	//friends
+	friendsEndPos = userString.find("\n\nWall: \n\n");
+	friendString = userString.substr(9, friendsEndPos - 9);
+	//now we split friendstring up by the commas to get the usernames out
+	
+
+
+	userString.erase(0, friendsEndPos + 10);
 
 	//wall
 	//now all that is left in userString is wall since we erased as we parsed the rest
@@ -64,6 +75,21 @@ User::User(const string userString_) {
 	this->wall->readWallPostsFromString(userString);
 
 }
+/*
+void User::loadFriendsFromString(string friendString_, const UserNetwork& MyNetwork){
+	char* buffer;
+
+	buffer = strtok (friendString_, ", ");
+
+	while (buffer) {
+    	//this->addFriend MyNetwork          // process token
+    	buffer = strtok (NULL, ",");
+    	while (buffer && *buffer == '\040')
+        buffer++;
+	}
+
+}*/
+
 
 User::~User() {
 	delete wall;
@@ -149,7 +175,14 @@ string User::toString() {
 		endString += (*iter)->getUsername() + ", ";
 	}
 
+	endString += (*iter)->getUsername() += "\n"; //last username doesn't want a comma
+	/*
+	endString += "Friend Requests: ";
+	for (iter = getFriendRequests().begin(); iter != getFriendRequests().end()-1; iter++) {
+		endString += (*iter)->getUsername() + ", ";
+	}
 	endString += (*iter)->getUsername() += "\n\n"; //last username doesn't want a comma
+	*/
 	endString += "Wall: \n\n" + this->wall->toString() + "\n";
 	endString += "________________________________\n";
 	return endString;

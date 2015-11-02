@@ -19,7 +19,7 @@ UserNetwork& UserNetwork::operator=(UserNetwork copy) {
 	users = new ArrayList<User>(*(copy.users));
 }
 
-ArrayList<User>* UserNetwork::getUsers() {
+ArrayList<User>* UserNetwork::getUsers() const{
 	return this->users;
 }
 
