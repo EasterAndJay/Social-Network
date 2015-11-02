@@ -15,8 +15,8 @@ UserNetwork::~UserNetwork () {
 }
 
 UserNetwork& UserNetwork::operator=(UserNetwork copy) {
-	std::swap(*this,copy);
-	return *this;
+	delete users;
+	users = new ArrayList<User>(*(copy.users));
 }
 
 ArrayList<User>* UserNetwork::getUsers() {
@@ -48,14 +48,8 @@ void UserNetwork::addUser(const User& user) { //make sure no duplicates
 		this->users->insert(0,user);
 }
 
-void UserNetwork::deleteUser(const User& user){ //make sure user in fact exists before deleting
-	if (userAlreadyExists(user.getUsername())) {
-		this->users->deleteByValue(user);
-		printf("Deleted successfully\n");
-	} else {
-		printf("No matching user found to delete\n");
-	}
-
+void UserNetwork::deleteUser(int i){ //make sure user in fact exists before deleting
+		this->users->remove(i);
 }
 
 
@@ -65,7 +59,7 @@ string UserNetwork::toString() {
 	//Node<User>* currentUser = this->users->getHead();
 	//while (currentUser) {
 	for(User* currentUser = this->users->begin(); currentUser != this->users->end(); currentUser++) {
-		cout << currentUser << endl;
+		//cout << currentUser << endl;
 		endString.append(currentUser->toString());
 		//currentUser = currentUser->next;
 	}

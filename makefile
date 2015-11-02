@@ -3,7 +3,7 @@
 CC = clang++
 
 CFLAGS =  -Wall -g -std=c++11
-OBJECTS = main.o WallPost.o Wall.o User.o UserNetwork.o
+OBJECTS = program.o WallPost.o Wall.o User.o UserNetwork.o UI.o
 TESTOBJECTS = testList.o Wall.o WallPost.o
 TARGET = run
 LIST = testList
@@ -38,6 +38,10 @@ User.o: User.cpp
 
 UserNetwork.o: UserNetwork.cpp
 	$(CC) $(CFLAGS) -c UserNetwork.cpp
+
+UI.o: UI.cpp
+	$(CC) $(CFLAGS) -c UI.cpp
+		
 program.o: program.cpp
 	$(CC) $(CFLAGS) -c program.cpp
 
