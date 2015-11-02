@@ -101,28 +101,6 @@ User::User(const string userString_, UserNetwork* myNetwork) {
 	this->wall->readWallPostsFromString(userString);
 	
 }
-/*
-//loop through full posts (looking for our big delimiter)
-	while ((postEndPos = fullWallString.find(nextPostDelimiter)) != std::string::npos) {
-		post = fullWallString.substr(0, postEndPos);
-			//now we have a full post, time to grab our date string from between "On" and "\n"
-			timeEndPos = post.find("\n");
-			time = post.substr(3, timeEndPos - 3);
-			post.erase(0, timeEndPos + 1); //add 1 to remove our "\n" delimiter too
-			//now we pull the author
-			authorEndPos = post.find(" wrote:\n");
-			author = post.substr(0, authorEndPos);
-			post.erase(0, authorEndPos + 8); // add 8 because " wrote:\n" is 8 characters long
-			// content is just what is left over in post now that we've stripped the rest
-			content = post;
-			
-			addPost(WallPost(content, author, time));
-			
-		fullWallString.erase(0, postEndPos + nextPostDelimiter.length());
-	}
-*/
-
-
 
 
 
@@ -198,7 +176,6 @@ void User::deletePost(int pos) {
 }
 
 
-//TODO: Print friends
 string User::toString() {
 	string endString = "Username: " + this->getUsername() + "\n";
 	endString += "Password: " + this->password + "\n";
@@ -211,6 +188,10 @@ string User::toString() {
 	endString += "________________________________\n";
 	return endString;
 }
+
+//
+/* Helpers for printing friends/requests*/
+//
 
 string User::friendsToString() {
 	string endString = "";
@@ -231,6 +212,7 @@ string User::friendRequestsToString() {
 	}
 	return endString;
 }
+
 //
 /* Getters and setters for friends and friendRequests arrays*/
 //
@@ -261,7 +243,7 @@ void User::setFriends(ArrayList<User*> friends_){
 }
 
 //
-/* General methods for friends and friend requests */
+/* General methods for friends and friend requests*/
 //
 
 void User::sendFriendRequest(User* potentialFriend) {
@@ -319,6 +301,7 @@ void User::deleteFriendRequest(int index){
 //also delete this from the other persons friend list
 void User::deleteFriend(int index){
     if (this->friends.remove(index)) {
+    	
         cout << "Friend removed successfully" << endl;
     }
     else {
