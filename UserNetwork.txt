@@ -1,29 +1,50 @@
-Username: asd
-Password: asd
-Real Name: ad
-City: as
+Username: jdogg5566
+Password: a
+Real Name: Jonathan
+City: Easterman
 Friends: 
+Friend Requests: 
+
+Wall: 
+
+On iend Requests: 
+Wall: 
+
+On 02-11-2015 03:01:16
+Jonathan wrote:
+My First Wall Post woohoo!!
 Friend Requests: 
 Wall: 
 
+On 02-11-2015 03:01:16
+Jonathan wrote:
+My First Wall Post woohoo!!
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+On sts: 
+Wall: 
+
+On iend Requests: 
+Wall: 
+
+On 02-11-2015 03:02:56
+Jonathan wrote:
+Other Wall Post
+Friend Requests: 
+Wall: 
+
+On 02-11-2015 03:02:56
+Jonathan wrote:
+Other Wall Post
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 ________________________________
-Username: aaaaaa
+Username: aaaa
 Password: a
 Real Name: a
 City: a
 Friends: 
 Friend Requests: 
-Wall: 
 
-
-________________________________
-Username: aaa
-Password: a
-Real Name: a
-City: a
-Friends: 
-Friend Requests: 
 Wall: 
 
 
@@ -34,53 +55,41 @@ Real Name: a
 City: a
 Friends: 
 Friend Requests: 
+
 Wall: 
 
 
 ________________________________
-Username: aaaa
+Username: aaa
 Password: a
 Real Name: a
 City: a
 Friends: 
 Friend Requests: 
+
 Wall: 
 
 
 ________________________________
-Username: jdogg5566
+Username: aaaaaa
 Password: a
-Real Name: Jonathan
-City: Easterman
+Real Name: a
+City: a
 Friends: 
 Friend Requests: 
+
 Wall: 
 
-On iend Requests: 
-Wall: 
 
-On 02-11-2015 03:02:56
-Jonathan wrote:
-Other Wall Post
+________________________________
+Username: asd
+Password: asd
+Real Name: ad
+City: as
+Friends: 
 Friend Requests: 
+
 Wall: 
 
-On 02-11-2015 03:02:56
-Jonathan wrote:
-Other Wall Post
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-On iend Requests: 
-Wall: 
-
-On 02-11-2015 03:01:16
-Jonathan wrote:
-My First Wall Post woohoo!!
-Friend Requests: 
-Wall: 
-
-On 02-11-2015 03:01:16
-Jonathan wrote:
-My First Wall Post woohoo!!
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 ________________________________

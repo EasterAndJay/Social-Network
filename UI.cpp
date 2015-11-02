@@ -23,6 +23,7 @@ void UI::run() {
 }
 
 void UI::mainMenu() {
+
 	cout << "Type 'a' to create a new user\n"
 			"Type 'b' to Log in\n"
 			"Type 'c' to quit" << endl;
