@@ -1,7 +1,8 @@
 #include "User.h"
 #include <stdio.h>
-#include <string.h>
-#include <sstream>
+#include <string>
+
+
 
 User::User(User const& user) { 
 	this->wall = new Wall(*(user.getWall()));
@@ -24,15 +25,15 @@ User::User(string username_, string password_, string realName_, string city_) {
 }
 
 //TODO: Get friends from user String
-User::User(const string userString_) {
+User::User(const string userString_, UserNetwork* myNetwork) {
 
 	this->wall = new Wall();
 	
 	std::string userString = userString_;
-	std::string friendString;
+	std::string friendString, singleUsername;
 	std::string nextUserDelimiter = "\n________________________________\n";
 	//initialize some position markers and strings to hold results
-	size_t usernameEndPos, passwordEndPos, realNameEndPos, cityEndPos, wallEndPos, friendsEndPos;
+	size_t usernameEndPos, passwordEndPos, realNameEndPos, cityEndPos, wallEndPos, friendsEndPos, singleNameEndPos, index;
 	//std::string username, password, realName, city, ;
 
 	//pull out username
@@ -55,14 +56,20 @@ User::User(const string userString_) {
 	cityEndPos = userString.find("\n");
 	this->city = userString.substr(6, cityEndPos - 6);
 	userString.erase(0, cityEndPos + 1);
-	cout << "got past city in string constructor...."  << endl;
+	//cout << "got past city in string constructor...."  << endl;
 	
 	//friends
 	friendsEndPos = userString.find("\n\nWall: \n\n");
 	friendString = userString.substr(9, friendsEndPos - 9);
 	//now we split friendstring up by the commas to get the usernames out
-	
 
+	/*
+ 	while((singleNameEndPos = friendString.find(", ")) != friendsEndPos) {
+ 		singleUsername = friendString.substr(0, friendsEndPos);
+ 		index = myNetwork->findUser(singleUsername);
+ 		User friendToAdd = myNetwork->getUsers()->get(index);
+ 		this->addFriend(&friendToAdd);
+ 	}*/
 
 	userString.erase(0, friendsEndPos + 10);
 
@@ -76,19 +83,28 @@ User::User(const string userString_) {
 
 }
 /*
-void User::loadFriendsFromString(string friendString_, const UserNetwork& MyNetwork){
-	char* buffer;
-
-	buffer = strtok (friendString_, ", ");
-
-	while (buffer) {
-    	//this->addFriend MyNetwork          // process token
-    	buffer = strtok (NULL, ",");
-    	while (buffer && *buffer == '\040')
-        buffer++;
+//loop through full posts (looking for our big delimiter)
+	while ((postEndPos = fullWallString.find(nextPostDelimiter)) != std::string::npos) {
+		post = fullWallString.substr(0, postEndPos);
+			//now we have a full post, time to grab our date string from between "On" and "\n"
+			timeEndPos = post.find("\n");
+			time = post.substr(3, timeEndPos - 3);
+			post.erase(0, timeEndPos + 1); //add 1 to remove our "\n" delimiter too
+			//now we pull the author
+			authorEndPos = post.find(" wrote:\n");
+			author = post.substr(0, authorEndPos);
+			post.erase(0, authorEndPos + 8); // add 8 because " wrote:\n" is 8 characters long
+			// content is just what is left over in post now that we've stripped the rest
+			content = post;
+			
+			addPost(WallPost(content, author, time));
+			
+		fullWallString.erase(0, postEndPos + nextPostDelimiter.length());
 	}
+*/
 
-}*/
+
+
 
 
 User::~User() {
@@ -180,13 +196,13 @@ string User::toString() {
 		endString += (*iter)->getUsername() + ", ";
 	}
 	endString += (*iter)->getUsername() += "\n"; //last username doesn't want a comma
-	/*
+
 	endString += "Friend Requests: ";
 	for (iter = getFriendRequests().begin(); iter != getFriendRequests().end()-1; iter++) {
 		endString += (*iter)->getUsername() + ", ";
 	}
 	endString += (*iter)->getUsername() += "\n\n"; //last username doesn't want a comma
-	*/
+
 	endString += "Wall: \n\n" + this->wall->toString() + "\n";
 	endString += "________________________________\n";
 	return endString;
@@ -283,6 +299,8 @@ void User::deleteFriendRequest(int index){
 	}*/
 }
 
+
+//also delete this from the other persons friend list
 void User::deleteFriend(int index){
     if (this->friends.remove(index)) {
         cout << "Friend removed successfully" << endl;

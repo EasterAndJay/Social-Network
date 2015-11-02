@@ -26,7 +26,7 @@ public:
 		{ this->wall->setUsername(username); };
 
 	User(string username_, string password_, string realName_, string city);
-	User(const string userString_);
+	User(const string userString_, UserNetwork* myNetwork);
 	~User();
 
 	User(const User& user);
@@ -55,6 +55,7 @@ public:
 	
 	string toString();
 	//void readUserFromString(string userString_);
+	void loadFriendsFromString(string friendString, const UserNetwork& MyNetwork);
 	
 	//getters and setters for friends and friendRequests arrays
 	ArrayList<User*> getFriendRequests() const;

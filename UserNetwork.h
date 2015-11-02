@@ -16,8 +16,8 @@ public:
 	bool userAlreadyExists(string username);
 	void addUser(const User& user); //make sure no duplicate usernames
 	void deleteUser(int i);
-	int findUser(string username_);
-	ArrayList<User>* getUsers() const;
+	int findUser(string username_) ;
+	ArrayList<User>* getUsers();
 
 	string toString();
 	void readUserNetworkFromString(string fullNetworkString_);
