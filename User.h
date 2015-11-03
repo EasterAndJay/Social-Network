@@ -50,7 +50,7 @@ public:
 	void deletePost(int pos);
 	
 	string toString();
-	string friendsToString();
+	string friendsToString() const;
 	string friendRequestsToString();
 	//void readUserFromString(string userString_);
 	void loadFriendsFromString(string friendString, const UserNetwork& MyNetwork);

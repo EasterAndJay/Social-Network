@@ -116,7 +116,7 @@ int main()
     cout << "Above is newWall. Should have 2 posts" << endl;
 */
 
-User Marty = User("cheech", "qwerty", "Sweet Balls", "Goleter");
+User Marty = User("Marty", "qwerty", "Sweet Balls", "Goleter");
 User Queef = User("bob", "badpass", "Bob Queefs", "SB");
 Queef.addPost(wallPost);
 User Ish = User("feshies", "pass123", "Ishi von Meier", "Goleta, CA");
@@ -125,31 +125,51 @@ User Jon = User("jonny", "pass234", "Jonathan Beasterman", "Queefville, CA");
 Jon.addPost(myPost);
 
 UserNetwork* myNetwork = new UserNetwork();
+
 myNetwork->addUser(Ish);
 myNetwork->addUser(Marty);
-myNetwork->addUser(Queef);
-myNetwork->addUser(Jon);
+//myNetwork->addUser(Queef);
+//myNetwork->addUser(Jon);
 
-cout << "sending one friend request..." << endl;
-Jon.sendFriendRequest(&Ish);
-cout << "Trying to send a duplicate friend request..." << endl;
-Jon.sendFriendRequest(&Ish);
-cout << "Queef sending ish a friend request....." <<endl;
-Queef.sendFriendRequest(&Ish);
-cout << "Marty sending ish a friend request....." <<endl;
-Marty.sendFriendRequest(&Ish);
+//myNetwork->howManyFriendsUsersHave();
 
-cout << "Ishi accepting 1 friend request...." << endl;
-Ish.acceptFriendRequest(0);
-Ish.acceptFriendRequest(0);
+//cout << "sending one friend request..." << endl;
+//Marty.sendFriendRequest(&Ish);
+//cout << "Trying to send a duplicate friend request..." << endl;
+//Jon.sendFriendRequest(&Ish);
+//cout << "Queef sending ish a friend request....." <<endl;
+//Queef.sendFriendRequest(&Ish);
+//cout << "Marty sending ish a friend request....." <<endl;
+//Marty.sendFriendRequest(&Ish);
 
+//cout << "Ishi accepting 1 friend request...." << endl;
+//Ish.acceptFriendRequest(0);
 
-cout << Ish.toString() << endl;
+//myNetwork->howManyFriendsUsersHave();
+//cout << Marty.toString() << endl;
 
-cout << "\n\n^%^%^&%^&%^&------DESIRED CONTENT ABOVE%$^$%^$%^%$\n\n";
+myNetwork->createFriendship(0,1);
 
-User copyIsh = User(Ish.toString(), myNetwork);
-cout << copyIsh.toString() << endl;
+//User *copyMarty= new User(myNetwork->getUsers()->get(0));
+
+//cout << copyMarty.toString() << endl;
+User* network = myNetwork->users->getList();
+
+/*
+cout << "~~~trying to see one user on mynetwork~~~~" << endl;
+ArrayList<User>* myArrPtr = myNetwork->getUsers();
+User faggot = myArrPtr->get(0);
+cout << faggot.toString() << endl;
+*/
+
+//cout << "now trying it on the network....." << endl;
+
+myNetwork->toFile();
+
+//cout << "trying to print from user a 2nd time" << endl;
+//cout << Ish.toString() << endl;
+
+//cout << Ish.toString() << endl;
 
 
 

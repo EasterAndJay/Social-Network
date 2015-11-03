@@ -14,7 +14,7 @@ public:
 	UserNetwork& operator=(UserNetwork copy);
 
 	bool userAlreadyExists(string username);
-	void addUser(const User& user); //make sure no duplicate usernames
+	void addUser(User user); //make sure no duplicate usernames //was const
 	void deleteUser(int i);
 	int findUser(string username_) ;
 	ArrayList<User>* getUsers();
@@ -23,6 +23,10 @@ public:
 	void readUserNetworkFromString(string fullNetworkString_);
 	void toFile();
 	void readFromFile();
+
+	void howManyFriendsUsersHave();
+
+	void createFriendship(int requestorIndex, int acceptorIndex);
 
 
 private:

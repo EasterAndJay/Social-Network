@@ -177,12 +177,13 @@ void User::deletePost(int pos) {
 
 
 string User::toString() {
+	//cout << "inside User:toString" << endl;
 	string endString = "Username: " + this->getUsername() + "\n";
 	endString += "Password: " + this->password + "\n";
 	endString += "Real Name: " + this->getRealName() + "\n";
 	endString += "City: " + this->getCity() + "\n";
-	endString += friendsToString();
-	endString += friendRequestsToString();
+	endString += this->friendsToString();
+	endString += this->friendRequestsToString();
 
 	endString += "\n\nWall: \n\n" + this->wall->toString() + "\n";
 	endString += "________________________________\n";
@@ -193,13 +194,23 @@ string User::toString() {
 /* Helpers for printing friends/requests*/
 //
 
-string User::friendsToString() {
+string User::friendsToString() const{
 	string endString = "";
 	endString += "Friends: ";
-	User** iter = getFriends().begin();
-	for (; iter != getFriends().end(); iter++) {
-		endString += (*iter)->getUsername() + ", ";
+	//User** iter = getFriends().begin();
+
+	//for (; iter != getFriends().end(); iter++) {
+
+	cout << "length now:" << getFriends().getLength() << endl;
+	for (int i =0; i < getFriends().getLength(); i++) {
+
+		cout << "friend " << i <<endl;
+		endString += getFriends().get(i)->getUsername() + ", "; 
+		//cout << "inside friendsToString, heres *iter: " << *iter << endl;
+
+		//cout << "**" << (*iter)->getUsername() <<endl;
 	}
+	//cout << "endString: " << endString << endl;
 	return endString + "\n";
 }
 
@@ -301,7 +312,7 @@ void User::deleteFriendRequest(int index){
 //also delete this from the other persons friend list
 void User::deleteFriend(int index){
     if (this->friends.remove(index)) {
-    	
+
         cout << "Friend removed successfully" << endl;
     }
     else {

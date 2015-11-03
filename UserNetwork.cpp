@@ -8,7 +8,7 @@ using namespace std;
 
 UserNetwork::UserNetwork(const UserNetwork& network) {
 	this->users = new ArrayList<User>(*(network.users));
-} 
+}
 
 UserNetwork::~UserNetwork () {
 	delete users;	
@@ -45,7 +45,7 @@ bool UserNetwork::userAlreadyExists(string username) {
 		return false;
 }
 
-void UserNetwork::addUser(const User& user) { //make sure no duplicates
+void UserNetwork::addUser(User user) { //make sure no duplicates   //was: const User& user
 	if (userAlreadyExists(user.getUsername()))
 		return;
 	else
@@ -63,7 +63,7 @@ string UserNetwork::toString() {
 	//Node<User>* currentUser = this->users->getHead();
 	//while (currentUser) {
 	for(User* currentUser = this->users->begin(); currentUser != this->users->end(); currentUser++) {
-		cout << currentUser << endl;
+		//cout << currentUser << endl;
 		endString.append(currentUser->toString());
 		//currentUser = currentUser->next;
 	}
@@ -111,6 +111,46 @@ void UserNetwork::readFromFile() {
 	
 	this->readUserNetworkFromString(networkString);
 }	
+
+
+void UserNetwork::howManyFriendsUsersHave() {
+	for (int i = 0; i < this->users->getLength(); i++){
+		//cout << "inside finduser this is current length of users list:" << endl;
+		//cout << this->users->getLength() << endl;
+	  	string name = this->users->get(i).getUsername();
+	  	
+	  	cout << "----" << "pointer we get?" << this->users->get(i).getFriends() <<endl;
+	  	int friendNumber = this->users->get(i).getFriends().getLength();
+
+	    cout << "~~~~~" << name << " has " << friendNumber << " friends." <<endl;
+	}
+}
+
+void UserNetwork::createFriendship(int requestorIndex, int acceptorIndex) {
+
+	if (this->users->getLength() < 2) {
+		return;
+	}
+
+	try {
+			User* network = this->users->getList();
+			//cout << network->toString() << endl;
+			network->setCity("CoolCity");
+			(network + requestorIndex)->addFriend(network+acceptorIndex);
+			(network + acceptorIndex)->addFriend(network+requestorIndex);
+
+
+
+		//this->users->get(requestorIndex).addFriend(&(this->users->get(acceptorIndex)));
+		//this->users->get(acceptorIndex).addFriend(&(this->users->get(requestorIndex)));
+
+		cout << "got inside try catch" << endl;
+    } catch (int& e) {
+        cout << "Error: No user at this index." << endl;
+    }
+
+}
+
 
 
 

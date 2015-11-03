@@ -11,8 +11,8 @@ using namespace std;
 
 int main() {
 
-	
-	/*UserNetwork network = UserNetwork();
+	/*
+	UserNetwork network = UserNetwork();
 	network.readFromFile();
 	
 	//mainMenu(network);
@@ -22,7 +22,6 @@ int main() {
 	network.toFile();
 	network.readFromFile();
 	//cout << network.toString() << endl;*/
-
 	
 	UI menu = UI();
 	menu.run();
