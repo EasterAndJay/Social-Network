@@ -112,7 +112,7 @@ void UserNetwork::readFromFile() {
 	this->readUserNetworkFromString(networkString);
 }	
 
-
+/*
 void UserNetwork::howManyFriendsUsersHave() {
 	for (int i = 0; i < this->users->getLength(); i++){
 		//cout << "inside finduser this is current length of users list:" << endl;
@@ -124,7 +124,7 @@ void UserNetwork::howManyFriendsUsersHave() {
 
 	    cout << "~~~~~" << name << " has " << friendNumber << " friends." <<endl;
 	}
-}
+}*/
 
 void UserNetwork::createFriendship(int requestorIndex, int acceptorIndex) {
 

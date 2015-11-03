@@ -153,7 +153,6 @@ myNetwork->createFriendship(0,1);
 //User *copyMarty= new User(myNetwork->getUsers()->get(0));
 
 //cout << copyMarty.toString() << endl;
-User* network = myNetwork->users->getList();
 
 /*
 cout << "~~~trying to see one user on mynetwork~~~~" << endl;
