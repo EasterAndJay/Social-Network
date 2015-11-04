@@ -1,9 +1,9 @@
 Username: Marty
 Password: qwerty
 Real Name: Sweet Balls
-City: CoolCity
-Friends: feshies, 
-Friend Requests: 
+City: Goleter
+Friends: 
+Friend Requests: , 
 
 Wall: 
 
@@ -13,12 +13,12 @@ Username: feshies
 Password: pass123
 Real Name: Ishi von Meier
 City: Goleta, CA
-Friends: Marty, 
+Friends: 
 Friend Requests: 
 
 Wall: 
 
-On 03-11-2015 11:30:35
+On 03-11-2015 08:19:01
 Jonathan Easterman wrote:
 And this is my second post
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~

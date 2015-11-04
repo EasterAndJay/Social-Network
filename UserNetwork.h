@@ -27,6 +27,7 @@ public:
 	void howManyFriendsUsersHave();
 
 	void createFriendship(int requestorIndex, int acceptorIndex);
+	void sendFriendRequest(int requestorIndex, int acceptorIndex); 
 
 
 private:

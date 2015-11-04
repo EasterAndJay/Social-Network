@@ -197,15 +197,16 @@ string User::toString() {
 string User::friendsToString() const{
 	string endString = "";
 	endString += "Friends: ";
-	//User** iter = getFriends().begin();
+	User** iter = getFriends().begin();
 
-	//for (; iter != getFriends().end(); iter++) {
+	for (; iter != getFriends().end(); iter++) {
+		endString += (*iter)->getUsername() + ", ";
+	//cout << "length now:" << getFriends().getLength() << endl;
+	//for (int i =0; i < getFriends().getLength(); i++) {
 
-	cout << "length now:" << getFriends().getLength() << endl;
-	for (int i =0; i < getFriends().getLength(); i++) {
-
-		cout << "friend " << i <<endl;
-		endString += getFriends().get(i)->getUsername() + ", "; 
+		//cout << "friend " << i <<endl;
+		
+		//endString += getFriends().get(i)->getUsername() + ", "; 
 		//cout << "inside friendsToString, heres *iter: " << *iter << endl;
 
 		//cout << "**" << (*iter)->getUsername() <<endl;
@@ -257,6 +258,7 @@ void User::setFriends(ArrayList<User*> friends_){
 /* General methods for friends and friend requests*/
 //
 
+//probably get rid of this:
 void User::sendFriendRequest(User* potentialFriend) {
     if (potentialFriend->getFriendRequests().find(this) == -1) {
         potentialFriend->addFriendRequest(this);

@@ -132,24 +132,32 @@ void UserNetwork::createFriendship(int requestorIndex, int acceptorIndex) {
 		return;
 	}
 
-	try {
-			User* network = this->users->getList();
-			//cout << network->toString() << endl;
-			network->setCity("CoolCity");
-			(network + requestorIndex)->addFriend(network+acceptorIndex);
-			(network + acceptorIndex)->addFriend(network+requestorIndex);
+	User* network = this->getUsers()->getList();
+	
+	(network + requestorIndex)->addFriend(network+acceptorIndex);
+	(network + acceptorIndex)->addFriend(network+requestorIndex);
+    
+    //cout << "Error: No user at this index." << endl;
+}
+
+void UserNetwork::sendFriendRequest(int requestorIndex, int acceptorIndex) {
+//make sure acceptor doesn't already have a friend request from this user
+
+	User* network = this->getUsers()->getList();
+	(network + requestorIndex)->sendFriendRequest(network+acceptorIndex);
+	//this is so error prone
+}
 
 
-
-		//this->users->get(requestorIndex).addFriend(&(this->users->get(acceptorIndex)));
-		//this->users->get(acceptorIndex).addFriend(&(this->users->get(requestorIndex)));
-
-		cout << "got inside try catch" << endl;
-    } catch (int& e) {
-        cout << "Error: No user at this index." << endl;
+/*
+if (potentialFriend->getFriendRequests().find(this) == -1) {
+        potentialFriend->addFriendRequest(this);
+    }
+    else {
+    	cout << "Error: You have already sent this user a friend request. Now you just look desperate." << endl;
     }
 
-}
+*/
 
 
 

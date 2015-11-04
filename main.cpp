@@ -148,7 +148,7 @@ myNetwork->addUser(Marty);
 //myNetwork->howManyFriendsUsersHave();
 //cout << Marty.toString() << endl;
 
-myNetwork->createFriendship(0,1);
+myNetwork->sendFriendRequest(2,0);
 
 //User *copyMarty= new User(myNetwork->getUsers()->get(0));
 
