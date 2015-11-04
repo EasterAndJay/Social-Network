@@ -15,7 +15,8 @@ UserNetwork::~UserNetwork () {
 }
 
 UserNetwork& UserNetwork::operator=(UserNetwork copy) {
-	std::swap(*this,copy);
+	delete users;
+	users = new ArrayList<User>(*(copy.getUsers()));
 	return *this;
 }
 
