@@ -135,8 +135,7 @@ User::User(const string userString_) {
 
 
 bool operator==(const User& left, const User& right) {
-	return (left.getWall() == right.getWall() 
-			&& left.getUsername() == right.getUsername() 
+	return (left.getUsername() == right.getUsername() 
 			&& left.getPassword() == right.getPassword()
 			&& left.getRealName() == right.getRealName()
 			&& left.getCity() == right.getCity());

@@ -92,7 +92,6 @@ void DoublyLinkedList<T>::deleteByValue(T data) {
 		else if (tmp->next) {
 			tmp->next->prev = tmp->prev;
 			this->head = tmp->next;
-			printf("we got inside the tmp is head case of deletebyvalue in DoublyLinkedList\n");
 		}
 		// If tmp is tail
 		else if (tmp->prev) {
