@@ -313,8 +313,8 @@ void UI::searchUsers() {
 	if(!found)
 		cout << "User not found" << endl;
 	else {
-		cout << "Enter the corresponding number of the user"
-				"You would like to send a friend request to"
+		cout << "Enter the corresponding number of the user "
+				"you would like to send a friend request to"
 				<< endl;
 		cin >> i;
 

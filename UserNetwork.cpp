@@ -202,6 +202,11 @@ void UserNetwork::deleteFriend(int deleterIndex, int gettingDeletedIndex) {
 
 }
 
+void UserNetwork::updateUserOnNetwork(int index, User updatedUser) {
+	this->getUsers()->set(index, updatedUser);
+
+}
+
 
 
 

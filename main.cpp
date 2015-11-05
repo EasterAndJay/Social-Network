@@ -117,20 +117,21 @@ int main()
 */
 
 User Marty = User("Marty", "qwerty", "Sweet Balls", "Goleter");
-User Queef = User("bob", "badpass", "Bob Queefs", "SB");
+User Queef = User("pfart", "badpass", "Bob Queefs", "SB");
 Queef.addPost(wallPost);
-User Ish = User("feshies", "pass123", "Ishi von Meier", "Goleta, CA");
+User Ish = User("ishi", "pass123", "Ishi von Meier", "Goleta, CA");
 Ish.addPost(otherPost);
 User Jon = User("jonny", "pass234", "Jonathan Beasterman", "Queefville, CA");
-Jon.addPost(myPost);
+
 
 UserNetwork* myNetwork = new UserNetwork();
 
 myNetwork->addUser(Ish);
 myNetwork->addUser(Marty);
-//myNetwork->addUser(Queef);
-//myNetwork->addUser(Jon);
+myNetwork->addUser(Queef);
+myNetwork->addUser(Jon);
 
+Jon.addPost(myPost);
 //myNetwork->howManyFriendsUsersHave();
 
 //cout << "sending one friend request..." << endl;
@@ -148,10 +149,28 @@ myNetwork->addUser(Marty);
 //myNetwork->howManyFriendsUsersHave();
 //cout << Marty.toString() << endl;
 
-myNetwork->sendFriendRequest(1,0); 
-myNetwork->createFriendship(1,0);
-myNetwork->deleteFriendRequest(1,0);
-myNetwork->deleteFriend(0,1);
+//Should send friend request from 
+
+// Index of user to send friend request to
+int networkIndex = myNetwork->findUser(Jon.getUsername());
+// copy of this user made using copy ctor
+User friendCopy = User(myNetwork->getUsers()->get(networkIndex));
+// Send friendRequest to this user
+Ish.sendFriendRequest(&(friendCopy));
+// Update logged in user
+int userIndex = myNetwork->findUser(Ish.getUsername());
+
+myNetwork->getUsers()->set(userIndex, Ish);
+// Update other user on network
+myNetwork->getUsers()->set(networkIndex, friendCopy);
+
+myNetwork->toFile();
+
+
+//try updte user if function in usernatwork if this doesn't work
+
+
+
 
 //User *copyMarty= new User(myNetwork->getUsers()->get(0));
 

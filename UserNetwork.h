@@ -31,6 +31,8 @@ public:
 	void deleteFriendRequest(int requestorIndex, int acceptorIndex);
 	void deleteFriend(int deleterIndex, int gettingDeletedIndex);
 
+	void updateUserOnNetwork(int index, User updatedUser);
+
 private:
 	ArrayList<User>* users;
 

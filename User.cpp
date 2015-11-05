@@ -76,7 +76,7 @@ User::User(const string userString_, UserNetwork* myNetwork) {
 	friendRequestEndPos = userString.find("\n\nWall: \n\n");
 	friendRequestString = userString.substr(17, friendRequestEndPos - 17);
 
-	cout << "friend request string: " << friendRequestString << "end of fr string" << endl;
+	//cout << "friend request string: " << friendRequestString << "end of fr string" << endl;
 
 	//again, same format, split by the commas to parse usernames
 	while ((friendRequestEndPos = friendRequestString.find(", ")) != std::string::npos) {
@@ -90,7 +90,7 @@ User::User(const string userString_, UserNetwork* myNetwork) {
 
 	
 	userString.erase(0, userString.find("\n\nWall: \n\n") + 10);
-	cout << "Userstring so far..."  << userString << endl;
+	//cout << "Userstring so far..."  << userString << endl;
 
 	//wall
 	//now all that is left in userString is wall since we erased as we parsed the rest
