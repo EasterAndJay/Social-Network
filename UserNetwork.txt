@@ -2,7 +2,7 @@ Username: jonny
 Password: pass234
 Real Name: Jonathan Beasterman
 City: Queefville, CA
-Friends: 
+Friends: ishi, 
 Friend Requests: 
 
 Wall: 
@@ -15,10 +15,10 @@ Hi this is my first post
 ________________________________
 Username: pfart
 Password: badpass
-Real Name: Bob Queefs
+Real Name: Pussy Fart
 City: SB
 Friends: neeraj, 
-Friend Requests: 
+Friend Requests: ishi, Pussyton, 
 
 Wall: 
 
@@ -43,8 +43,8 @@ Username: ishi
 Password: pass123
 Real Name: Ishi von Meier
 City: Goleta, CA
-Friends: Marty, 
-Friend Requests: jonny, neeraj, 
+Friends: jonny, Marty, 
+Friend Requests: neeraj, 
 
 Wall: 
 
@@ -52,20 +52,43 @@ On 06-11-2015 04:44:38
 Ishi von Meier wrote:
 This social network is so useful and cool
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+On 06-11-2015 11:09:49
+Ishi von Meier wrote:
+Michael has a mangina
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 ________________________________
 Username: neeraj
 Password: weakpass33
 Real Name: Neeraj Kumar
-City: Santa Barbara, CA
+City: New City, CA
+Friends: pfart, 
+Friend Requests: Marty, 
+
+Wall: 
+
+On 06-11-2015 10:27:31
+Neeraj Kumar wrote:
+I just love posting on my wall. I think I might be addicted to social media
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+On 06-11-2015 04:48:02
+Neeraj Kumar wrote:
+Wow this doesn't look buggy at all. String implementation worked better than user pointers after all, maybe.
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+________________________________
+Username: Pussyton
+Password: fag
+Real Name: Its pussyton
+City: Queefville
 Friends: pfart, 
 Friend Requests: 
 
 Wall: 
 
-On 06-11-2015 04:48:02
-Neeraj Kumar wrote:
-Wow this doesn't look buggy at all. String implementation worked better than user pointers after all, maybe.
+On 06-11-2015 11:42:05
+Its pussyton wrote:
+What up Bitches!!!! IM IN THE SOCIAL NETWORK! FUCK WITH IT. taking queefville by storm hardstyle. i fuck.hard.
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 ________________________________

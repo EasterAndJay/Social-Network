@@ -331,15 +331,20 @@ void UI::searchUsers() {
 void UI::viewFriends() {
 	// Need to delete friends from this list
 	int index;
-	int i = 0;
+
 	if (user.getFriends().getLength() == 0) {
 		cout << "You have no friends" << endl;
 		return;
 	}
-	for (string* iter = user.getFriends().begin(); iter != user.getFriends().end(); iter++) {
-		cout << i << ") " << *iter << endl;
-		i++;
+
+	for (int i = 0; i < user.getFriends().getLength(); i++) {
+		try {
+			cout << i << ") " << user.getFriends().get(i) << endl;
+		} catch (int& e) {
+			cout << "Error: no friend at this index" << endl;
+		}
 	}
+
 	cout << "Enter a number corresponding to the friend "
 			"you would like to delete, "
 			"or enter '-1' to go back" << endl;
@@ -359,19 +364,25 @@ void UI::viewFriends() {
 void UI::viewFriendRequests() {
 	int index;
 	char choice;
-	int i = 0;
+
 	if(user.getFriendRequests().getLength() == 0) {
 		cout << "You have no friend requests" << endl;
 		return;
 	}
-	for (string* iter = user.getFriendRequests().begin(); iter != user.getFriendRequests().end(); iter++) {
-		cout << i << ") " << (*iter) << endl;
-		i++;
+	//had to change to for loop, iter not working correctly for ArrayList<string>
+	for (int i = 0; i < user.getFriendRequests().getLength(); i++) {
+		try {
+			cout << i << ") " << user.getFriendRequests().get(i) << endl;
+		} catch (int& e) {
+			cout << "Error: no friend request at this index" << endl;
+		}
 	}
+
 	cout << '\n' << endl;
 	cout << "Enter a number corresponding to the friend request "
 			"you would like to accept/delete, "
 			"or enter '-1' to continue to the login menu" << endl;
+
 	cin >> index;
 	if (index < 0)
 		return;

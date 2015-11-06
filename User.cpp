@@ -196,8 +196,11 @@ string User::friendsToString() const{
 	endString += "Friends: ";
 	
 	for (int i = 0; i < this->friends.getLength(); i++) {
-		endString += getFriends().get(i) + ", ";
-		
+		try {
+			endString += getFriends().get(i) + ", ";
+		} catch (int& e) {
+			cout << "Error: No friends at this index" << endl;
+		}
 	}
 
 	return endString + "\n";
@@ -210,8 +213,11 @@ string User::friendRequestsToString() const {
 	// ITERATOR IS NOT WORKING HERE, had to switch to regular for loop
 	
 	for (int i = 0; i < this->friendRequests.getLength(); i++) {
-		endString += getFriendRequests().get(i) + ", ";
-		
+		try {
+			endString += getFriendRequests().get(i) + ", ";
+		} catch (int& e) {
+			cout << "Error: No friend requests at this index" << endl;
+		}
 	}
 
 	return endString;
@@ -249,7 +255,7 @@ void User::sendFriendRequest(string potentialFriendUsername, UserNetwork* myNetw
 	for (User* iter = myNetwork->getUsers()->begin(); iter != myNetwork->getUsers()->end(); iter++) {
 		if (iter->getUsername() == potentialFriendUsername) {
 			//cout << "Got inside if statement of sendFriendRequest" << endl;
-			if (iter->getFriendRequests().find(this->getUsername()) == -1) { //make sure potentialFriend doesn't already have a request from us
+			if (iter->getFriendRequests().find(this->getUsername()) == -1 && iter->getFriends().find(this->getUsername()) == -1) { //make sure potentialFriend doesn't already have a request from us
 	    		
 	    		//now we have to set since our iterator uses get, which is const
 	        	int acceptorIndex = myNetwork->findUser(potentialFriendUsername);
@@ -268,7 +274,7 @@ void User::sendFriendRequest(string potentialFriendUsername, UserNetwork* myNetw
     			} */
 	    	}
 	   		else {
-	   			cout << "Error: You have already sent this user a friend request. Now you just look desperate." << endl;
+	   			cout << "Error: You have already sent this user a friend request or you are already friends" << endl;
 	   		}
 	   		break; //once we find the user we should stop looking
 	  	}
@@ -281,33 +287,34 @@ void User::acceptFriendRequest(string usernameToAdd, UserNetwork* myNetwork){
     //remove request and add friend for this user, then add friend for other user
 
 		for (User* iter = myNetwork->getUsers()->begin(); iter != myNetwork->getUsers()->end(); iter++) {
-			
-			//first deal with this user
-			if (iter->getUsername() == this->getUsername()){
-				//find this user on network
-				int indexOfThisInNetwork = myNetwork->findUser(this->getUsername());
-				//make a copy of this so we can set the god damned changes in network scope
-				User thisCopy = User(myNetwork->getUsers()->get(indexOfThisInNetwork));
-				//find index of request in acceptor's friend requests
-				int index = thisCopy.getFriendRequests().find(usernameToAdd);
-				thisCopy.deleteFriendRequest(index);  //delete the request
-				thisCopy.addFriend(usernameToAdd);   //add the friend
+			try {
+				//first deal with this user
+				if (iter->getUsername() == this->getUsername()){
+					//find this user on network
+					int indexOfThisInNetwork = myNetwork->findUser(this->getUsername());
+					//make a copy of this so we can set the god damned changes in network scope
+					User thisCopy = User(myNetwork->getUsers()->get(indexOfThisInNetwork));
+					//find index of request in acceptor's friend requests
+					int index = thisCopy.getFriendRequests().find(usernameToAdd);
+					thisCopy.deleteFriendRequest(index);  //delete the request
+					thisCopy.addFriend(usernameToAdd);   //add the friend
 
-				myNetwork->getUsers()->set(indexOfThisInNetwork, thisCopy);
+					myNetwork->getUsers()->set(indexOfThisInNetwork, thisCopy);
 
-			}
+				}
 
-			//next deal with other user
-			if (iter->getUsername() == usernameToAdd) {
+				//next deal with other user
+				if (iter->getUsername() == usernameToAdd) {
 
-				int acceptorIndex = myNetwork->findUser(usernameToAdd);
-		       	// copy of this user made using copy ctor
-				User friendCopy = User(myNetwork->getUsers()->get(acceptorIndex));
-				// Send friendRequest to this user
-				friendCopy.addFriend(this->getUsername());
-				// Update other user on network
-				myNetwork->getUsers()->set(acceptorIndex, friendCopy);
-		    }
+					int acceptorIndex = myNetwork->findUser(usernameToAdd);
+			       	// copy of this user made using copy ctor
+					User friendCopy = User(myNetwork->getUsers()->get(acceptorIndex));
+					// Send friendRequest to this user
+					friendCopy.addFriend(this->getUsername());
+					// Update other user on network
+					myNetwork->getUsers()->set(acceptorIndex, friendCopy);
+			    }
+			} catch (int& e) {}    
 	  	}
 }
 
@@ -324,7 +331,6 @@ void User::addFriendRequest(string newFriendRequestUsername) {
 void User::deleteFriendRequest(int index){
 
     if (this->friendRequests.remove(index)){
-        cout << "Friend request removed successfully" << endl;
     }
     
     else {
@@ -335,19 +341,22 @@ void User::deleteFriendRequest(int index){
 void User::deleteFriendRequest(string usernameOfFriendToDelete, UserNetwork* myNetwork) {
 	for (User* iter = myNetwork->getUsers()->begin(); iter != myNetwork->getUsers()->end(); iter++) {
 
-		//first deal with this user
-		if (iter->getUsername() == this->getUsername()){
-			//find this user on network
-			int indexOfThisInNetwork = myNetwork->findUser(this->getUsername());
-			//make a copy of this so we can set the god damned changes in network scope
-			User thisCopy = User(myNetwork->getUsers()->get(indexOfThisInNetwork));
-			
-			int index = thisCopy.getFriendRequests().find(usernameOfFriendToDelete);
-			//delete the request
-			thisCopy.deleteFriendRequest(index);
-			// Update this on network
-			myNetwork->getUsers()->set(indexOfThisInNetwork, thisCopy);
-		}
+		try {
+			if (iter->getUsername() == this->getUsername()){
+				//find this user on network
+				int indexOfThisInNetwork = myNetwork->findUser(this->getUsername());
+				//make a copy of this so we can set the god damned changes in network scope
+				User thisCopy = User(myNetwork->getUsers()->get(indexOfThisInNetwork));
+
+				int index = thisCopy.getFriendRequests().find(usernameOfFriendToDelete);
+				//delete the request
+				thisCopy.deleteFriendRequest(index);
+				// Update this on network
+				myNetwork->getUsers()->set(indexOfThisInNetwork, thisCopy);
+
+				cout << "Friend request removed successfully " << endl;
+			}
+		} catch (int& e) {}
 	}
 }
 
@@ -358,46 +367,48 @@ void User::deleteFriend(string usernameOfFriendToDelete, UserNetwork* myNetwork)
     for (User* iter = myNetwork->getUsers()->begin(); iter != myNetwork->getUsers()->end(); iter++) {
 		
 		//first deal with this user
-		if (iter->getUsername() == this->getUsername()){
-			//find this user on network
-			int indexOfThisInNetwork = myNetwork->findUser(this->getUsername());
-			//make a copy of this so we can set the god damned changes in network scope
-			User thisCopy = User(myNetwork->getUsers()->get(indexOfThisInNetwork));
-			
-			//find index of request in this's friend requests
-			ArrayList<string> thisFriends = thisCopy.getFriends();
-			int index = thisFriends.find(usernameOfFriendToDelete);
+		try {
+			if (iter->getUsername() == this->getUsername()){
+				//find this user on network
+				int indexOfThisInNetwork = myNetwork->findUser(this->getUsername());
+				//make a copy of this so we can set the god damned changes in network scope
+				User thisCopy = User(myNetwork->getUsers()->get(indexOfThisInNetwork));
+				//find index of request in this's friend requests
+				ArrayList<string> thisFriends = thisCopy.getFriends();
+				int index = thisFriends.find(usernameOfFriendToDelete);
 
-			//delete them from our friend's list:
-			//first make a copy
-			ArrayList<string> thisFriendsListCopy = thisCopy.getFriends();
-			//then remove @ our ex friend's index from it
-			thisFriendsListCopy.remove(index);
-			//then set thisCopy's friends list
-			thisCopy.setFriends(thisFriendsListCopy);
-			// Update this on network
-			myNetwork->getUsers()->set(indexOfThisInNetwork, thisCopy);
-		}
+				//delete them from our friend's list:
+				//first make a copy
+				ArrayList<string> thisFriendsListCopy = thisCopy.getFriends();
+				//then remove @ our ex friend's index from it
+				thisFriendsListCopy.remove(index);
+				//then set thisCopy's friends list
+				thisCopy.setFriends(thisFriendsListCopy);
+				// Update this on network
+				myNetwork->getUsers()->set(indexOfThisInNetwork, thisCopy);
+			}
 
-		//next deal with other user
-		if (iter->getUsername() == usernameOfFriendToDelete) {
+			//next deal with other user
+			if (iter->getUsername() == usernameOfFriendToDelete) {
 
-			int deleteeIndex = myNetwork->findUser(usernameOfFriendToDelete);
-	       	// copy of this user made using copy ctor
-			User friendCopy = User(myNetwork->getUsers()->get(deleteeIndex));
-			// find index of this user in friend's friend list
-			int indexToDelete = friendCopy.getFriends().find(this->getUsername());
-			//delete us from their friend's list
-			//first make a copy
-			ArrayList<string> friendsFriendsListCopy = friendCopy.getFriends();
-			//then remove us from it
-			friendsFriendsListCopy.remove(indexToDelete);
-			//then set friendCopy's friends list
-			friendCopy.setFriends(friendsFriendsListCopy);
-			// Update other user on network
-			myNetwork->getUsers()->set(deleteeIndex, friendCopy);
-		}
-	}
+				int deleteeIndex = myNetwork->findUser(usernameOfFriendToDelete);
+		       	// copy of this user made using copy ctor
+				User friendCopy = User(myNetwork->getUsers()->get(deleteeIndex));
+				
+				// find index of this user in friend's friend list
+				int indexToDelete = friendCopy.getFriends().find(this->getUsername());
+				//delete us from their friend's list
+				//first make a copy
+				ArrayList<string> friendsFriendsListCopy = friendCopy.getFriends();
+				//then remove us from it
+				friendsFriendsListCopy.remove(indexToDelete);
+				//then set friendCopy's friends list
+				friendCopy.setFriends(friendsFriendsListCopy);
+				// Update other user on network
+				myNetwork->getUsers()->set(deleteeIndex, friendCopy);
+			}
+		} catch (int& e) {}
+	} 
 }
 
 bool operator==(const User& left, const User& right) {
