@@ -24,15 +24,6 @@ public:
 	void toFile();
 	void readFromFile();
 
-	void howManyFriendsUsersHave();
-
-	void createFriendship(int requestorIndex, int acceptorIndex);
-	void sendFriendRequest(int requestorIndex, int acceptorIndex); 
-	void deleteFriendRequest(int requestorIndex, int acceptorIndex);
-	void deleteFriend(int deleterIndex, int gettingDeletedIndex);
-
-	void updateUserOnNetwork(int index, User updatedUser);
-
 private:
 	ArrayList<User>* users;
 

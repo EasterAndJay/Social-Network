@@ -11,11 +11,6 @@ class UserNetwork;
 class User {
 
 public:
-
-	/*User(string username_, string password_, string realName_, string city_) : username(username_), password(password_), realName(realName_), city(city_), wall(new Wall()) {
-		this->wall->setUsername(username_); //set the contained wall's username after creation
-		
-	};*/
 	
 	User() : 
 		username(string()),
@@ -26,7 +21,7 @@ public:
 		{ this->wall->setUsername(username); };
 
 	User(string username_, string password_, string realName_, string city);
-	User(const string userString_, UserNetwork* myNetwork);
+	User(const string userString_);
 	~User();
 
 	User(const User& user);
@@ -44,7 +39,7 @@ public:
 	string getPassword() const;
 	
 	void setPassword(string password_); 
-	bool checkPassword (string password_);
+	//bool checkPassword (string password_);
 	 
 	void addPost(WallPost post_);
 	void deletePost(int pos);
@@ -52,26 +47,26 @@ public:
 	string toString() const;
 	string friendsToString() const;
 	string friendRequestsToString() const;
-	//void readUserFromString(string userString_);
-	void loadFriendsFromString(string friendString, const UserNetwork& MyNetwork);
+	void readUserFromString(string userString_);
+	//void loadFriendsFromString(string friendString, const UserNetwork& MyNetwork);
 	
 	//getters and setters for friends and friendRequests arrays
-	ArrayList<User*> getFriendRequests() const;
-	void setFriendRequests(ArrayList<User*> friendRequests_);
+	ArrayList<string> getFriendRequests() const;
+	void setFriendRequests(ArrayList<string> friendRequests_);
 	
-	ArrayList<User*> getFriends() const;
-	void setFriends(ArrayList<User*> friends_);
+	ArrayList<string> getFriends() const;
+	void setFriends(ArrayList<string> friends_);
 	
 	//methods for Friends and Friend Requests
-	void deleteFriend(int index);
+	void deleteFriend(string usernameOfFriendToDelete, UserNetwork* myNetwork);
 
-	void sendFriendRequest(User* potentialFriend);   //not sure whether to use pointer or not for these
-	void addFriendRequest(User* newFriend);
+	void sendFriendRequest(string potentialFriendUsername, UserNetwork* myNetwork);
 
-	void acceptFriendRequest(int index); //could call a helper addfriend
-	void addFriend(User* newFriend);
-
+	void acceptFriendRequest(string usernameToAdd, UserNetwork* myNetwork);
+	void addFriend(string newFriend);
+	void addFriendRequest(string newFriendRequestUsername);
 	void deleteFriendRequest(int index);
+	void deleteFriendRequest(string usernameOfFriendToDelete, UserNetwork* myNetwork);
 	
 
 
@@ -82,8 +77,8 @@ private:
 	string realName;
 	string city;
 	Wall* wall;
-	ArrayList<User*> friends = ArrayList<User*>();
-	ArrayList<User*> friendRequests = ArrayList<User*>();
+	ArrayList<string> friends = ArrayList<string>();
+	ArrayList<string> friendRequests = ArrayList<string>();
 
 };
 

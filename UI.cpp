@@ -316,20 +316,15 @@ void UI::searchUsers() {
 	else {
 		cout << "Enter the corresponding number of the user "
 				"you would like to send a friend request to"
+				" or enter -1 to go back"
 				<< endl;
 		cin >> i;
 
-		// ISHI FIX -- Should be working now...Use this as an example
-
-		// Index of user to send friend request to
-		int acceptorIndex = network.findUser(foundUsers.get(i));
-		// copy of this user made using copy ctor
-		User friendCopy = User(network.getUsers()->get(acceptorIndex));
-		// Send friendRequest to this user
-		friendCopy.addFriendRequest(&user);
-		// Update other user on network
-		network.getUsers()->set(acceptorIndex, friendCopy);
-
+		if (index < 0)
+			return;
+		
+		user.sendFriendRequest(foundUsers.get(i), &network);
+	
 	}
 }
 
@@ -341,23 +336,23 @@ void UI::viewFriends() {
 		cout << "You have no friends" << endl;
 		return;
 	}
-	for (User** iter = user.getFriends().begin(); iter != user.getFriends().end(); iter++) {
-		cout << i << ") " << (*iter)->toString() << endl;
+	for (string* iter = user.getFriends().begin(); iter != user.getFriends().end(); iter++) {
+		cout << i << ") " << *iter << endl;
 		i++;
 	}
 	cout << "Enter a number corresponding to the friend "
 			"you would like to delete, "
 			"or enter '-1' to go back" << endl;
 	cin >> index;
-	// Delete friend needs to be mutual
+	
 	if (index < 0)
 		return;
 
-	// ISHI FIX
+	
+	string usernameToDelete = user.getFriends().get(index);
 
-	user.deleteFriend(index);
-	network.getUsers()->set(network.findUser(user.getUsername()), user);
-	// May need to update network with other friend as well
+	user.deleteFriend(usernameToDelete, &network);
+
 	return;
 }
 
@@ -369,8 +364,8 @@ void UI::viewFriendRequests() {
 		cout << "You have no friend requests" << endl;
 		return;
 	}
-	for (User** iter = user.getFriendRequests().begin(); iter != user.getFriendRequests().end(); iter++) {
-		cout << i << ") " << (*iter)->toString() << endl;
+	for (string* iter = user.getFriendRequests().begin(); iter != user.getFriendRequests().end(); iter++) {
+		cout << i << ") " << (*iter) << endl;
 		i++;
 	}
 	cout << '\n' << endl;
@@ -384,16 +379,16 @@ void UI::viewFriendRequests() {
 	cout << "Enter 'a' to accept and 'd' to delete this friend request" << endl;
 	cin >> choice;
 
-	// ISHI FIX
+	string usernameToAccept = user.getFriendRequests().get(index);
 
 	if (choice == 'a') {
-		user.acceptFriendRequest(index);
+		
+		user.acceptFriendRequest(usernameToAccept, &network);
 	}
 	if (choice == 'd') {
-		user.deleteFriendRequest(index);
+		user.deleteFriendRequest(usernameToAccept, &network);
 	}
-	network.getUsers()->set(network.findUser(user.getUsername()), user);
-	// May need to update network with other friend as well
+	
 	return;
 }
 

@@ -62,15 +62,15 @@ int main()
 //   cout << myPost << endl;
 
  WallPost otherPost = WallPost();
-  otherPost.setContent("And this is my second post");
-  otherPost.setAuthor("Jonathan Easterman");
+  otherPost.setContent("This social network is so useful and cool");
+  otherPost.setAuthor("Ishi von Meier");
   otherPost.setTimePosted();
 //   cout << otherPost.getAuthor() << otherPost.getContent() << otherPost.getTimePosted() << endl;
 //   cout << otherPost << endl;
 
 //   Wall myWall = Wall();
 
- WallPost wallPost = WallPost("Here is my wall!", "WallPost creator");
+ WallPost wallPost = WallPost("Here is my wall! How cool is it", "Bob Queefs");
 
 //   myWall.addPost(myPost);
 // //segfault
@@ -122,6 +122,7 @@ Queef.addPost(wallPost);
 User Ish = User("ishi", "pass123", "Ishi von Meier", "Goleta, CA");
 Ish.addPost(otherPost);
 User Jon = User("jonny", "pass234", "Jonathan Beasterman", "Queefville, CA");
+Jon.addPost(myPost);
 
 
 UserNetwork* myNetwork = new UserNetwork();
@@ -131,40 +132,54 @@ myNetwork->addUser(Marty);
 myNetwork->addUser(Queef);
 myNetwork->addUser(Jon);
 
-Jon.addPost(myPost);
 //myNetwork->howManyFriendsUsersHave();
 
-//cout << "sending one friend request..." << endl;
-//Marty.sendFriendRequest(&Ish);
+cout << "sending one friend request..." << endl;
+//Marty.sendFriendRequest(Ish.getUsername(), *myNetwork);
 //cout << "Trying to send a duplicate friend request..." << endl;
 //Jon.sendFriendRequest(&Ish);
 //cout << "Queef sending ish a friend request....." <<endl;
 //Queef.sendFriendRequest(&Ish);
 //cout << "Marty sending ish a friend request....." <<endl;
 //Marty.sendFriendRequest(&Ish);
+// Index of user to send friend request to
+Marty.sendFriendRequest(Ish.getUsername(), myNetwork);
+Jon.sendFriendRequest(Ish.getUsername(), myNetwork);
+Ish.acceptFriendRequest(Marty.getUsername(), myNetwork);
+
+//int acceptorIndex = myNetwork->findUser(Ish.getUsername());
+/*
+// copy of this user made using copy ctor
+User friendCopy = User(myNetwork->getUsers()->get(acceptorIndex));
+// Send friendRequest to this user
+friendCopy.addFriendRequest(Marty.getUsername());
+cout << "-----Friend copy:----:\n" << friendCopy.toString();
+// Update other user on network
+myNetwork->getUsers()->set(acceptorIndex, friendCopy);
+//cout << "get User we just set: " << myNetwork->getUsers()->get(acceptorIndex).getFriendRequests() << endl;
+*/
+//cout << "Data that was set: \n" << myNetwork->getUsers()->get(acceptorIndex).toString() << endl;
+
+myNetwork->toFile();
 
 //cout << "Ishi accepting 1 friend request...." << endl;
-//Ish.acceptFriendRequest(0);
+
 
 //myNetwork->howManyFriendsUsersHave();
 //cout << Marty.toString() << endl;
 
 //Should send friend request from 
+/*
 
-// Index of user to send friend request to
-int networkIndex = myNetwork->findUser(Jon.getUsername());
-// copy of this user made using copy ctor
-User friendCopy = User(myNetwork->getUsers()->get(networkIndex));
-// Send friendRequest to this user
-Ish.sendFriendRequest(&(friendCopy));
+
 // Update logged in user
 int userIndex = myNetwork->findUser(Ish.getUsername());
 
 myNetwork->getUsers()->set(userIndex, Ish);
 // Update other user on network
 myNetwork->getUsers()->set(networkIndex, friendCopy);
-
-myNetwork->toFile();
+*/
+//myNetwork->toFile();
 
 
 //try updte user if function in usernatwork if this doesn't work
@@ -184,8 +199,6 @@ cout << faggot.toString() << endl;
 */
 
 //cout << "now trying it on the network....." << endl;
-
-myNetwork->toFile();
 
 //cout << "trying to print from user a 2nd time" << endl;
 //cout << Ish.toString() << endl;

@@ -1,8 +1,38 @@
-Username: jdpgg5566
-Password: a
-Real Name: a
-City: dsf
+Username: jonny
+Password: pass234
+Real Name: Jonathan Beasterman
+City: Queefville, CA
 Friends: 
+Friend Requests: 
+
+Wall: 
+
+On 06-11-2015 04:44:38
+Jonathan Easterman wrote:
+Hi this is my first post
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+________________________________
+Username: pfart
+Password: badpass
+Real Name: Bob Queefs
+City: SB
+Friends: neeraj, 
+Friend Requests: 
+
+Wall: 
+
+On 06-11-2015 04:44:38
+Bob Queefs wrote:
+Here is my wall! How cool is it
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+________________________________
+Username: Marty
+Password: qwerty
+Real Name: Sweet Balls
+City: Goleter
+Friends: ishi, 
 Friend Requests: 
 
 Wall: 
@@ -10,28 +40,32 @@ Wall:
 
 ________________________________
 Username: ishi
-Password: a
-Real Name: a
-City: sdfsd
-Friends: 
-Friend Requests: 
+Password: pass123
+Real Name: Ishi von Meier
+City: Goleta, CA
+Friends: Marty, 
+Friend Requests: jonny, neeraj, 
 
 Wall: 
 
+On 06-11-2015 04:44:38
+Ishi von Meier wrote:
+This social network is so useful and cool
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 ________________________________
-Username: jdogg5566
-Password: a
-Real Name: a
-City: sdfsdf
-Friends: 
+Username: neeraj
+Password: weakpass33
+Real Name: Neeraj Kumar
+City: Santa Barbara, CA
+Friends: pfart, 
 Friend Requests: 
 
 Wall: 
 
-On 05-11-2015 07:31:59
-a wrote:
-Hi Bitches!
+On 06-11-2015 04:48:02
+Neeraj Kumar wrote:
+Wow this doesn't look buggy at all. String implementation worked better than user pointers after all, maybe.
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 ________________________________
