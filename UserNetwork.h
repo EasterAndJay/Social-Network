@@ -17,7 +17,7 @@ public:
 	void addUser(User user); //make sure no duplicate usernames //was const
 	void deleteUser(int i);
 	int findUser(string username_) ;
-	ArrayList<User>* getUsers();
+	ArrayList<User>*& getUsers();
 
 	string toString();
 	void readUserNetworkFromString(string fullNetworkString_);

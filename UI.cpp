@@ -103,7 +103,8 @@ bool UI::loginPrompt() {
 		cout << "User not found. Returning to main menu." << endl;
 		return false;
 	}
-	this->user = network.getUsers()->get(network.findUser(username));
+
+	this->user = User(network.getUsers()->get(network.findUser(username)));
 	if (user.getPassword() == password) {
 		if (user.getWall()->getWallPosts()->getLength() == 0)
 			cout << "Your wall is empty" << endl;
@@ -318,18 +319,16 @@ void UI::searchUsers() {
 				<< endl;
 		cin >> i;
 
-		// ISHI FIX
+		// ISHI FIX -- Should be working now...Use this as an example
 
 		// Index of user to send friend request to
-		int networkIndex = network.findUser(foundUsers.get(i));
+		int acceptorIndex = network.findUser(foundUsers.get(i));
 		// copy of this user made using copy ctor
-		User friendCopy = User(network.getUsers()->get(networkIndex));
+		User friendCopy = User(network.getUsers()->get(acceptorIndex));
 		// Send friendRequest to this user
-		user.sendFriendRequest(&(friendCopy));
-		// Update logged in user
-		network.getUsers()->set(network.findUser(user.getUsername()), user);
+		friendCopy.addFriendRequest(&user);
 		// Update other user on network
-		network.getUsers()->set(networkIndex, friendCopy);
+		network.getUsers()->set(acceptorIndex, friendCopy);
 
 	}
 }

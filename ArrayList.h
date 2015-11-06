@@ -11,6 +11,7 @@ public:
 	ArrayList(const ArrayList<T> & list);
 	~ArrayList();
 	ArrayList<T> & operator=(ArrayList<T>& copy);
+	ArrayList<T> & operator=(ArrayList<T>&& copy);
 
 
 	bool insert(int pos, const T & data);
@@ -93,12 +94,25 @@ ArrayList<T>& ArrayList<T>::operator=(ArrayList<T>& copy) {
 }
 
 template <class T>
+ArrayList<T>& ArrayList<T>::operator=(ArrayList<T>&& copy) {
+	delete[] list;
+	length = copy.length;
+	capacity = copy.capacity;
+	list = new T [capacity];
+	for (int i = 0; i < length; i++) {
+		list[i] = copy.list[i];
+	}
+	return *this;
+}
+
+
+template <class T>
 bool ArrayList<T>::insert(int pos, const T & data) {
 	// If index out of bounds, return false
 	if(pos > length || pos < 0)
 		return false;
 
-	T newItem = T(data);
+	//T newItem = T(data);
 
 	// If at full capacity, double size
 	if (this->length == this->capacity) 
@@ -107,7 +121,7 @@ bool ArrayList<T>::insert(int pos, const T & data) {
 	// If inserting at end, simple assignment
 	// Also could be case with empty list
 	if(pos == length){
-		this->list[pos] = newItem;
+		this->list[pos] = data;
 	}
 
 	// Else inserting at beginning or middle
@@ -117,7 +131,7 @@ bool ArrayList<T>::insert(int pos, const T & data) {
 				this->list[i+1] = this->list[i];
 		}
 		// Assign new value	
-		this->list[pos] = newItem;
+		this->list[pos] = data;
 	}
 	// Increment length for either case
 	this->length++;

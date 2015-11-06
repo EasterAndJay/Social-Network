@@ -24,7 +24,7 @@ User::User(string username_, string password_, string realName_, string city_) {
 	this->city = city_;
 }
 
-//TODO: Get friends from user String
+//TODO: BUGS HERE!!!
 User::User(const string userString_, UserNetwork* myNetwork) {
 
 	this->wall = new Wall();
@@ -66,8 +66,13 @@ User::User(const string userString_, UserNetwork* myNetwork) {
 	while ((friendsEndPos = friendString.find(", ")) != std::string::npos) {
 		singleUsername = friendString.substr(0, friendsEndPos);
  		index = myNetwork->findUser(singleUsername);
- 		User* friendToAdd = new User(myNetwork->getUsers()->get(index));
- 		this->addFriend(friendToAdd);
+
+ 		// EXCEPTION HERE
+ 		User friendToAdd = User(myNetwork->getUsers()->get(index));
+ 		//
+ 		//
+ 		
+ 		this->addFriend(&friendToAdd);
 		friendString.erase(0, friendsEndPos+2);
 	}
 	userString.erase(0, userString.find("\n") + 1);
@@ -82,9 +87,13 @@ User::User(const string userString_, UserNetwork* myNetwork) {
 	while ((friendRequestEndPos = friendRequestString.find(", ")) != std::string::npos) {
 		singleUsername = friendRequestString.substr(0, friendRequestEndPos);
  		index = myNetwork->findUser(singleUsername);
- 		User* friendToAdd = new User(myNetwork->getUsers()->get(index));
- 		cout << "friend we are trying to add:" << friendToAdd->getUsername() << endl;
- 		this->addFriendRequest(friendToAdd);
+
+ 		// EXCEPTION HERE
+ 		User friendToAdd = User(myNetwork->getUsers()->get(index));
+ 		//
+ 		//
+ 		cout << "friend we are trying to add:" << friendToAdd.getUsername() << endl;
+ 		this->addFriendRequest(&friendToAdd);
 		friendRequestString.erase(0, friendRequestEndPos+2);
 	}
 
@@ -108,15 +117,15 @@ User::~User() {
 	delete wall;
 }
 
-User& User::operator=(User copy) {
+User& User::operator=(const User& copy) {
 	username = copy.getUsername();
 	password = copy.getPassword();
 	realName = copy.getRealName();
 	city = copy.getCity();
 	delete wall;
 	wall = new Wall(*(copy.getWall()));
-	this->setFriendRequests(copy.getFriendRequests());
-	this->setFriends(copy.getFriends());
+	this->friendRequests = copy.getFriendRequests();
+	this->friends = copy.getFriends();
 	return *this;
 }
 
@@ -176,7 +185,7 @@ void User::deletePost(int pos) {
 }
 
 
-string User::toString() {
+string User::toString() const {
 	//cout << "inside User:toString" << endl;
 	string endString = "Username: " + this->getUsername() + "\n";
 	endString += "Password: " + this->password + "\n";
@@ -215,7 +224,7 @@ string User::friendsToString() const{
 	return endString + "\n";
 }
 
-string User::friendRequestsToString() {
+string User::friendRequestsToString() const {
 	string endString = "";
 	endString += "Friend Requests: ";
 	User** iter = getFriendRequests().begin();
@@ -260,12 +269,12 @@ void User::setFriends(ArrayList<User*> friends_){
 
 //probably get rid of this:
 void User::sendFriendRequest(User* potentialFriend) {
-    if (potentialFriend->getFriendRequests().find(this) == -1) {
+    //if (potentialFriend->getFriendRequests().find(this) == -1) {
         potentialFriend->addFriendRequest(this);
-    }
-    else {
-    	cout << "Error: You have already sent this user a friend request. Now you just look desperate." << endl;
-    }
+    //}
+   // else {
+    	//cout << "Error: You have already sent this user a friend request. Now you just look desperate." << endl;
+    //}
 }
 
 //helper for sendFriendRequest

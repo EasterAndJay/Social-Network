@@ -31,7 +31,7 @@ public:
 
 	User(const User& user);
 
-	User& operator=(User copy);
+	User& operator=(const User& rhs);
 
 	void setUsername(string username_);
 	string getUsername() const;
@@ -49,9 +49,9 @@ public:
 	void addPost(WallPost post_);
 	void deletePost(int pos);
 	
-	string toString();
+	string toString() const;
 	string friendsToString() const;
-	string friendRequestsToString();
+	string friendRequestsToString() const;
 	//void readUserFromString(string userString_);
 	void loadFriendsFromString(string friendString, const UserNetwork& MyNetwork);
 	

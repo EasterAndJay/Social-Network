@@ -20,7 +20,7 @@ UserNetwork& UserNetwork::operator=(UserNetwork copy) {
 	return *this;
 }
 
-ArrayList<User>* UserNetwork::getUsers(){
+ArrayList<User>*& UserNetwork::getUsers(){
 	return this->users;
 }
 
@@ -104,7 +104,6 @@ void UserNetwork::readFromFile() {
 	string fileName = "UserNetwork.txt";
 	ifstream infile(fileName);
 	string line, networkString;
-	
 
 	stringstream strStream;
 	strStream << infile.rdbuf();//read the file
@@ -147,20 +146,26 @@ void UserNetwork::createFriendship(int requestorIndex, int acceptorIndex) {
 void UserNetwork::sendFriendRequest(int requestorIndex, int acceptorIndex) {
 //make sure acceptor doesn't already have a friend request from this user
 
+	// User* network = this->getUsers()->getList();
 
-	User* network = this->getUsers()->getList();
+	// if(network[acceptorIndex].getFriendRequests().insert(0, &(network[requestorIndex]))) {
+	// 	cout << "INSERTED" << endl;
+	// 	cout << network[acceptorIndex].getFriendRequests().getLength();
+	// }
+
+	// cout << network[acceptorIndex].getFriendRequests().get(0)->toString() << endl;
 	
-	if ((network + requestorIndex)->getUsername() != "" && (network + acceptorIndex)->getUsername() != "") {
-		if ((network + acceptorIndex)->getFriendRequests().find(network + requestorIndex) == -1) { 
-			(network + requestorIndex)->sendFriendRequest(network+acceptorIndex);
-		}
-		else {
-			cout << "Error: You have already sent this user a friend request. Now you just look desperate." << endl;
-		}
-	}
-	else {
-    	cout << "Error: No user at this index." << endl;
-	}
+	// if ((network + requestorIndex)->getUsername() != "" && (network + acceptorIndex)->getUsername() != "") {
+	// 	if ((network + acceptorIndex)->getFriendRequests().find(network + requestorIndex) == -1) { 
+	// 		(network + requestorIndex)->sendFriendRequest(network+acceptorIndex);
+	// 	}
+	// 	else {
+	// 		cout << "Error: You have already sent this user a friend request. Now you just look desperate." << endl;
+	// 	}
+	// }
+	// else {
+ //    	cout << "Error: No user at this index." << endl;
+	// }
 }
 
 void UserNetwork::deleteFriendRequest(int requestorIndex, int acceptorIndex) {
