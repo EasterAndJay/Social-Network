@@ -70,7 +70,7 @@ void UI::newUserMenu() {
 
 	cout << "Please enter your desired username" << endl;
 	cin >> username;
-
+	
 	if (network.userAlreadyExists(username)) {
 		cout << "Sorry that username already exists, please try again" << endl;
 		return;
@@ -84,12 +84,13 @@ void UI::newUserMenu() {
 	getline(cin,realName);
 
 	cout << "Please enter your city" << endl;
-	cin.ignore();
+	
 	getline(cin,city);
 
 
 	User user = User(username, password, realName, city);
 	network.addUser(user);
+	this->network.toFile();
 	return;
 }
 
@@ -350,14 +351,14 @@ void UI::viewFriends() {
 			"or enter '-1' to go back" << endl;
 	cin >> index;
 	
-	if (index < 0)
-		return;
 
+	//if (index < 0)
+	//	return;
 	
-	string usernameToDelete = user.getFriends().get(index);
-
-	user.deleteFriend(usernameToDelete, &network);
-
+	if (index > -1) {	
+		string usernameToDelete = user.getFriends().get(index);
+		user.deleteFriend(usernameToDelete, &network);
+	}
 	return;
 }
 
