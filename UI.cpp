@@ -119,8 +119,6 @@ bool UI::loginPrompt() {
 }
 
 void UI::loginMenu() {
-	// Should output friend requests and be able to accept or decline
-	// cout << friend requests
 	char option;
 	option = 'z';
 
@@ -264,6 +262,7 @@ void UI::updateInformation() {
 		}
 	}
 	network.getUsers()->set(network.findUser(user.getUsername()), user);
+
 	return;
 }
 
@@ -323,8 +322,11 @@ void UI::searchUsers() {
 
 		if (index < 0)
 			return;
-		
-		user.sendFriendRequest(foundUsers.get(i), &network);
+		try {
+			user.sendFriendRequest(foundUsers.get(i), &network);
+		} catch(int& e) {
+			cout << "Sorry there is no user corresponding to that number" << endl;
+		}
 	
 	}
 }
@@ -355,10 +357,17 @@ void UI::viewFriends() {
 	//if (index < 0)
 	//	return;
 	
-	if (index > -1) {	
-		string usernameToDelete = user.getFriends().get(index);
-		user.deleteFriend(usernameToDelete, &network);
+	if (index > -1) {
+		try {
+			string usernameToDelete = user.getFriends().get(index);
+			user.deleteFriend(usernameToDelete, &network);
+		}
+		catch (int& e) {
+			cout << "Sorry there aren't any friends corresponding to that number" << endl;
+		}
 	}
+
+	user = User(network.getUsers()->get(network.findUser(user.getUsername())));
 	return;
 }
 
@@ -388,18 +397,25 @@ void UI::viewFriendRequests() {
 	if (index < 0)
 		return;
 
-	cout << "Enter 'a' to accept and 'd' to delete this friend request" << endl;
-	cin >> choice;
+	try {
+		string usernameToAccept = user.getFriendRequests().get(index);
+	
+		cout << "Enter 'a' to accept and 'd' to delete this friend request" << endl;
+		cin >> choice;
 
-	string usernameToAccept = user.getFriendRequests().get(index);
 
-	if (choice == 'a') {
-		
-		user.acceptFriendRequest(usernameToAccept, &network);
+		if (choice == 'a') {
+			
+			user.acceptFriendRequest(usernameToAccept, &network);
+		}
+		if (choice == 'd') {
+			user.deleteFriendRequest(usernameToAccept, &network);
+		}
+	} catch(int& i) {
+		cout << "Sorry there is no friend request corresponding to that number" << endl;
 	}
-	if (choice == 'd') {
-		user.deleteFriendRequest(usernameToAccept, &network);
-	}
+
+	user = User(network.getUsers()->get(network.findUser(user.getUsername())));
 	
 	return;
 }
