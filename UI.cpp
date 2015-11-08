@@ -40,7 +40,6 @@ void UI::mainMenu() {
 			{
 				logged_in = loginPrompt();
 				if (!logged_in) {
-					cout << "Sorry invalid username or password. Please try again" << endl;
 					return;
 				}
 				else {
@@ -69,7 +68,8 @@ void UI::newUserMenu() {
 	string username, password, realName, city;
 
 	cout << "Please enter your desired username" << endl;
-	cin >> username;
+	cin.ignore();
+	getline(cin, username);
 	
 	if (network.userAlreadyExists(username)) {
 		cout << "Sorry that username already exists, please try again" << endl;
@@ -77,14 +77,12 @@ void UI::newUserMenu() {
 	}
 
 	cout << "Please enter your password" << endl;
-	cin >> password;
+	getline(cin, password);
 
 	cout << "Please enter your real name" << endl;
-	cin.ignore();
 	getline(cin,realName);
 
 	cout << "Please enter your city" << endl;
-	
 	getline(cin,city);
 
 
@@ -101,7 +99,7 @@ bool UI::loginPrompt() {
 	cout << "Enter your password" << endl;
 	cin >> password;
 	if (!network.userAlreadyExists(username)) {
-		cout << "User not found. Returning to main menu." << endl;
+		cout << "Sorry invalid username or password. Please try again" << endl;
 		return false;
 	}
 
@@ -114,6 +112,7 @@ bool UI::loginPrompt() {
 		return true;
 	}
 	else {
+		cout << "Sorry invalid username or password. Please try again" << endl;
 		return false;
 	}
 }
@@ -215,8 +214,13 @@ void UI::deleteWallPost() {
 			"you would like to delete, or enter '-1' to "
 			"return to the login menu" << endl;
 	cin >> index;
+
 	if (index < 0)
 		return;
+	if (index > i) {
+		cout << "Sorry there is no wall post corresponding to that number" << endl;
+		return;
+	}
 	user.deletePost(index);
 	network.getUsers()->set(network.findUser(user.getUsername()), user);
 	return;

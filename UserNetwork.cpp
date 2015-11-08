@@ -111,10 +111,4 @@ void UserNetwork::readFromFile() {
 	networkString = strStream.str();//str holds the content of the file;
 	
 	this->readUserNetworkFromString(networkString);
-}	
-
-
-
-
-
-
+}
