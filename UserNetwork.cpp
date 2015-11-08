@@ -7,71 +7,66 @@ using namespace std;
 
 
 UserNetwork::UserNetwork(const UserNetwork& network) {
-	this->users = new DoublyLinkedList<User>(*(network.users));
-} 
+	this->users = new ArrayList<User>(*(network.users));
+}
 
-//Simple destructor
 UserNetwork::~UserNetwork () {
 	delete users;	
 }
 
+UserNetwork& UserNetwork::operator=(UserNetwork copy) {
+	delete users;
+	users = new ArrayList<User>(*(copy.getUsers()));
+	return *this;
+}
 
-// Returns user if found.
-// If not found, returns empty user.
-User UserNetwork::findUser(string username_) {
-	Node<User>* currentUser = this->users->getHead();
-	while (currentUser) {
-		if (currentUser->data.getUsername() == username_)
-			return currentUser->data;
-		currentUser = currentUser->next;
+ArrayList<User>*& UserNetwork::getUsers(){
+	return this->users;
+}
+
+// Returns index of user if found.
+// If not found, returns -1
+int UserNetwork::findUser(string username_) {
+	//for(User* iter = this->users->begin(); iter != this->users->end(); iter++) {
+	
+	for (int i = 0; i < this->users->getLength(); i++){
+		//cout << "inside finduser this is current length of users list:" << endl;
+		//cout << this->users->getLength() << endl;
+	if (this->users->get(i).getUsername() == username_)
+		return i;
 	}
-	return User();
+	return -1;
 }
 
 //Helper method to make sure there are no duplicate users before adding
 bool UserNetwork::userAlreadyExists(string username) {
-	//start peekUser pointer at the head of users
-	Node<User>* peekUser = this->users->getHead();
-	//loop through and check against input argument username
-	while (peekUser) {
-		if (peekUser->data.getUsername() == username) {
-			//printf("user found\n");
-			return true;
-		}
-		peekUser = peekUser->next;
-	}
-
-	//printf("user not found\n");
-	return false;
+	if(findUser(username) != -1)
+		return true;
+	else
+		return false;
 }
 
-void UserNetwork::addUser(User user) { //make sure no duplicates
-	if (userAlreadyExists(user.getUsername())) {
-		//printf("Sorry, a user already exists with this username\n");
-	} else {
-		this->users->addToEnd(user);
-		//printf("User Added Successfully\n");
-	}
+void UserNetwork::addUser(User user) { //make sure no duplicates   //was: const User& user
+	if (userAlreadyExists(user.getUsername()))
+		return;
+	else
+		this->users->insert(0,user);
 }
 
-void UserNetwork::deleteUser(User user){ //make sure user in fact exists before deleting
-	if (userAlreadyExists(user.getUsername())) {
-		this->users->deleteByValue(user);
-		printf("Deleted successfully\n");
-	} else {
-		printf("No matching user found to delete\n");
-	}
-
+void UserNetwork::deleteUser(int i){ //make sure user in fact exists before deleting
+	this->users->remove(i);
 }
 
 
 string UserNetwork::toString() {
 	string endString = string();
 	
-	Node<User>* currentUser = this->users->getHead();
-	while (currentUser) {
-		endString.append(currentUser->data.toString());
-		currentUser = currentUser->next;
+	//Node<User>* currentUser = this->users->getHead();
+	//while (currentUser) {
+	for(User* currentUser = this->users->begin(); currentUser != this->users->end(); currentUser++) {
+		//cout << currentUser << endl;
+		endString.append(currentUser->toString());
+		//currentUser = currentUser->next;
 	}
 	return endString;
 }
@@ -80,7 +75,7 @@ string UserNetwork::toString() {
 
 void UserNetwork::readUserNetworkFromString(string fullNetworkString_) {
 	//delete this->users;
-	//users = new DoublyLinkedList<User>;
+	//users = new ArrayList<User>;
 	
 	std::string fullNetworkString = fullNetworkString_;
 	std::string nextUserDelimiter = "\n________________________________\n";
@@ -88,8 +83,10 @@ void UserNetwork::readUserNetworkFromString(string fullNetworkString_) {
 	
 	size_t userEndPos;
 	while ((userEndPos = fullNetworkString.find(nextUserDelimiter)) != std::string::npos) {
-		User userToAdd = User(fullNetworkString.substr(0, userEndPos + delimiterLength));
+		//Changed to reflect new User constructor:
+		User userToAdd = User(fullNetworkString.substr(0, userEndPos + delimiterLength)); 
 		this->addUser(userToAdd);
+
 		fullNetworkString.erase(0, userEndPos + delimiterLength);
 	}
 
@@ -108,15 +105,10 @@ void UserNetwork::readFromFile() {
 	string fileName = "UserNetwork.txt";
 	ifstream infile(fileName);
 	string line, networkString;
-	
 
 	stringstream strStream;
 	strStream << infile.rdbuf();//read the file
 	networkString = strStream.str();//str holds the content of the file;
 	
 	this->readUserNetworkFromString(networkString);
-}	
-
-
-
-
+}

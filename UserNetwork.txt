@@ -1,22 +1,11 @@
-Username: Marty
-Password: qwerty
-Real Name: Sweet Balls
-City: CoolCity
-Friends: feshies, 
+Username: jdogg5566
+Password: a
+Real Name: a
+City: a
+Friends: 
 Friend Requests: 
 
 Wall: 
-
-
-________________________________
-Username: feshies
-Password: pass123
-Real Name: Ishi von Meier
-City: Goleta, CA
-Friends: Marty, 
-Friend Requests: 
-
-Wall:
 
 
 ________________________________

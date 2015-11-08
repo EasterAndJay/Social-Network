@@ -1,11 +1,6 @@
 #include "WallPost.h"
 #include "time.h"
 
-WallPost::WallPost(const WallPost& wallPost) {
-	this->author = string(wallPost.getAuthor());
-	this->content = string(wallPost.getContent()); //think these string() are redundant, fix later
-	this->timePosted = string(wallPost.getTimePosted());
-}
 
 string WallPost::getContent() const{
 	return this->content;
@@ -42,10 +37,10 @@ void WallPost::setTimePosted(string customTime) {
 }
 
 string WallPost::toString() const{
-
 	string endString = "On " + this->timePosted + "\n" + 
 	this->author + " wrote:\n" + 
 	this->content;
+
 	return endString;
 }
 

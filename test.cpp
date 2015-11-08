@@ -5,92 +5,274 @@
 #include "Wall.h"
 #include "User.h"
 #include "UserNetwork.h"
+#include "ArrayList.h"
 
 int main()
-{
-  /*
-  DoublyLinkedList<int> dll;
+{ 
+  
 
-  dll.addToEnd(1);
-  dll.addToEnd(2);
-  dll.addToEnd(3);
-  dll.addToEnd(4);
-  dll.addToEnd(5);
+  /*ArrayList<int> ints = ArrayList<int>();
 
-  cout << dll << endl;
-  DoublyLinkedList<int> dll2(dll);
-  cout << dll2 << endl;
+  for (int i = 0; i < 1000; i++) {
+    ints.insert(i, i);
+    
+  }
 
-  dll.deleteByValue(3);
-  dll.deleteByValue(1);
-  dll.deleteByValue(5);
+  for (int i = 0; i < 500; i++) {
+    ints.remove(0);
+    
+  }
 
-  cout << dll << endl;
-  cout << dll2 << endl;
+  for (int i = 0; i < 200; i++) {
+    ints.set(i, i);
+    
+  }
+  for (int i = 0; i < 210; i++) {
+    cout << ints.get(i) << " " << endl;
+    
+  }*/
 
-  cout << dll.getHead()->data << endl;
-  */
+  //Wall myWall = Wall();
+
+
+  //myWall.addPost(myPost);
+  //cout << ints << endl;
+
+
+
+  //cout << ints << endl;
+  //User* Ishi = new User("ishi123", "pass", "Ishi von Meier", "Sebastopol");
+  //cout << Ishi->toString() << endl;
   
   
-  WallPost myPost = WallPost("Hi this is my first post", "Jonathan Easterman");
-  //cout << myPost << endl;
-
-  WallPost otherPost = WallPost();
-  otherPost.setContent("And this is my second post");
-  otherPost.setAuthor("Jonathan Easterman");
-  otherPost.setTimePosted();
-  //cout << otherPost.getAuthor() << otherPost.getContent() << otherPost.getTimePosted() << endl;
-  //cout << otherPost << endl;
-
-  Wall myWall = Wall();
-
-  WallPost wallPost = WallPost("Here is my wall!", "WallPost creator");
-
-  myWall.addPost(myPost);
-  myWall.addPost(otherPost);
-  //myWall.deletePost(myPost);
-  myWall.addPost(wallPost);
+  // ArrayList<User*> myFriends = ArrayList<User*>();
+  // myFriends.insert(0, Ishi);
   
-  //Wall newWall = Wall(myWall);
+  // cout << "List so far:" << endl;
   
-  //myWall.deletePost(myPost);
+  // User* friendData = myFriends.get(0);
   
-  //cout << newWall.toString() << endl;
+  // cout << friendData->toString() << endl;
+  
+  
+  
   
  
-  //cout << myWall.toString() << endl;
-  //cout << "\n\n^%^%^&%^&%^&------DESIRED CONTENT ABOVE%$^$%^$%^%$\n\n";
+  WallPost myPost = WallPost("Hi this is my first post", "Jonathan Easterman");
+//   cout << myPost << endl;
+
+ WallPost otherPost = WallPost();
+  otherPost.setContent("This social network is so useful and cool");
+  otherPost.setAuthor("Ishi von Meier");
+  otherPost.setTimePosted();
+//   cout << otherPost.getAuthor() << otherPost.getContent() << otherPost.getTimePosted() << endl;
+//   cout << otherPost << endl;
+
+//   Wall myWall = Wall();
+
+ WallPost wallPost = WallPost("Here is my wall! How cool is it", "Bob Queefs");
+
+//   myWall.addPost(myPost);
+// //segfault
+//   cout << "make it here?" << endl;
+//   myWall.addPost(otherPost);
+
+//   myWall.deletePost(0);
+//   myWall.addPost(wallPost);
+
+
   
-  //cout << myWall.toString() << endl;
+
+
+  // Wall newWall = Wall(myWall);
   
-  string myWallStr = myWall.toString();
-  Wall myOtherWall = Wall();
-  myOtherWall.readWallPostsFromString(myWallStr);
+  // myWall.deletePost(0);
+  
+  // cout << newWall.toString() << endl;
+  
+ 
+  // cout << myWall.toString() << endl;
+  // cout << "\n\n^%^%^&%^&%^&------DESIRED CONTENT ABOVE%$^$%^$%^%$\n\n";
+  
+  // cout << myWall.toString() << endl;
+  
+  // string myWallStr = myWall.toString();
+  // Wall myOtherWall = Wall();
+  // myOtherWall.readWallPostsFromString(myWallStr);
 
-  //cout << myOtherWall.toString() << endl;
+  // cout << myOtherWall.toString() << endl;
+/*
+    Wall myWall = Wall();
+    myWall.addPost(otherPost);
+    myWall.addPost(wallPost);
 
-  User Ish = User("feshies", "pass123", "Ishi von Meier", "Goleta, CA");
-  Ish.addPost(otherPost);
-  User Jon = User("jonny", "pass234", "Jonathan Beasterman", "Queefville, CA");
-  Jon.addPost(myPost);
-  /*
-  cout << Ish.toString() << endl;
-  cout << "\n\n^%^%^&%^&%^&------DESIRED CONTENT ABOVE%$^$%^$%^%$\n\n";
-  string ishUserString = Ish.toString();
-  Ish.readUserFromString(ishUserString);
+    Wall newWall = Wall(myWall);
+    myWall.deletePost(0);
 
-  cout << Ish.toString() << endl;*/
+    cout << myWall.toString() << endl;
+
+    cout << "Above is myWall. should have 1 post" << endl;
+    cout << newWall.toString() << endl;
+    cout << "Above is newWall. Should have 2 posts" << endl;
+*/
+
+User Marty = User("Marty", "qwerty", "Sweet Balls", "Goleter");
+User Queef = User("pfart", "badpass", "Bob Queefs", "SB");
+Queef.addPost(wallPost);
+User Ish = User("ishi", "pass123", "Ishi von Meier", "Goleta, CA");
+Ish.addPost(otherPost);
+User Jon = User("jonny", "pass234", "Jonathan Beasterman", "Queefville, CA");
+Jon.addPost(myPost);
+
+
+UserNetwork* myNetwork = new UserNetwork();
+
+myNetwork->addUser(Ish);
+myNetwork->addUser(Marty);
+myNetwork->addUser(Queef);
+myNetwork->addUser(Jon);
+
+//myNetwork->howManyFriendsUsersHave();
+
+cout << "sending one friend request..." << endl;
+//Marty.sendFriendRequest(Ish.getUsername(), *myNetwork);
+//cout << "Trying to send a duplicate friend request..." << endl;
+//Jon.sendFriendRequest(&Ish);
+//cout << "Queef sending ish a friend request....." <<endl;
+//Queef.sendFriendRequest(&Ish);
+//cout << "Marty sending ish a friend request....." <<endl;
+//Marty.sendFriendRequest(&Ish);
+// Index of user to send friend request to
+Marty.sendFriendRequest(Ish.getUsername(), myNetwork);
+Jon.sendFriendRequest(Ish.getUsername(), myNetwork);
+Ish.acceptFriendRequest(Marty.getUsername(), myNetwork);
+
+//int acceptorIndex = myNetwork->findUser(Ish.getUsername());
+/*
+// copy of this user made using copy ctor
+User friendCopy = User(myNetwork->getUsers()->get(acceptorIndex));
+// Send friendRequest to this user
+friendCopy.addFriendRequest(Marty.getUsername());
+cout << "-----Friend copy:----:\n" << friendCopy.toString();
+// Update other user on network
+myNetwork->getUsers()->set(acceptorIndex, friendCopy);
+//cout << "get User we just set: " << myNetwork->getUsers()->get(acceptorIndex).getFriendRequests() << endl;
+*/
+//cout << "Data that was set: \n" << myNetwork->getUsers()->get(acceptorIndex).toString() << endl;
+
+myNetwork->toFile();
+
+//cout << "Ishi accepting 1 friend request...." << endl;
+
+
+//myNetwork->howManyFriendsUsersHave();
+//cout << Marty.toString() << endl;
+
+//Should send friend request from 
+/*
+
+
+// Update logged in user
+int userIndex = myNetwork->findUser(Ish.getUsername());
+
+myNetwork->getUsers()->set(userIndex, Ish);
+// Update other user on network
+myNetwork->getUsers()->set(networkIndex, friendCopy);
+*/
+//myNetwork->toFile();
+
+
+//try updte user if function in usernatwork if this doesn't work
+
+
+
+
+//User *copyMarty= new User(myNetwork->getUsers()->get(0));
+
+//cout << copyMarty.toString() << endl;
+
+/*
+cout << "~~~trying to see one user on mynetwork~~~~" << endl;
+ArrayList<User>* myArrPtr = myNetwork->getUsers();
+User faggot = myArrPtr->get(0);
+cout << faggot.toString() << endl;
+*/
+
+//cout << "now trying it on the network....." << endl;
+
+//cout << "trying to print from user a 2nd time" << endl;
+//cout << Ish.toString() << endl;
+
+//cout << Ish.toString() << endl;
+
+
+
+/*
+cout << "sending one friend request..." << endl;
+Jon->sendFriendRequest(Ish);
+cout << "Trying to send a duplicate friend request..." << endl;
+Jon->sendFriendRequest(Ish);
+cout << "Queef sending ish a friend request....." <<endl;
+Queef->sendFriendRequest(Ish);
+cout << "Marty sending ish a friend request....." <<endl;
+Marty->sendFriendRequest(Ish);
+
+cout << "Ishi accepting 1 friend request...." << endl;
+Ish->acceptFriendRequest(0);
+Ish->acceptFriendRequest(0);
+cout << "These are Ishi's friends: " << endl;
+cout << Ish->getFriends().get(0)->getUsername() << endl;
+cout << Ish->getFriends().get(1)->getUsername() << endl;
+
+cout << "Trying toString...." << endl;
+cout << Ish->toString() << endl;
+
+copyIsh = User(Ish->toString, )
+*/
+
+/*.get(0)->getUsername() << endl;
+cout << Ish->getFriendRequests()
+cout << Ish->getFriendRequests().get(1)->getUsername() << endl;
+
+
+cout << "deleting friend request at index 1:" << endl;
+Ish->deleteFriendRequest(1);
+
+cout << "These are Ishi's friend requests now: " << endl;
+cout << Ish->getFriendRequests().get(0)->getUsername() << endl;
+
+try {
+  cout << Ish->getFriendRequests().get(1)->getUsername() << endl;
+} catch (int& e) {
+  cout << "No request at index 1" << endl;
+}*/
+//cout << Ish->getFriendRequests().get(1)->getUsername() << endl;
+
+
+
+ /*
+  cout << "trying read from string......." << endl;
+
+  // cout << "\n\n^%^%^&%^&%^&------DESIRED CONTENT ABOVE%$^$%^$%^%$\n\n";
+  string ishUserString = Ish->toString();
+  User copyIsh = User(ishUserString);
+  cout << "now printing out what our read in and back out gives us:....."   <<endl;
+  cout << copyIsh.toString() << endl;
+*/
+  // Ish.sendFriendRequest(&Jon);
+  // Jon.acceptFriendRequest(0);
+
+  // cout << Ish.toString() << endl;
 
   
-  UserNetwork myNetwork = UserNetwork();
-  myNetwork.addUser(Ish);
-  //cout << "trying to add duplicate user..." << endl;
-  //myNetwork.addUser(Ish);
-  cout << "trying to add second user..." << endl;
-  myNetwork.addUser(Jon);
-  //cout<< "trying to delete first User....." <<endl;
-  //myNetwork.deleteUser(Ish);
-
+  
+  // cout << "trying to add duplicate user..." << endl;
+  // myNetwork.addUser(Ish);
+  // cout << "trying to add second user..." << endl;
+  // myNetwork.addUser(Jon);
+  // cout<< "trying to delete first User....." <<endl;
+  // myNetwork.deleteUser(Ish);
+/*
   cout << "trying toString(): ....." << endl;
   string stringToRead = myNetwork.toString();
   cout << myNetwork.toString() << endl;
@@ -104,15 +286,14 @@ int main()
   
   cout << "WE GOT THE FUCKING STRING FROM THE FILE" << endl;
   
-  //cout << "\n\n^%^%^&%^&%^&------DESIRED CONTENT ABOVE%$^$%^$%^%$\n\n";
-  /*
-  UserNetwork copyNetwork = UserNetwork();
+  cout << "\n\n^%^%^&%^&%^&------DESIRED CONTENT ABOVE%$^$%^$%^%$\n\n";
+
   copyNetwork.readUserNetworkFromString(stringToRead);
   cout << "string we read: ...." << endl;
   cout << copyNetwork.toString() << endl;
-  */
+  
 
-  cout << "end of program!" << endl;
+  cout << "end of program!" << endl;*/
 
   return 0;
 }
