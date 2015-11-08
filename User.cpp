@@ -1,6 +1,7 @@
 #include "User.h"
 #include <stdio.h>
 #include <string>
+#include <algorithm>
 
 
 
@@ -81,7 +82,7 @@ User::User(const string userString_) {
 	while ((friendRequestEndPos = friendRequestString.find(", ")) != std::string::npos) {
 		singleUsername = friendRequestString.substr(0, friendRequestEndPos);
  		
- 		this->friendRequests.insert(0,singleUsername);
+ 		this->friendRequests.insert(friendRequests.begin(),singleUsername);
 		friendRequestString.erase(0, friendRequestEndPos+2);
 	}
 
@@ -156,14 +157,6 @@ string User::getCity() const{
 void User::setPassword(string password_){
 	this->password = password_;
 }
-
-/*
-bool User::checkPassword (string password_){
-	if (this->password == password_)
-		return true;
-	else
-		return false;
-}*/
 	 
 void User::addPost(WallPost post_){
 	this->wall->addPost(post_);
@@ -195,9 +188,9 @@ string User::friendsToString() const{
 	string endString = "";
 	endString += "Friends: ";
 	
-	for (int i = 0; i < this->friends.getLength(); i++) {
+	for (int i = 0; i < this->friends.size(); i++) {
 		try {
-			endString += getFriends().get(i) + ", ";
+			endString += getFriends().at(i) + ", ";
 		} catch (int& e) {
 			cout << "Error: No friends at this index" << endl;
 		}
@@ -212,9 +205,9 @@ string User::friendRequestsToString() const {
 	
 	// ITERATOR IS NOT WORKING HERE, had to switch to regular for loop
 	
-	for (int i = 0; i < this->friendRequests.getLength(); i++) {
+	for (int i = 0; i < this->friendRequests.size(); i++) {
 		try {
-			endString += getFriendRequests().get(i) + ", ";
+			endString += getFriendRequests().at(i) + ", ";
 		} catch (int& e) {
 			cout << "Error: No friend requests at this index" << endl;
 		}
@@ -227,20 +220,20 @@ string User::friendRequestsToString() const {
 /* Getters and setters for friends and friendRequests arrays*/
 //
 
-ArrayList<string> User::getFriendRequests() const{
+vector<string> User::getFriendRequests() const{
 	return this->friendRequests;	
 }
 
-void User::setFriendRequests(ArrayList<string> friendRequests_){
+void User::setFriendRequests(vector<string> friendRequests_){
 	this->friendRequests = friendRequests_;
 }
 
-ArrayList<string> User::getFriends() const{
+vector<string> User::getFriends() const{
 	return this->friends;
 }
 	
 	
-void User::setFriends(ArrayList<string> friends_){
+void User::setFriends(vector<string> friends_){
 	this->friends = friends_;
 }
 
@@ -255,24 +248,27 @@ void User::sendFriendRequest(string potentialFriendUsername, UserNetwork* myNetw
 		cout << "You can't send a friend request to yourself!!" << endl;
 		return;
 	}
-	for (User* iter = myNetwork->getUsers()->begin(); iter != myNetwork->getUsers()->end(); iter++) {
+	for (auto iter = myNetwork->getUsers()->begin(); iter != myNetwork->getUsers()->end(); iter++) {
 		if (iter->getUsername() == potentialFriendUsername) {
+			vector<string> requests = iter->getFriendRequests();
+			vector<string> friends = iter->getFriends();
 
 			//make sure potentialFriend doesn't already have a request from us
-			if (iter->getFriendRequests().find(this->getUsername()) == -1 && iter->getFriends().find(this->getUsername()) == -1) {
+			if (std::find(requests.begin(), requests.end(), this->getUsername()) == requests.end()
+				&& std::find(friends.begin(), friends.end(), this->getUsername()) == friends.end()) {
 	    		
 	    		//now we have to set since our iterator uses get, which is const
 	        	int acceptorIndex = myNetwork->findUser(potentialFriendUsername);
 	        	// copy of this user made using copy ctor
-				User friendCopy = User(myNetwork->getUsers()->get(acceptorIndex));
+				User friendCopy = User(myNetwork->getUsers()->at(acceptorIndex));
 				// Send friendRequest to this user
 				friendCopy.addFriendRequest(this->getUsername());
 				// Update other user on network
-				myNetwork->getUsers()->set(acceptorIndex, friendCopy);
+				myNetwork->getUsers()->at(acceptorIndex) = friendCopy;
 	        	
 	        	/* test:
 	        	try {
-	        		cout << "iter->getFriendRequests[0] is : "  << iter->getFriendRequests().get(0) <<endl;
+	        		cout << "iter->getFriendRequests[0] is : "  << iter->getFriendRequests().at(0) <<endl;
 	        	} catch (int& e) {
         			cout << "Error: setFR didn't work!!!!" << endl;
     			} */
@@ -292,20 +288,22 @@ void User::acceptFriendRequest(string usernameToAdd, UserNetwork* myNetwork){
 		cout << "You can't be friends with yourself!!" << endl;
 		return;
 	}
-	for (User* iter = myNetwork->getUsers()->begin(); iter != myNetwork->getUsers()->end(); iter++) {
+	for (auto iter = myNetwork->getUsers()->begin(); iter != myNetwork->getUsers()->end(); iter++) {
 		try {
 			//first deal with this user
 			if (iter->getUsername() == this->getUsername()){
 				//find this user on network
 				int indexOfThisInNetwork = myNetwork->findUser(this->getUsername());
 				//make a copy of this so we can set the god damned changes in network scope
-				User thisCopy = User(myNetwork->getUsers()->get(indexOfThisInNetwork));
+				User thisCopy = User(myNetwork->getUsers()->at(indexOfThisInNetwork));
 				//find index of request in acceptor's friend requests
-				int index = thisCopy.getFriendRequests().find(usernameToAdd);
+				vector<string> requests = thisCopy.getFriendRequests();
+				auto it = std::find(requests.begin(), requests.end(), usernameToAdd);
+				int index = std::distance(requests.begin(), it);
 				thisCopy.deleteFriendRequest(index);  //delete the request
 				thisCopy.addFriend(usernameToAdd);   //add the friend
 
-				myNetwork->getUsers()->set(indexOfThisInNetwork, thisCopy);
+				myNetwork->getUsers()->at(indexOfThisInNetwork) = thisCopy;
 
 			}
 
@@ -314,11 +312,11 @@ void User::acceptFriendRequest(string usernameToAdd, UserNetwork* myNetwork){
 
 				int acceptorIndex = myNetwork->findUser(usernameToAdd);
 		       	// copy of this user made using copy ctor
-				User friendCopy = User(myNetwork->getUsers()->get(acceptorIndex));
+				User friendCopy = User(myNetwork->getUsers()->at(acceptorIndex));
 				// Send friendRequest to this user
 				friendCopy.addFriend(this->getUsername());
 				// Update other user on network
-				myNetwork->getUsers()->set(acceptorIndex, friendCopy);
+				myNetwork->getUsers()->at(acceptorIndex) = friendCopy;
 		    }
 		} catch (int& e) {}    
   	}
@@ -326,39 +324,39 @@ void User::acceptFriendRequest(string usernameToAdd, UserNetwork* myNetwork){
 
 //helper for accept friend request
 void User::addFriend(string newFriendUsername) {
-	this->friends.insert(0, newFriendUsername);
+	this->friends.insert(friends.begin() + 0, newFriendUsername);
 }
 
 void User::addFriendRequest(string newFriendRequestUsername) {
-	this->friendRequests.insert(0, newFriendRequestUsername);
+	this->friendRequests.insert(friendRequests.begin() + 0, newFriendRequestUsername);
 }
 
 
 void User::deleteFriendRequest(int index){
-
-    if (this->friendRequests.remove(index)){
-    }
-    
-    else {
-        cout << "Error: No friend request at this index." << endl;
-    }
+	if (index < 0 || index > friendRequests.size() - 1)
+		cout << "Error: No friend request at this index." << endl;
+    else
+    	friendRequests.erase(friendRequests.begin() + index);
 }
 
 void User::deleteFriendRequest(string usernameOfFriendToDelete, UserNetwork* myNetwork) {
-	for (User* iter = myNetwork->getUsers()->begin(); iter != myNetwork->getUsers()->end(); iter++) {
+	for (auto iter = myNetwork->getUsers()->begin(); iter != myNetwork->getUsers()->end(); iter++) {
 
 		try {
 			if (iter->getUsername() == this->getUsername()){
 				//find this user on network
 				int indexOfThisInNetwork = myNetwork->findUser(this->getUsername());
 				//make a copy of this so we can set the god damned changes in network scope
-				User thisCopy = User(myNetwork->getUsers()->get(indexOfThisInNetwork));
+				User thisCopy = User(myNetwork->getUsers()->at(indexOfThisInNetwork));
 
-				int index = thisCopy.getFriendRequests().find(usernameOfFriendToDelete);
+				vector<string> requests = thisCopy.getFriendRequests();
+				auto it = std::find(requests.begin(), requests.end(), usernameOfFriendToDelete);
+				int index = std::distance(requests.begin(), it);
+
 				//delete the request
 				thisCopy.deleteFriendRequest(index);
 				// Update this on network
-				myNetwork->getUsers()->set(indexOfThisInNetwork, thisCopy);
+				myNetwork->getUsers()->at(indexOfThisInNetwork) = thisCopy;
 
 				cout << "Friend request removed successfully " << endl;
 			}
@@ -370,7 +368,7 @@ void User::deleteFriendRequest(string usernameOfFriendToDelete, UserNetwork* myN
 //also delete this from the other persons friend list
 void User::deleteFriend(string usernameOfFriendToDelete, UserNetwork* myNetwork){
     
-    for (User* iter = myNetwork->getUsers()->begin(); iter != myNetwork->getUsers()->end(); iter++) {
+    for (auto iter = myNetwork->getUsers()->begin(); iter != myNetwork->getUsers()->end(); iter++) {
 		
 		//first deal with this user
 		try {
@@ -378,20 +376,23 @@ void User::deleteFriend(string usernameOfFriendToDelete, UserNetwork* myNetwork)
 				//find this user on network
 				int indexOfThisInNetwork = myNetwork->findUser(this->getUsername());
 				//make a copy of this so we can set the god damned changes in network scope
-				User thisCopy = User(myNetwork->getUsers()->get(indexOfThisInNetwork));
+				User thisCopy = User(myNetwork->getUsers()->at(indexOfThisInNetwork));
 				//find index of request in this's friend requests
-				ArrayList<string> thisFriends = thisCopy.getFriends();
-				int index = thisFriends.find(usernameOfFriendToDelete);
+
+				vector<string> requests = thisCopy.getFriendRequests();
+				auto it = std::find(requests.begin(), requests.end(), usernameOfFriendToDelete);
+				int index = std::distance(requests.begin(), it);
+	
 
 				//delete them from our friend's list:
 				//first make a copy
-				ArrayList<string> thisFriendsListCopy = thisCopy.getFriends();
+				vector<string> thisFriendsListCopy = thisCopy.getFriends();
 				//then remove @ our ex friend's index from it
-				thisFriendsListCopy.remove(index);
+				thisFriendsListCopy.erase(thisFriendsListCopy.begin() + index);
 				//then set thisCopy's friends list
 				thisCopy.setFriends(thisFriendsListCopy);
 				// Update this on network
-				myNetwork->getUsers()->set(indexOfThisInNetwork, thisCopy);
+				myNetwork->getUsers()->at(indexOfThisInNetwork) = thisCopy;
 			}
 
 			//next deal with other user
@@ -399,19 +400,21 @@ void User::deleteFriend(string usernameOfFriendToDelete, UserNetwork* myNetwork)
 
 				int deleteeIndex = myNetwork->findUser(usernameOfFriendToDelete);
 		       	// copy of this user made using copy ctor
-				User friendCopy = User(myNetwork->getUsers()->get(deleteeIndex));
+				User friendCopy = User(myNetwork->getUsers()->at(deleteeIndex));
 				
 				// find index of this user in friend's friend list
-				int indexToDelete = friendCopy.getFriends().find(this->getUsername());
+				vector<string> friends = friendCopy.getFriends();
+				auto it = std::find(friends.begin(), friends.end(), this->getUsername());
+				int indexToDelete = std::distance(friends.begin(), it);
+
 				//delete us from their friend's list
 				//first make a copy
-				ArrayList<string> friendsFriendsListCopy = friendCopy.getFriends();
 				//then remove us from it
-				friendsFriendsListCopy.remove(indexToDelete);
+				friends.erase( friends.begin() + indexToDelete);
 				//then set friendCopy's friends list
-				friendCopy.setFriends(friendsFriendsListCopy);
+				friendCopy.setFriends(friends);
 				// Update other user on network
-				myNetwork->getUsers()->set(deleteeIndex, friendCopy);
+				myNetwork->getUsers()->at(deleteeIndex) = friendCopy;
 			}
 		} catch (int& e) {}
 	} 

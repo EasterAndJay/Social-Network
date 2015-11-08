@@ -95,17 +95,21 @@ void UI::newUserMenu() {
 bool UI::loginPrompt() {
 	string username, password;
 	cout << "Enter your username" << endl;
-	cin >> username;
+
+	cin.ignore();
+	getline(cin, username);
+
 	cout << "Enter your password" << endl;
-	cin >> password;
+	getline(cin, password);
+
 	if (!network.userAlreadyExists(username)) {
 		cout << "Sorry invalid username or password. Please try again" << endl;
 		return false;
 	}
 
-	this->user = User(network.getUsers()->get(network.findUser(username)));
+	this->user = User(network.getUsers()->at(network.findUser(username)));
 	if (user.getPassword() == password) {
-		if (user.getWall()->getWallPosts()->getLength() == 0)
+		if (user.getWall()->getWallPosts()->size() == 0)
 			cout << "Your wall is empty" << endl;
 		else
 			cout << '\n' << user.getWall()->toString() << endl;
@@ -194,7 +198,7 @@ void UI::createWallPost() {
 	getline(cin, content);
 	WallPost newPost = WallPost(content, user.getRealName());
 	this->user.addPost(newPost);
-	network.getUsers()->set(network.findUser(user.getUsername()), user);
+	network.getUsers()->at(network.findUser(user.getUsername())) = user;
 	return;
 }
 
@@ -202,11 +206,11 @@ void UI::deleteWallPost() {
 	cout << '\n';
 	int index;
 	int i = 0;
-	if (user.getWall()->getWallPosts()->getLength() == 0) {
+	if (user.getWall()->getWallPosts()->size() == 0) {
 		cout << "Your wall is empty" << endl;
 		return;
 	}
-	for (WallPost* iter = user.getWall()->getWallPosts()->begin(); iter != user.getWall()->getWallPosts()->end(); iter++) {
+	for (auto iter = user.getWall()->getWallPosts()->begin(); iter != user.getWall()->getWallPosts()->end(); iter++) {
 		cout << i << ") " << iter->toString() << endl;
 		i++;
 	}
@@ -222,7 +226,7 @@ void UI::deleteWallPost() {
 		return;
 	}
 	user.deletePost(index);
-	network.getUsers()->set(network.findUser(user.getUsername()), user);
+	network.getUsers()->at(network.findUser(user.getUsername())) =  user;
 	return;
 }
 
@@ -265,7 +269,7 @@ void UI::updateInformation() {
 			break;
 		}
 	}
-	network.getUsers()->set(network.findUser(user.getUsername()), user);
+	network.getUsers()->at(network.findUser(user.getUsername())) = user;
 
 	return;
 }
@@ -289,8 +293,8 @@ void UI::searchUsers() {
 	name = buildString;
 	buildString = "";
 	int i = 0;
-	ArrayList<string> foundUsers = ArrayList<string>();
-	for (User* iter = network.getUsers()->begin(); iter != network.getUsers()->end(); iter++) {
+	vector<string> foundUsers = vector<string>();
+	for (auto iter = network.getUsers()->begin(); iter != network.getUsers()->end(); iter++) {
 		uname = iter->getUsername();
 		realName = iter->getRealName();
 
@@ -311,7 +315,7 @@ void UI::searchUsers() {
 			found = true;
 			cout << i << ") Username: " << iter->getUsername() << " ";
 			cout << "Real Name: " << iter->getRealName() << endl;
-			foundUsers.insert(i, iter->getUsername());
+			foundUsers.insert(foundUsers.begin() + i, iter->getUsername());
 			i++;
 		}
 	}
@@ -327,7 +331,7 @@ void UI::searchUsers() {
 		if (index < 0)
 			return;
 		try {
-			user.sendFriendRequest(foundUsers.get(i), &network);
+			user.sendFriendRequest(foundUsers.at(i), &network);
 		} catch(int& e) {
 			cout << "Sorry there is no user corresponding to that number" << endl;
 		}
@@ -339,14 +343,14 @@ void UI::viewFriends() {
 	// Need to delete friends from this list
 	int index;
 
-	if (user.getFriends().getLength() == 0) {
+	if (user.getFriends().size() == 0) {
 		cout << "You have no friends" << endl;
 		return;
 	}
 
-	for (int i = 0; i < user.getFriends().getLength(); i++) {
+	for (int i = 0; i < user.getFriends().size(); i++) {
 		try {
-			cout << i << ") " << user.getFriends().get(i) << endl;
+			cout << i << ") " << user.getFriends().at(i) << endl;
 		} catch (int& e) {
 			cout << "Error: no friend at this index" << endl;
 		}
@@ -363,7 +367,7 @@ void UI::viewFriends() {
 	
 	if (index > -1) {
 		try {
-			string usernameToDelete = user.getFriends().get(index);
+			string usernameToDelete = user.getFriends().at(index);
 			user.deleteFriend(usernameToDelete, &network);
 		}
 		catch (int& e) {
@@ -371,7 +375,7 @@ void UI::viewFriends() {
 		}
 	}
 
-	user = User(network.getUsers()->get(network.findUser(user.getUsername())));
+	user = User(network.getUsers()->at(network.findUser(user.getUsername())));
 	return;
 }
 
@@ -379,14 +383,14 @@ void UI::viewFriendRequests() {
 	int index;
 	char choice;
 
-	if(user.getFriendRequests().getLength() == 0) {
+	if(user.getFriendRequests().size() == 0) {
 		cout << "You have no friend requests" << endl;
 		return;
 	}
 	//had to change to for loop, iter not working correctly for ArrayList<string>
-	for (int i = 0; i < user.getFriendRequests().getLength(); i++) {
+	for (int i = 0; i < user.getFriendRequests().size(); i++) {
 		try {
-			cout << i << ") " << user.getFriendRequests().get(i) << endl;
+			cout << i << ") " << user.getFriendRequests().at(i) << endl;
 		} catch (int& e) {
 			cout << "Error: no friend request at this index" << endl;
 		}
@@ -402,7 +406,7 @@ void UI::viewFriendRequests() {
 		return;
 
 	try {
-		string usernameToAccept = user.getFriendRequests().get(index);
+		string usernameToAccept = user.getFriendRequests().at(index);
 	
 		cout << "Enter 'a' to accept and 'd' to delete this friend request" << endl;
 		cin >> choice;
@@ -419,7 +423,7 @@ void UI::viewFriendRequests() {
 		cout << "Sorry there is no friend request corresponding to that number" << endl;
 	}
 
-	user = User(network.getUsers()->get(network.findUser(user.getUsername())));
+	user = User(network.getUsers()->at(network.findUser(user.getUsername())));
 	
 	return;
 }

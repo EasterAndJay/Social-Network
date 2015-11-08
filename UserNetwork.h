@@ -2,12 +2,13 @@
 #define USERNETWORK_H
 
 #include "User.h"
+#include <vector>
 
 class User;
 class UserNetwork {
 	
 public:
-	UserNetwork() : users(new ArrayList<User>) {};
+	UserNetwork() : users(new vector<User>) {};
 	UserNetwork(const UserNetwork& network);
 	~UserNetwork();
 
@@ -17,7 +18,7 @@ public:
 	void addUser(User user); //make sure no duplicate usernames //was const
 	void deleteUser(int i);
 	int findUser(string username_) ;
-	ArrayList<User>*& getUsers();
+	vector<User>*& getUsers();
 
 	string toString();
 	void readUserNetworkFromString(string fullNetworkString_);
@@ -25,7 +26,7 @@ public:
 	void readFromFile();
 
 private:
-	ArrayList<User>* users;
+	vector<User>* users;
 
 };
 
