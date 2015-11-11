@@ -72,6 +72,8 @@ public:
 	void deleteFriendRequest(string usernameOfFriendToDelete, UserNetwork* myNetwork);
 	
 
+	int dist = -1;
+	string path = "";
 
 private:
 

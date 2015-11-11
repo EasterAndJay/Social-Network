@@ -3,6 +3,7 @@
 #include <fstream>
 #include <iostream>
 #include <sstream>
+#include <queue>
 using namespace std;
 
 
@@ -107,4 +108,36 @@ void UserNetwork::readFromFile() {
 	networkString = strStream.str();//str holds the content of the file;
 	
 	this->readUserNetworkFromString(networkString);
+}
+
+void UserNetwork::findShortestPath(User& source, User& target) {
+	queue<User> q;
+	for (auto user: *(this->getUsers())) {
+		user.dist = -1;
+	
+	}
+	source.dist = 0;
+	q.push(source);
+	while(!q.empty()) {
+		User v = q.front();
+		q.pop();
+		for (auto adjUser : v.getFriends()) {
+			User w = this->getUsers()->at(this->findUser(adjUser));
+			//cout << w.toString() << endl;
+			w.dist = v.dist + 1;
+			w.path = v.getUsername();
+			if (w == target) {
+				cout << w.dist << endl;
+				string path = v.path;
+				while (path != "") {
+					cout << path << endl;
+					v = this->getUsers()->at(this->findUser(v.path));
+					path = v.path;
+				}
+				return;
+			}
+			
+			q.push(w);
+		}
+	}
 }

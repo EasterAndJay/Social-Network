@@ -25,6 +25,8 @@ public:
 	void toFile();
 	void readFromFile();
 
+	void findShortestPath(User& source, User& target);
+
 private:
 	vector<User>* users;
 
