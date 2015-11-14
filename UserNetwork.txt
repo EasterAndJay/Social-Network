@@ -1,11 +1,26 @@
-Username: jdogg5566
+Username: ishi
 Password: a
-Real Name: a
-City: a
-Friends: 
+Real Name: Ishi von Meier
+City: Goleta
+Friends: jdogg5566, 
 Friend Requests: 
 
 Wall: 
 
+
+________________________________
+Username: jdogg5566
+Password: a
+Real Name: a
+City: a
+Friends: ishi, 
+Friend Requests: 
+
+Wall: 
+
+On 13-11-2015 08:51:58
+a wrote:
+hi
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 ________________________________

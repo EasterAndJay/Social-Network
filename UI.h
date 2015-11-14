@@ -17,6 +17,7 @@ public:
 	bool loginPrompt();
 	void loginMenu();
 	void createWallPost();
+	void createWallPostOnFriendsWall();
 	void deleteWallPost();
 	void updateInformation();
 	void deleteProfile();

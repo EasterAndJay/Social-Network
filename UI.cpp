@@ -132,7 +132,27 @@ void UI::loginMenu() {
 	switch(option) {
 		case 'a':
 		{
-			createWallPost();
+			option = 'z';
+			cout << "Type 'a' to post on your own wall,\n"
+					"Or type 'b' to post on a friend's wall" << endl;
+			cin >> option;
+			switch(option) {
+				case 'a':
+				{
+					createWallPost();
+					break;
+				}
+				case 'b':
+				{
+					createWallPostOnFriendsWall();
+					break;
+				}
+				default:
+				{
+					cout << "That was not a valid option, please try again" << endl;
+					break;
+				}
+			}
 			break;
 		}
 		case 'b':
@@ -188,6 +208,7 @@ void UI::loginMenu() {
 }
 
 void UI::createWallPost() {
+	
 	string content;
 	cout << "Enter your content:" << endl;
 	cin.ignore();
@@ -195,6 +216,66 @@ void UI::createWallPost() {
 	WallPost newPost = WallPost(content, user.getRealName());
 	this->user.addPost(newPost);
 	network.getUsers()->set(network.findUser(user.getUsername()), user);
+	return;
+}
+
+void UI::createWallPostOnFriendsWall() {
+	int index;
+	string content, friendUsername;
+
+	if (user.getFriends().getLength() == 0) {
+		cout << "You have no friends" << endl;
+		return;
+	}
+
+	for (int i = 0; i < user.getFriends().getLength(); i++) {
+		try {
+			cout << i << ") " << user.getFriends().get(i) << endl;
+		} catch (int& e) {
+			cout << "Error: no friend at this index" << endl;
+		}
+	}
+
+	cout << "Enter a number corresponding to the friend "
+			"whose wall you would like to post on, "
+			"or enter '-1' to go back" << endl;
+	cin >> index;
+
+	if (index == -1) //go back if user entered -1
+		return;
+	else {
+		try {
+			//try to get the friend's username
+			friendUsername = user.getFriends().get(index);
+		}
+		catch (int& e) {
+			cout << "Sorry there aren't any friends corresponding to that number" << endl;
+		}
+	}
+
+	cout << "Friend's username: " << friendUsername << endl;
+	cout << "Enter your content: " << endl;
+
+	cin.ignore();
+	getline(cin, content);
+
+	try {
+		//get the friend's Index in the network
+		int friendUserIndex = network.findUser(friendUsername);
+		//make a copy of the user
+		User friendCopy = network.getUsers()->get(friendUserIndex);
+		//create the post
+		WallPost newPost = WallPost(content, friendCopy.getRealName());
+		//add the post
+		friendCopy.addPost(newPost);
+		//set the friend on the network
+		network.getUsers()->set(friendUserIndex, friendCopy);
+		cout << "Posted successfully" << endl;
+	}
+	catch (int& e) {
+		cout << "Error getting friend from network" << endl;
+	}
+
 	return;
 }
 
@@ -336,7 +417,7 @@ void UI::searchUsers() {
 }
 
 void UI::viewFriends() {
-	// Need to delete friends from this list
+	// Should also allow user to post on friends wall from here
 	int index;
 
 	if (user.getFriends().getLength() == 0) {
@@ -370,7 +451,7 @@ void UI::viewFriends() {
 			cout << "Sorry there aren't any friends corresponding to that number" << endl;
 		}
 	}
-
+	//why didn't we use a try catch block here?
 	user = User(network.getUsers()->get(network.findUser(user.getUsername())));
 	return;
 }
