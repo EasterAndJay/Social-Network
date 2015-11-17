@@ -1,14 +1,3 @@
-Username: ishi
-Password: a
-Real Name: Ishi von Meier
-City: Goleta
-Friends: jdogg5566, 
-Friend Requests: 
-
-Wall: 
-
-
-________________________________
 Username: jdogg5566
 Password: a
 Real Name: a
@@ -19,8 +8,23 @@ Friend Requests:
 Wall: 
 
 On 13-11-2015 08:51:58
-a wrote:
+Ishi von Meier wrote:
 hi
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+On 16-11-2015 03:26:15
+Ishi von Meier wrote:
+Hi jdogg its me ishi
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+________________________________
+Username: ishi
+Password: a
+Real Name: Ishi von Meier
+City: Goleta
+Friends: jdogg5566, 
+Friend Requests: 
+
+Wall: 
+
 
 ________________________________

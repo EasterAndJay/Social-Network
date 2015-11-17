@@ -157,7 +157,27 @@ void UI::loginMenu() {
 		}
 		case 'b':
 		{
-			deleteWallPost();
+			option = 'z';
+			cout << "Type 'a' to delete a post on your own wall,\n"
+					"Or type 'b' to delete your post on a friend's wall" << endl;
+			cin >> option;
+			switch(option) {
+				case 'a':
+				{
+					deleteWallPost();
+					break;
+				}
+				case 'b':
+				{
+					deleteWallPostOnFriendsWall();
+					break;
+				}
+				default:
+				{
+					cout << "That was not a valid option, please try again" << endl;
+					break;
+				}
+			}
 			break;
 		}
 		case 'c':
@@ -265,7 +285,7 @@ void UI::createWallPostOnFriendsWall() {
 		//make a copy of the user
 		User friendCopy = network.getUsers()->get(friendUserIndex);
 		//create the post
-		WallPost newPost = WallPost(content, friendCopy.getRealName());
+		WallPost newPost = WallPost(content, user.getRealName());
 		//add the post
 		friendCopy.addPost(newPost);
 		//set the friend on the network
@@ -305,6 +325,42 @@ void UI::deleteWallPost() {
 	user.deletePost(index);
 	network.getUsers()->set(network.findUser(user.getUsername()), user);
 	return;
+}
+
+void UI::deleteWallPostOnFriendsWall() {
+	// Should also allow user to post on friends wall from here
+	int index;
+	int j = 0;
+
+	if (user.getFriends().getLength() == 0) {
+		cout << "You have no friends" << endl;
+		return;
+	}
+
+	
+	for (int i = 0; i < user.getFriends().getLength(); i++) {
+		try {
+			//don't cout it just look if we have any posts on their wall
+			string usernameOfFriendMayHavePost = user.getFriends().get(i);
+			int indexOfFriendInNetwork = network.findUser(usernameOfFriendMayHavePost);
+			User friendInNetwork = network.getUsers()->get(indexOfFriendInNetwork);
+
+			for (WallPost* iter = friendInNetwork.getWall()->getWallPosts()->begin(); iter != friendInNetwork.getWall()->getWallPosts()->end(); iter++) {
+				//check if a post is ours, if so print it out;
+				cout << "author: " << iter->getAuthor() << endl;
+				cout << "our realname: " << user.getRealName() << endl;
+				if (iter->getAuthor() == user.getRealName()) {
+					cout << j << ") " << iter->toString() << endl;
+					j++;
+				}
+			}
+		} catch (int& e) {
+			cout << "Error: no friend at this index" << endl;
+		}
+	}
+
+	return;
+	//make sure we can't delete other users posts
 }
 
 void UI::updateInformation() {

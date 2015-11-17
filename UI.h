@@ -19,6 +19,7 @@ public:
 	void createWallPost();
 	void createWallPostOnFriendsWall();
 	void deleteWallPost();
+	void deleteWallPostOnFriendsWall();
 	void updateInformation();
 	void deleteProfile();
 	void searchUsers();
