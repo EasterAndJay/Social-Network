@@ -1,7 +1,7 @@
 #ifndef WALL_H
 #define WALL_H
 #include <iostream>
-#include "ArrayList.h"
+#include <vector>
 #include "WallPost.h"
 
 using namespace std;
@@ -9,7 +9,7 @@ using namespace std;
 class Wall {
 
 public:
-	Wall() : wallPosts(new ArrayList<WallPost>()), username(string()){};
+	Wall() : wallPosts(new vector<WallPost>()), username(string()){};
 	Wall(const Wall& otherWall);
 	~Wall();
 
@@ -18,11 +18,11 @@ public:
 	string getUsername() const;
 	void setUsername(string username_);
 
-	bool addPost(WallPost post);
-	bool deletePost(int pos);
+	void addPost(WallPost post);
+	void deletePost(int pos);
 	string toString();
 
-	ArrayList<WallPost>* getWallPosts() {return wallPosts;};
+	vector<WallPost>* getWallPosts() {return wallPosts;};
 
 	void clearWall();
 	void readWallPostsFromString(string fullWallString);
@@ -30,7 +30,7 @@ public:
 	
 	
 private:
-	ArrayList<WallPost>* wallPosts;
+	vector<WallPost>* wallPosts;
 	string username;
 	
 };

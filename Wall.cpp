@@ -1,12 +1,12 @@
 #include "Wall.h"
 #include <sstream>
 #include <string>
-#include <vector>
+
 
 // Copy CTOR
 Wall::Wall(const Wall& otherWall) {
 	this->username = otherWall.getUsername();
-	this->wallPosts = new ArrayList<WallPost>(*(otherWall.wallPosts));
+	this->wallPosts = new vector<WallPost>(*(otherWall.wallPosts));
 }
 
 // DTOR
@@ -19,7 +19,7 @@ Wall& Wall::operator=(const Wall &rhs)
 {
 	username = rhs.getUsername();
 	delete wallPosts;
-	wallPosts = new ArrayList<WallPost>(*(rhs.wallPosts));
+	wallPosts = new vector<WallPost>(*(rhs.wallPosts));
 	return *this;
 }
 
@@ -33,14 +33,16 @@ void Wall::setUsername(string username_) {
 }
 
 // Add and Delete Post
-// Uses ArrayList functions
+// Uses vector functions
 
-bool Wall::addPost(WallPost post) {
-	return this->wallPosts->insert(0,post);
+void Wall::addPost(WallPost post) {
+	auto it = this->wallPosts->begin();
+	this->wallPosts->insert(it,post);
 }
 
-bool Wall::deletePost(int pos) {
-	return this->wallPosts->remove(pos);
+void Wall::deletePost(int pos) {
+	auto it = this->wallPosts->begin();
+	this->wallPosts->erase(it+pos);
 }
 
 
@@ -48,8 +50,8 @@ bool Wall::deletePost(int pos) {
 string Wall::toString() {
 	string endString = string();
 
-	for (WallPost* iter = this->wallPosts->begin(); iter != this->wallPosts->end(); iter++) {
-	//for (int i = 0; i < this->wallPosts->getLength(); i++) {
+	for (auto iter = this->wallPosts->begin(); iter != this->wallPosts->end(); iter++) {
+	//for (int i = 0; i < this->wallPosts->size(); i++) {
 		// data refers to WallPost
 		// call toString method of each WallPost
 		endString.append(iter->toString());
@@ -65,7 +67,7 @@ string Wall::toString() {
 // Makes this wall = read string
 void Wall::readWallPostsFromString (const string fullWallString_) {
 	delete this->wallPosts;
-	wallPosts = new ArrayList<WallPost>;
+	wallPosts = new vector<WallPost>;
 
 	//set our between-post separator 
 	std::string fullWallString = fullWallString_;
@@ -98,7 +100,7 @@ void Wall::readWallPostsFromString (const string fullWallString_) {
 
 // Checks if wall is empty
 bool Wall::isEmpty() {
-	if (this->wallPosts->getLength() == 0) {
+	if (this->wallPosts->size() == 0) {
 		return true;
 	}
 	else {

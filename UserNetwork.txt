@@ -1,3 +1,18 @@
+Username: Jonathan Easterman
+Password: a
+Real Name: a
+City: a
+Friends: 
+Friend Requests: 
+
+Wall: 
+
+On 07-11-2015 07:23:38
+a wrote:
+HIIHIHIH
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+________________________________
 Username: jdogg5566
 Password: a
 Real Name: a
@@ -22,6 +37,19 @@ Password: a
 Real Name: Ishi von Meier
 City: Goleta
 Friends: jdogg5566, 
+=======
+Friends: 
+Friend Requests: j, Jonathan Easterman, 
+
+Wall: 
+
+
+________________________________
+Username: j
+Password: a
+Real Name: a
+City: a
+Friends: 
 Friend Requests: 
 
 Wall: 

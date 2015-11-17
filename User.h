@@ -3,11 +3,14 @@
 
 
 #include <iostream>
-#include "ArrayList.h"
+#include <vector>
 #include "Wall.h"
 #include "UserNetwork.h"
+
 using namespace std;
+
 class UserNetwork;
+
 class User {
 
 public:
@@ -51,11 +54,11 @@ public:
 	//void loadFriendsFromString(string friendString, const UserNetwork& MyNetwork);
 	
 	//getters and setters for friends and friendRequests arrays
-	ArrayList<string> getFriendRequests() const;
-	void setFriendRequests(ArrayList<string> friendRequests_);
+	vector<string> getFriendRequests() const;
+	void setFriendRequests(vector<string> friendRequests_);
 	
-	ArrayList<string> getFriends() const;
-	void setFriends(ArrayList<string> friends_);
+	vector<string> getFriends() const;
+	void setFriends(vector<string> friends_);
 	
 	//methods for Friends and Friend Requests
 	void deleteFriend(string usernameOfFriendToDelete, UserNetwork* myNetwork);
@@ -69,6 +72,8 @@ public:
 	void deleteFriendRequest(string usernameOfFriendToDelete, UserNetwork* myNetwork);
 	
 
+	int dist = -1;
+	string path = "";
 
 private:
 
@@ -77,8 +82,8 @@ private:
 	string realName;
 	string city;
 	Wall* wall;
-	ArrayList<string> friends = ArrayList<string>();
-	ArrayList<string> friendRequests = ArrayList<string>();
+	vector<string> friends = vector<string>();
+	vector<string> friendRequests = vector<string>();
 
 };
 
