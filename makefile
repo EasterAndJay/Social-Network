@@ -3,7 +3,7 @@
 CC = g++
 
 CFLAGS =  -Wall -g -std=c++11
-OBJECTS = main.o WallPost.o Wall.o User.o UserNetwork.o UI.o
+OBJECTS = program.o WallPost.o Wall.o User.o UserNetwork.o UI.o
 TESTOBJECTS = testList.o Wall.o WallPost.o
 TARGET = run
 LIST = testList

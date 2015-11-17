@@ -247,14 +247,14 @@ void UI::createWallPostOnFriendsWall() {
 	int index;
 	string content, friendUsername;
 
-	if (user.getFriends().getLength() == 0) {
+	if (user.getFriends().size() == 0) {
 		cout << "You have no friends" << endl;
 		return;
 	}
 
-	for (int i = 0; i < user.getFriends().getLength(); i++) {
+	for (int i = 0; i < user.getFriends().size(); i++) {
 		try {
-			cout << i << ") " << user.getFriends().get(i) << endl;
+			cout << i << ") " << user.getFriends().at(i) << endl;
 		} catch (int& e) {
 			cout << "Error: no friend at this index" << endl;
 		}
@@ -270,7 +270,7 @@ void UI::createWallPostOnFriendsWall() {
 	else {
 		try {
 			//try to get the friend's username
-			friendUsername = user.getFriends().get(index);
+			friendUsername = user.getFriends().at(index);
 		}
 		catch (int& e) {
 			cout << "Sorry there aren't any friends corresponding to that number" << endl;
@@ -287,13 +287,13 @@ void UI::createWallPostOnFriendsWall() {
 		//get the friend's Index in the network
 		int friendUserIndex = network.findUser(friendUsername);
 		//make a copy of the user
-		User friendCopy = network.getUsers()->get(friendUserIndex);
+		User friendCopy = network.getUsers()->at(friendUserIndex);
 		//create the post
 		WallPost newPost = WallPost(content, user.getRealName());
 		//add the post
 		friendCopy.addPost(newPost);
 		//set the friend on the network
-		network.getUsers()->set(friendUserIndex, friendCopy);
+		network.getUsers()->at(friendUserIndex) = friendCopy;
 		cout << "Posted successfully" << endl;
 	}
 	catch (int& e) {
@@ -334,30 +334,59 @@ void UI::deleteWallPost() {
 void UI::deleteWallPostOnFriendsWall() {
 	// Should also allow user to post on friends wall from here
 	int index;
+	int postPosInTheirPosts;
 	int j = 0;
+	vector< tuple<int, int> > friendIndexAndPostIndex = vector< tuple<int, int> >();
+	//second part of tuple is index of post on their wall = 
 
-	if (user.getFriends().getLength() == 0) {
+	if (user.getFriends().size() == 0) {
 		cout << "You have no friends" << endl;
 		return;
 	}
 
 	
-	for (int i = 0; i < user.getFriends().getLength(); i++) {
+	for (int friendPosInOurFriends = 0; friendPosInOurFriends < user.getFriends().size(); friendPosInOurFriends++) {
 		try {
-			//don't cout it just look if we have any posts on their wall
-			string usernameOfFriendMayHavePost = user.getFriends().get(i);
+			//for all of our friends
+			string usernameOfFriendMayHavePost = user.getFriends().at(friendPosInOurFriends);
 			int indexOfFriendInNetwork = network.findUser(usernameOfFriendMayHavePost);
-			User friendInNetwork = network.getUsers()->get(indexOfFriendInNetwork);
+			User friendInNetwork = network.getUsers()->at(indexOfFriendInNetwork);
 
-			for (WallPost* iter = friendInNetwork.getWall()->getWallPosts()->begin(); iter != friendInNetwork.getWall()->getWallPosts()->end(); iter++) {
+			postPosInTheirPosts = 0;
+			for (auto iter = friendInNetwork.getWall()->getWallPosts()->begin(); iter != friendInNetwork.getWall()->getWallPosts()->end(); iter++) {
 				//check if a post is ours, if so print it out;
-				cout << "author: " << iter->getAuthor() << endl;
-				cout << "our realname: " << user.getRealName() << endl;
+				
 				if (iter->getAuthor() == user.getRealName()) {
+					friendIndexAndPostIndex.insert(friendIndexAndPostIndex.begin() + j, make_tuple(indexOfFriendInNetwork, postPosInTheirPosts));
 					cout << j << ") " << iter->toString() << endl;
 					j++;
 				}
+				postPosInTheirPosts++;
 			}
+			cout << "Enter a number corresponding to the wall post "
+			"you would like to delete, or enter '-1' to "
+			"return to the login menu" << endl;
+			cin >> index;
+			
+			if (index > -1 && index < friendIndexAndPostIndex.size()) {
+				//std::tie (myint, std::ignore, mychar) = mytuple;
+				int chosenFriendIndex = 0;
+				int postIndex = 0;
+
+				tie (chosenFriendIndex, postIndex) = friendIndexAndPostIndex.at(index);
+				cout << "chosenFriendIndex: " << chosenFriendIndex << endl;
+				cout << "postIndex: " << postIndex << endl;
+				//tuple<int,int> chosenFriendAndPostTuple = friendIndexAndPostIndex.at(index);
+				//make a copy, edit the user, and set the user
+				User friendCopy = network.getUsers()->at(chosenFriendIndex);
+				friendCopy.deletePost(postIndex);
+				network.getUsers()->at(chosenFriendIndex) = friendCopy;
+				cout << "Post deleted successfully" << endl;
+			} else {
+				cout << "Error: bad post index" << endl;
+			}
+
+
 		} catch (int& e) {
 			cout << "Error: no friend at this index" << endl;
 		}
@@ -512,7 +541,7 @@ void UI::viewFriends() {
 		}
 	}
 	//why didn't we use a try catch block here?
-	user = User(network.getUsers()->get(network.findUser(user.getUsername())));
+	user = User(network.getUsers()->at(network.findUser(user.getUsername())));
 	return;
 }
 
