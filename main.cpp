@@ -23,14 +23,36 @@ int main() {
 	n.addUser(*ish);
 	n.addUser(*amiri);
 
-	jon->addFriend(neeraj->getUsername());
+	jon->sendFriendRequest(neeraj->getUsername(), &n);
+	neeraj->acceptFriendRequest(jon->getUsername(), &n);
 
-	neeraj->addFriend(ish->getUsername());
+	neeraj->sendFriendRequest(ish->getUsername(), &n);
+	ish->acceptFriendRequest(neeraj->getUsername(), &n);
 
-	ish->addFriend(amiri->getUsername());
+	ish->sendFriendRequest(amiri->getUsername(), &n);
+	amiri->acceptFriendRequest(ish->getUsername(), &n);
 
-	n.findShortestPath(*jon, *amiri);
+	User jonCopy = n.getUsers()->at(n.findUser(jon->getUsername()));
+	jonCopy.setFriendPointers(n);
 
+	User neerajCopy = n.getUsers()->at(n.findUser(neeraj->getUsername()));
+	neerajCopy.setFriendPointers(n);
+
+	User ishCopy = n.getUsers()->at(n.findUser(ish->getUsername()));
+	ishCopy.setFriendPointers(n);
+
+	User amiriCopy = n.getUsers()->at(n.findUser(amiri->getUsername()));
+	amiriCopy.setFriendPointers(n);
+
+
+
+
+	n.findShortestPath(jonCopy, amiriCopy);
+
+	delete jon;
+	delete neeraj;
+	delete ish;
+	delete amiri;
 
 
 	return 0;

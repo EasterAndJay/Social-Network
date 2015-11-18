@@ -26,6 +26,7 @@ public:
 	void readFromFile();
 
 	void findShortestPath(User& source, User& target);
+	void findUsersWithinThreeDegrees(User& source);
 
 private:
 	vector<User>* users;

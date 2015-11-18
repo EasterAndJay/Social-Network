@@ -13,6 +13,7 @@ User::User(User const& user) {
 	this->password = user.getPassword();
 	this->realName = user.getRealName();
 	this->city = user.getCity();
+	this->friendPointers = user.getFriendPointers();
 }
 
 
@@ -114,6 +115,7 @@ User& User::operator=(const User& copy) {
 	wall = new Wall(*(copy.getWall()));
 	this->friendRequests = copy.getFriendRequests();
 	this->friends = copy.getFriends();
+	this->friendPointers = copy.getFriendPointers();
 	return *this;
 }
 
@@ -237,6 +239,20 @@ void User::setFriends(vector<string> friends_){
 	this->friends = friends_;
 }
 
+void User::setFriendPointers(UserNetwork& network) { // Only setting first friend
+	int index;
+	for (int i = 0; i < this->getFriends().size(); ++i) {
+		index = network.findUser(getFriends().at(i));
+		//cout << index << endl;
+		//cout << "adding " << network.getUsers()->at(index).getUsername() << " to " << this->getUsername() << "'s friendPointers" << endl;
+		this->friendPointers.insert(friendPointers.end(), &(network.getUsers()->at(index)));
+	}
+}
+
+vector<User*> User:: getFriendPointers() const {
+	return this->friendPointers;
+}
+
 //
 /* General methods for friends and friend requests*/
 //
@@ -304,6 +320,7 @@ void User::acceptFriendRequest(string usernameToAdd, UserNetwork* myNetwork){
 				thisCopy.addFriend(usernameToAdd);   //add the friend
 
 				myNetwork->getUsers()->at(indexOfThisInNetwork) = thisCopy;
+
 
 			}
 

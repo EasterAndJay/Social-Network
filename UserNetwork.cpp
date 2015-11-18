@@ -4,6 +4,7 @@
 #include <iostream>
 #include <sstream>
 #include <queue>
+#include <algorithm>
 using namespace std;
 
 
@@ -46,10 +47,10 @@ bool UserNetwork::userAlreadyExists(string username) {
 }
 
 void UserNetwork::addUser(User user) { //make sure no duplicates   //was: const User& user
-	if (userAlreadyExists(user.getUsername()))
+	/*if (userAlreadyExists(user.getUsername()))
 		return;
-	else
-		this->users->insert(users->begin() + 0,user);
+	else*/
+		this->users->insert(users->end(),user);
 }
 
 void UserNetwork::deleteUser(int i){ //make sure user in fact exists before deleting
@@ -110,34 +111,146 @@ void UserNetwork::readFromFile() {
 	this->readUserNetworkFromString(networkString);
 }
 
+void print(queue<User> s,int num)
+{
+    if(!num)
+    {
+        cout << endl;
+        return;
+    }
+    User x= s.front();
+    s.pop();
+    cout << x.toString() << endl;
+    s.push(x);
+    print(s,--num);
+}
+
 void UserNetwork::findShortestPath(User& source, User& target) {
-	queue<User> q;
-	for (auto user: *(this->getUsers())) {
-		user.dist = -1;
-	
+	// Initialize Queue to hold pointers to Users
+	queue<User*> q;
+	string path = "";
+	// Build a string to print out
+	string printOut = "";
+	printOut += "The shortest path to "
+				+ target.getUsername() 
+				+ " is:\n";
+
+
+	// IF source and target are equal
+	if (source == target) { 
+		printOut += source.getUsername();
+		cout << printOut << endl;
+		cout << "The distance of the path is: 0" << endl;
+		return;
 	}
+	
+	// Initialize distance of all users in network to -1
+	for (auto iter = getUsers()->begin(); iter != getUsers()->end(); ++iter) {
+		iter->dist = -1;
+		iter->path = "";
+	}
+
+	// Initialize source distance to 0
 	source.dist = 0;
-	q.push(source);
+	// Push source to queue
+	q.push(&source);
+	User* adjUser;
+	// While the queue has users in it
 	while(!q.empty()) {
-		User v = q.front();
+		// Pop user from front of queue
+
+		User* v = q.front();
+		v->setFriendPointers(*this);
 		q.pop();
-		for (auto adjUser : v.getFriends()) {
-			User w = this->getUsers()->at(this->findUser(adjUser));
-			//cout << w.toString() << endl;
-			w.dist = v.dist + 1;
-			w.path = v.getUsername();
-			if (w == target) {
-				cout << w.dist << endl;
-				string path = v.path;
-				while (path != "") {
-					cout << path << endl;
-					v = this->getUsers()->at(this->findUser(v.path));
-					path = v.path;
+		// Iterate through all the users friends
+		for (int i = 0; i < v->getFriendPointers().size(); i++) {
+			adjUser = v->getFriendPointers().at(i);
+			// IF we haven't discovered the user before
+			// Set its distance and path
+			// Push it to the queue
+			if (adjUser->dist == -1) {
+				adjUser->dist = v->dist + 1;
+				adjUser->path = v->getUsername();
+				q.push(adjUser);
+				// IF we found the target
+				// print out path and distance
+				// Return
+				if (*adjUser == target) {
+					path = adjUser->getUsername();
+					std::vector<string> users;
+					// Build path by following it from the back->tofront
+					// and inserting it a vector
+					while (path != "") {
+						users.insert(users.begin(), path);
+						path = getUsers()->at(findUser(path)).path;
+					}
+					// Build printOut string
+					for (auto iter = users.begin(); iter != users.end(); ++iter) {
+						printOut += *iter;
+						if (iter != users.end()-1) {
+							printOut += "->";
+						}
+					}
+					// Print and return
+					cout << printOut << endl;
+					cout << "The distance of the path is: " 
+						 << adjUser->dist << endl;
+					return;
 				}
-				return;
 			}
-			
-			q.push(w);
 		}
 	}
+	// IF we never found the target
+	// Print that there is no path and return
+	cout << "There is no path that connects "
+		 << source.getUsername() << " and "
+		 << target.getUsername() << endl;
+	return;
 }
+
+void UserNetwork::findUsersWithinThreeDegrees(User& source) {
+	// Initialize Queue to hold pointers to Users
+	queue<User*> q;
+
+	// Build a string to print out
+	string printOut = "";
+	printOut += "These users are three degrees of separation from "
+				+ source.getUsername() 
+				+ ":\n";
+
+	// Initialize distance of all users in network to -1
+	for (auto iter = getUsers()->begin(); iter != getUsers()->end(); ++iter) {
+		iter->dist = -1;
+	}
+
+	// Initialize source distance to 0
+	source.dist = 0;
+	// Push source to queue
+	q.push(&source);
+	User* adjUser;
+	// While the queue has users in it
+	while(!q.empty()) {
+		// Pop user from front of queue
+		User* v = q.front();
+		v->setFriendPointers(*this);
+		q.pop();
+		// Iterate through all the users friends
+		for (int i = 0 ; i < v->getFriendPointers().size(); i++) {
+			adjUser = v->getFriendPointers().at(i);
+			// IF we haven't discovered the user before
+			// Set its distance, add it to the path,
+			// Push it to the queue
+			//if (adjUser) {
+			if (adjUser->dist == -1) {
+				adjUser->dist = v->dist + 1;
+				adjUser->path = v->getUsername();
+				q.push(adjUser);
+				if (adjUser->dist == 3) {
+					printOut+= adjUser->getUsername() + "\n";
+				}
+			}
+		}
+	}
+	cout << printOut << endl;
+}
+

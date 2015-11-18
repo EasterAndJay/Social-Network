@@ -23,9 +23,10 @@ public:
 	void searchUsers();
 	void viewFriends();
 	void viewFriendRequests();
+	void degreeOfSeparationMenu();
 	void logout();
 private:
-	User user;
+	User* user;
 	UserNetwork network;
 	bool logged_in = false;
 	bool running = true;
