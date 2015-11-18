@@ -161,8 +161,17 @@ void User::setPassword(string password_){
 void User::addPost(WallPost post_){
 	this->wall->addPost(post_);
 }
+
 void User::deletePost(int pos) {
 	this->wall->deletePost(pos);
+}
+
+void User::addResponse(int pos, WallPostResponse response_) {
+	this->wall->addResponse(pos, response_);
+}
+
+void User::deleteResponse(int postPos, int responsePos) {
+	this->wall->deleteResponse(postPos, responsePos);
 }
 
 

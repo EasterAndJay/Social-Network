@@ -20,6 +20,9 @@ public:
 
 	void addPost(WallPost post);
 	void deletePost(int pos);
+	void addResponse(int pos, WallPostResponse response_);
+	void deleteResponse(int postPos, int responsePos);
+
 	string toString();
 
 	vector<WallPost>* getWallPosts() {return wallPosts;};

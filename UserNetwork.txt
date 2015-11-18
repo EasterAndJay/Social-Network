@@ -1,52 +1,44 @@
-Username: Jonathan Easterman
-Password: a
-Real Name: a
-City: a
-Friends: 
-Friend Requests: 
-
-Wall: 
-
-On 07-11-2015 07:23:38
-a wrote:
-HIIHIHIH
-Responses:
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-
-________________________________
-Username: jdogg5566
-Password: a
-Real Name: a
-City: a
-Friends: ishi, 
-Friend Requests: 
-
-Wall: 
-
-On 16-11-2015 03:26:15
-Ishi von Meier wrote:
-Hi jdogg its me ishi
-Responses:
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-
-________________________________
 Username: ishi
 Password: a
 Real Name: Ishi von Meier
-City: Goleta
-Friends: jdogg5566, 
+City: Sebastopol, CA
+Friends: jerry, 
 Friend Requests: 
-Friend Requests: j, Jonathan Easterman, 
+
+Wall: 
+
+On 18-11-2015 02:18:10
+Jerry Springer wrote:
+Hey ish its my first post from jerry
+Responses:
+On 18-11-2015 02:18:38
+jerry responded:
+And here is my first response bro
+********************************
+On 18-11-2015 02:21:43
+jerry responded:
+here's another response because I'm annoying
+********************************
+
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+________________________________
+Username: bob
+Password: a
+Real Name: Bob Dick
+City: San Fran, CA
+Friends: 
+Friend Requests: 
 
 Wall: 
 
 
 ________________________________
-Username: j
+Username: jerry
 Password: a
-Real Name: a
-City: a
-Friends: 
+Real Name: Jerry Springer
+City: Oakland, CA
+Friends: ishi, 
 Friend Requests: 
 
 Wall: 

@@ -24,6 +24,8 @@ public:
 	void deleteProfile();
 	void searchUsers();
 	void viewFriends();
+	void deleteFriend(int atIndex);
+	void viewWall(int atIndex);
 	void viewFriendRequests();
 	void logout();
 private:

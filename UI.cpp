@@ -506,14 +506,14 @@ void UI::searchUsers() {
 }
 
 void UI::viewFriends() {
-	// Should also allow user to post on friends wall from here
 	int index;
+	char option;
 
 	if (user.getFriends().size() == 0) {
 		cout << "You have no friends" << endl;
 		return;
 	}
-
+	//print out list of friends
 	for (int i = 0; i < user.getFriends().size(); i++) {
 		try {
 			cout << i << ") " << user.getFriends().at(i) << endl;
@@ -521,28 +521,96 @@ void UI::viewFriends() {
 			cout << "Error: no friend at this index" << endl;
 		}
 	}
-
+	//prompt user to choose a friend
 	cout << "Enter a number corresponding to the friend "
-			"you would like to delete, "
+			"you would like to view, "
 			"or enter '-1' to go back" << endl;
 	cin >> index;
-	
 
-	//if (index < 0)
-	//	return;
-	
-	if (index > -1) {
-		try {
-			string usernameToDelete = user.getFriends().at(index);
-			user.deleteFriend(usernameToDelete, &network);
-		}
-		catch (int& e) {
-			cout << "Sorry there aren't any friends corresponding to that number" << endl;
+	if (index > -1 && index < user.getFriends().size()) { //make sure index is in range
+		option = 'z';
+		cout << "Type 'a' to view their wall,\n"
+				"Or type 'd' to delete them as a friend" << endl;
+		
+		cin >> option;
+		
+		switch(option) {
+			case 'a':
+			{
+				viewWall(index);
+				break;
+			}
+			case 'd':
+			{
+				deleteFriend(index);
+				break;
+			}
+			default:
+			{
+				cout << "That was not a valid option, please try again" << endl;
+				break;
+			}
 		}
 	}
+}
+
+void UI::deleteFriend(int atIndex) {
+
+	try {
+		string usernameToDelete = user.getFriends().at(atIndex);
+		user.deleteFriend(usernameToDelete, &network);
+	}
+	catch (int& e) {
+		cout << "Sorry there aren't any friends corresponding to that number" << endl;
+	}
+
 	//why didn't we use a try catch block here?
 	user = User(network.getUsers()->at(network.findUser(user.getUsername())));
 	return;
+
+}
+
+void UI::viewWall(int atIndex) {
+	string usernameToView = user.getFriends().at(atIndex);
+	int chosenFriendIndex = network.findUser(usernameToView);
+	User friendCopy = network.getUsers()->at(chosenFriendIndex);
+
+	cout << '\n';
+	int postIndex;
+	int i = 0;
+	string content;
+
+	if (friendCopy.getWall()->getWallPosts()->size() == 0) {
+		cout << "Your friend's wall is empty" << endl;
+		return;
+	}
+	for (auto iter = friendCopy.getWall()->getWallPosts()->begin(); iter != friendCopy.getWall()->getWallPosts()->end(); iter++) {
+		cout << i << ") " << iter->toString() << endl;
+		i++;
+	}
+	cout << "Enter a number corresponding to the wall post "
+			"you would like to respond to, or enter '-1' to "
+			"return to the login menu" << endl;
+	cin >> postIndex;
+
+	if (postIndex < 0)
+		return;
+	if (postIndex > i) {
+		cout << "Sorry there is no wall post corresponding to that number" << endl;
+		return;
+	}
+	cout << "Enter content: " << endl;
+	cin.ignore();
+	getline(cin, content);
+	//create the response
+	WallPostResponse response = WallPostResponse(content, user.getUsername());
+	//add the response to friendCopy
+	friendCopy.addResponse(postIndex, response);
+	//set the friend to the mutated copy
+	network.getUsers()->at(chosenFriendIndex) = friendCopy;
+
+	return;
+
 }
 
 void UI::viewFriendRequests() {

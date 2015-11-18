@@ -36,14 +36,25 @@ void WallPost::setTimePosted(string customTime) {
 	this->timePosted = customTime;
 }
 
+void WallPost::addResponse(WallPostResponse response_){
+	this->responses.insert(responses.end(),response_);
+}
+
+void WallPost::deleteResponse(int pos){
+	this->responses.erase(responses.begin() + pos);
+}
+
 string WallPost::toString() const{
 	string endString = "On " + this->timePosted + "\n" + 
 	this->author + " wrote:\n" + 
-	this->content + "\nResponses:";
-	for (int i = 0; i < this->responses.size(); i++) {
-		endString += responses.at(i).toString();
-	}
-
+	
+	//if (this->responses.size() > 0) {
+		this->content + "\nResponses:\n";
+		for (int i = 0; i < this->responses.size(); i++) {
+			endString += responses.at(i).toString();
+			endString += "\n********************************\n";
+		}
+	//}
 	return endString;
 }
 

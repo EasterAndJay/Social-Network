@@ -33,6 +33,10 @@ public:
 	string getTimePosted() const;
 	void setTimePosted(string customTime);
 	void setTimePosted();
+
+	void addResponse(WallPostResponse response_);
+	void deleteResponse(int pos);
+	
 	string toString() const;
 	
 
