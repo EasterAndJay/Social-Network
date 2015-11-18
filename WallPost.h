@@ -3,6 +3,8 @@
 
 #include <iostream>
 #include <time.h>
+#include <vector>
+#include "WallPostResponse.h"
 
 using namespace std;
 
@@ -10,7 +12,7 @@ class WallPost {
 public:
 	
 	//no arg constructor
-	WallPost() : content(string()), author(string()), timePosted(string()) {};
+	WallPost() : content(string()), author(string()), timePosted(string()), responses(vector<WallPostResponse>()) {};
 	//2 arg constructor
 	WallPost(string content_, string author_) : content(content_), author(author_) {
 		setTimePosted();
@@ -39,6 +41,7 @@ private:
 	string content;
 	string author;
 	string timePosted;
+	vector<WallPostResponse> responses;
 };
 
 bool operator==(const WallPost& left, const WallPost& right);

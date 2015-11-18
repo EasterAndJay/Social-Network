@@ -39,7 +39,10 @@ void WallPost::setTimePosted(string customTime) {
 string WallPost::toString() const{
 	string endString = "On " + this->timePosted + "\n" + 
 	this->author + " wrote:\n" + 
-	this->content;
+	this->content + "\nResponses:";
+	for (int i = 0; i < this->responses.size(); i++) {
+		endString += responses.at(i).toString();
+	}
 
 	return endString;
 }
