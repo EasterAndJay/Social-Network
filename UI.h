@@ -26,6 +26,8 @@ public:
 	void viewFriends();
 	void deleteFriend(int atIndex);
 	void viewWall(int atIndex);
+	void addResponse(int postIndex, int chosenFriendIndex);
+	void deleteResponse(int postIndex, int chosenFriendIndex);
 	void viewFriendRequests();
 	void logout();
 private:

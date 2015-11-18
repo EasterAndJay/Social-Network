@@ -36,6 +36,8 @@ public:
 
 	void addResponse(WallPostResponse response_);
 	void deleteResponse(int pos);
+	vector<WallPostResponse> getResponses();
+	//int findResponse(WallPostResponse response_);
 	
 	string toString() const;
 	

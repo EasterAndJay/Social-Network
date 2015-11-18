@@ -46,13 +46,12 @@ string WallPostResponse::toString() const{
 }
 
 /*
-
-bool operator==(const WallPost& left, const WallPost& right) {
+bool operator==(const WallPostResponse& left, const WallPostResponse& right) {
 	return (left.getContent() == right.getContent() 
 			&& left.getAuthor() == right.getAuthor() 
 			&& left.getTimePosted() == right.getTimePosted());
 }
 
-bool operator !=(const WallPost& left, const WallPost& right) {
+bool operator !=(const WallPostResponse& left, const WallPostResponse& right) {
 	return !(left == right);
 }*/

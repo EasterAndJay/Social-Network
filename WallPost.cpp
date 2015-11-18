@@ -44,6 +44,21 @@ void WallPost::deleteResponse(int pos){
 	this->responses.erase(responses.begin() + pos);
 }
 
+vector<WallPostResponse> WallPost::getResponses() {
+	return this->responses;
+}
+
+/*
+int WallPost::findResponse(WallPostResponse response_) {
+	int i = 0;
+	for(auto iter = this->responses.begin(); iter != this->responses.end(); iter++) {
+		if (iter->getUsername() == username_)
+			return i;
+		i++;
+	}
+	return -1;
+}*/
+
 string WallPost::toString() const{
 	string endString = "On " + this->timePosted + "\n" + 
 	this->author + " wrote:\n" + 

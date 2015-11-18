@@ -578,7 +578,6 @@ void UI::viewWall(int atIndex) {
 	cout << '\n';
 	int postIndex;
 	int i = 0;
-	string content;
 
 	if (friendCopy.getWall()->getWallPosts()->size() == 0) {
 		cout << "Your friend's wall is empty" << endl;
@@ -589,7 +588,8 @@ void UI::viewWall(int atIndex) {
 		i++;
 	}
 	cout << "Enter a number corresponding to the wall post "
-			"you would like to respond to, or enter '-1' to "
+			"you would like to respond to or delete a response from, "
+			" or enter '-1' to "
 			"return to the login menu" << endl;
 	cin >> postIndex;
 
@@ -599,18 +599,90 @@ void UI::viewWall(int atIndex) {
 		cout << "Sorry there is no wall post corresponding to that number" << endl;
 		return;
 	}
+
+	char option = 'z';
+	cout << "Type 'a' to add a response to this post, "
+		"or type 'd' to delete a response of yours" << endl;
+	cin >> option;
+		
+	switch(option) {
+		case 'a':
+		{
+			addResponse(postIndex, chosenFriendIndex);
+			break;
+		}
+		case 'd':
+		{
+			deleteResponse(postIndex, chosenFriendIndex);
+			break;
+		}
+		default:
+		{
+			cout << "That was not a valid option, please try again" << endl;
+			break;
+		}
+	}
+
+	return;
+
+}
+
+void UI::addResponse(int postIndex, int chosenFriendIndex) {
+	User friendCopy = network.getUsers()->at(chosenFriendIndex);
+	string content;
+
 	cout << "Enter content: " << endl;
 	cin.ignore();
 	getline(cin, content);
 	//create the response
-	WallPostResponse response = WallPostResponse(content, user.getUsername());
+	WallPostResponse response = WallPostResponse(content, user.getRealName());
 	//add the response to friendCopy
 	friendCopy.addResponse(postIndex, response);
 	//set the friend to the mutated copy
 	network.getUsers()->at(chosenFriendIndex) = friendCopy;
+}
 
+void UI::deleteResponse(int postIndex, int chosenFriendIndex) {
+	User friendCopy = network.getUsers()->at(chosenFriendIndex);
+	vector<WallPostResponse> responses = friendCopy.getWall()->getWallPosts()->at(postIndex).getResponses();
+
+	int i = 0;
+	int responseIndex;
+
+	cout << '\n';
+
+	if (responses.size() == 0) {
+		cout << "You have no responses on this post" << endl;
+		return;
+	}
+	for (auto iter = responses.begin(); iter != responses.end(); iter++) {
+		cout << i << ") " << iter->toString() << endl;
+		i++;
+	}
+	cout << "Enter a number corresponding to the response you would like to delete, "
+			"or enter '-1' to go back" << endl;
+	
+	cin >> responseIndex;
+
+	//cases for user entering index out of range
+	if (responseIndex < 0)
+		return;
+	if (responseIndex > i) {
+		cout << "Sorry there is no response corresponding to that number" << endl;
+		return;
+	}
+
+	//make sure we can only delete our own responses
+	if (responses.at(responseIndex).getAuthor() == user.getRealName()) {
+		friendCopy.deleteResponse(postIndex, responseIndex);
+		cout << "Response deleted successfully" << endl;
+	} else {
+		cout << "You can only delete your own responses" << endl;
+	}
+
+	//set the friend user
+	network.getUsers()->at(chosenFriendIndex) = friendCopy;
 	return;
-
 }
 
 void UI::viewFriendRequests() {
