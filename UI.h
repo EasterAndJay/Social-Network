@@ -29,9 +29,10 @@ public:
 	void addResponse(int postIndex, int chosenFriendIndex);
 	void deleteResponse(int postIndex, int chosenFriendIndex);
 	void viewFriendRequests();
+	void degreeOfSeparationMenu();
 	void logout();
 private:
-	User user;
+	User* user;
 	UserNetwork network;
 	bool logged_in = false;
 	bool running = true;

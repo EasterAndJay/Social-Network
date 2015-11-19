@@ -61,7 +61,8 @@ public:
 	
 	vector<string> getFriends() const;
 	void setFriends(vector<string> friends_);
-	
+	void setFriendPointers(UserNetwork& network);
+	vector<User*> getFriendPointers() const;
 	//methods for Friends and Friend Requests
 	void deleteFriend(string usernameOfFriendToDelete, UserNetwork* myNetwork);
 
@@ -86,6 +87,7 @@ private:
 	Wall* wall;
 	vector<string> friends = vector<string>();
 	vector<string> friendRequests = vector<string>();
+	vector<User*> friendPointers = vector<User*>();
 
 };
 

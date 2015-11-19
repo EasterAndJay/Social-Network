@@ -48,5 +48,8 @@ program.o: program.cpp
 main.o: main.cpp
 	$(CC) $(CFLAGS) -c main.cpp
 
+generateUsers.o: generateUsers.cpp
+	$(CC) $(CFLAGS) -c generateUsers.cpp
+
 clean:
 	$(RM) $(TARGET) $(OBJECTS) $(TESTOBJECTS)
